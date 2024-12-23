@@ -1,4 +1,4 @@
-import Tsta from "@components/test";
+import Tsta from "@components/Test";
 
 const Home = () => {
   return (
