@@ -1,0 +1,134 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+button:focus {
+    outline: none;
+  }
+
+button:hover {
+    outline: none;
+    border: none;
+}
+
+
+.toggle-button {
+    display: flex;
+    width: 160px;
+    height: 40px;
+    gap: 0px;
+    border-radius: 8px;
+    opacity: 0px;
+    background-color: #E1E1E2;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    outline: none; 
+    box-shadow: none; 
+    -webkit-tap-highlight-color: transparent; 
+
+    color: #88898A; 
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 16px;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+  
+  .toggle-button.toggled {
+    background-color: #358FFE;
+    color: #FCFCFD;
+  }
+
+/*슬라이드스위치*/  
+.Slide-button {
+    box-sizing: border-box;
+    width: 35px;
+    height: 20px;
+    background-color: #E1E1E2;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .Slide-button.toggled {
+    background-color: #D7E9FF;
+  }
+  
+  .Slide-circle {
+    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    margin: 2px;
+    background-color: #FCFCFD;
+    border-radius: 50%;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    transform: translateX(0);
+  }
+
+  .Slide-circle.toggled {
+    background-color: #358FFE;
+  }
+  .Slide-button.toggled .Slide-circle {
+    transform: translateX(15px);
+  }
+
+/*주의버튼*/
+.Caution-button {
+    display: flex;
+    width: 148px;
+    height: 40px;
+    gap: 0px;
+    border-radius: 8px;
+    opacity: 0px;
+    background-color: #E1E1E2;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    outline: none; 
+    box-shadow: none; 
+    -webkit-tap-highlight-color: transparent; 
+
+    color: #88898A; 
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 16px;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  .Caution-button.red {
+    background-color: #FF4B4B;
+    color: #FCFCFD;
+  }
+
+  .Caution-button.blue {
+    background-color: #358FFE;
+    color: #FCFCFD;
+  }
+
+/*라디오버튼*/
+.Radio-button {
+    box-sizing: border-box;
+    width: 28px; 
+    height: 28px;
+    border: 2px solid #E1E1E2; 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .Radio-circle {
+    width: 20px;
+    height: 20px;
+    margin: 2px;
+    border-radius: 50%;
+    transition: background-color 0.15s ease;
+  }
+  
+  .Radio-circle.toggled {
+    background-color: #358ffe; 
+  }
+  
