@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/Btn.css';
+import '../styles/Comp_Btn.css';
 
 const SlideButton: React.FC = () => {
   const [isToggled, setIsToggled] = useState(false);

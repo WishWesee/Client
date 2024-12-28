@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { constants } from '../constants/Btn.ts';
-import '../styles/Btn.css';
+import { constants } from '../constants/Comp_Btn.ts';
+import '../styles/Comp_Btn.css';
 
 const Btn_Modal_Caution: React.FC = () => {
   const [state, setState] = useState(0); // 0: 회색, 1: 빨, 2: 파
