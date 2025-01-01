@@ -1,16 +1,16 @@
-//import React, { useState } from 'react';
+import React, { useState } from 'react';
 import HeaderLogo from '../assets/icons/Logo/HeaderLogo.svg?react';
 import Profile from '../assets/icons/화면GUI_Full/3232/Profile.svg?react';
 import SaveBox from '../assets/icons/화면GUI_Full/3232/SaveBox.svg?react';
 import '../styles/Comp_Top.css'
 
-const TopHeader: React.FC = () => {
+type HeaderProps = {
+    profileBool: boolean;
+  };
 
-    //const [isToggled, setIsToggled] = useState(false);
+const TopHeader: React.FC<HeaderProps> = ({profileBool}) => {
 
-    /**const handleClick = () => {
-        setIsToggled(!isToggled);
-    };*/
+    const [profileVisible, setProfileVisible] = useState(profileBool);
 
     return (
         <div
@@ -23,7 +23,7 @@ const TopHeader: React.FC = () => {
             <div
             className='Header_ButtonContainer'>
                 <SaveBox className='item'/**onClick={}*//>
-                <Profile className='item'/**onClick={}*//>
+                {profileVisible ? <Profile className='item'/**onClick={}*//> : null}
             </div>
         </div>
     );
