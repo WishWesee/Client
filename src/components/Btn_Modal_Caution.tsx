@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import { constants } from '../constants/Btn.ts';
-import '../styles/Btn.css';
+import '../styles/Comp_Btn.css';
 
-const Btn_Modal_Caution: React.FC = () => {
-  const [state, setState] = useState(0); // 0: 회색, 1: 빨, 2: 파
+type Button_Bottom_Next_Props = {
+  text: string;
+  color: string;
+};
 
-  const handleClick = () => {
-    setState((state + 1) % 3);
-  };
+const Btn_Modal_Caution: React.FC<Button_Bottom_Next_Props> = ({text, color}) => {
+  const [state, setState] = useState(color);
 
   return (
     <button
-      className={`Caution-button ${state == 1 ? 'red' : state == 2 ? 'blue' : 'default'}`}
-      onClick={handleClick}
+      className={`Caution-button ${color == 'red' ? 'red' :  color == 'blue' ? 'blue' : 'default'}`}
+      //onClick={handleClick}
     >
-    {constants.Btn_text}
+    {text}
     </button>
   );
 };
