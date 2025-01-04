@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/Comp_Btn.css';
+import * as style from '@/styles/essentialComponents/button/SlideButtonStyle';
 
 const SlideButton: React.FC = () => {
   const [isToggled, setIsToggled] = useState(false);
@@ -9,12 +9,12 @@ const SlideButton: React.FC = () => {
   };
 
   return (
-    <div
-      className={`Slide-button ${isToggled ? 'toggled' : ''}`}
+    <style.SlideButton
+      className={isToggled ? 'toggled' : ''}
       onClick={handleToggle}
     >
-      <div className={`Slide-circle ${isToggled ? 'toggled' : ''}`}></div>
-    </div>
+      <style.SlideCircle className={isToggled ? 'toggled' : ''} />
+    </style.SlideButton>
   );
 };
 

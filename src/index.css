@@ -4,6 +4,6 @@ body {
   align-items: center;
   justify-content: center;
   place-items: center;
-  min-width: 380px;/*이거 미디어쿼리로 조정*/
+  min-width: 390px;
 }
 

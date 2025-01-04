@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/Comp_Btn.css';
+import * as style from '@/styles/essentialComponents/button/RadioButtonStyle';
 
 const RadioButton: React.FC = () => {
   const [isToggled, setIsToggled] = useState(false);
@@ -9,12 +9,12 @@ const RadioButton: React.FC = () => {
   };
 
   return (
-    <div
-      className={`Radio-button ${isToggled ? 'toggled' : ''}`}
+    <style.RadioButton
+      className={isToggled ? 'toggled' : ''}
       onClick={handleToggle}
     >
-      <div className={`Radio-circle ${isToggled ? 'toggled' : ''}`}></div>
-    </div>
+      <style.RadioCircle className={isToggled ? 'toggled' : ''} />
+    </style.RadioButton>
   );
 };
 
