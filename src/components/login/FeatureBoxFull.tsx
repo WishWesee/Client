@@ -1,6 +1,6 @@
 import React from 'react';
-import * as Style from '@styles/loginScreen/FeatureBoxComponentStyle';
-import { FirstColumConstants, SecondColumConstants } from '../constants/loginScreen';
+import * as Style from '@/styles/login/FeatureBoxComponentStyle';
+import { FirstColumConstants, SecondColumConstants } from '@/constants/login/loginScreen';
 
 interface FeatureBoxProps {
     title: string;

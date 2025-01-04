@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Style from '@styles/loginScreen/GreetingMessageComponentStyle';
+import * as Style from '@/styles/login/GreetingMessageComponentStyle';
 
 interface GreetingMessageProps {
     message: string;

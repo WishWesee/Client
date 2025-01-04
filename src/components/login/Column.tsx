@@ -1,6 +1,5 @@
 import React from 'react';
-import * as Style from '@styles/loginScreen/ColumnComponentStyle';
-import { FirstColumConstants, SecondColumConstants } from '../constants/loginScreen';
+import * as Style from '@/styles/login/ColumnComponentStyle';
 import FeatureBoxFull from './FeatureBoxFull';
 import FeatureBoxEmpty from './FeatureBoxEmpty';
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import { LogIn } from '@constants/loginScreen'
-import * as Style from '@styles/loginScreen/LoginSectionComponentStyle';
-import Google from '../assets/icons/화면GUI_Full/3232/Google.svg?react';
+import { LogIn } from '@/constants/login/loginScreen'
+import * as Style from '@/styles/login/LoginSectionComponentStyle';
+import Google from '@/assets/icons/화면GUI_Full/3232/Google.svg?react';
 
 const LoginSection: React.FC = () => (
     <Style.LoginContainer>

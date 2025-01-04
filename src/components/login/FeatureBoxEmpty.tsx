@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Style from '@styles/loginScreen/FeatureBoxComponentStyle';
+import * as Style from '@/styles/login/FeatureBoxComponentStyle';
 
 interface FeatureBoxEmptyProps {
     title: string;

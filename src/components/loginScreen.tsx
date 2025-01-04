@@ -1,10 +1,10 @@
 import React from 'react';
-import * as Style from '@styles/loginScreen/LoginScreenPageStyle';
+import * as Style from '@/styles/login/LoginScreenPageStyle';
 import TopHeader from './top/Top_Header';
-import GreetingMessage from './GreetingMessage';
-import LoginSection from './LoginSection';
-import Column from './Column';
-import { FirstColumConstants, SecondColumConstants, greetingMessage } from '../constants/loginScreen';
+import GreetingMessage from './login/GreetingMessage';
+import LoginSection from './login/LoginSection';
+import Column from './login/Column';
+import { FirstColumConstants, SecondColumConstants, greetingMessage } from '../constants/login/loginScreen';
 import Mail from '../assets/icons/화면GUI_Full/2424_Activate/Invitation.svg?react';
 import SaveBox from '../assets/icons/화면GUI_Full/2424_Activate/SaveBox.svg?react';
 import Vote from '../assets/icons/화면GUI_Full/2424_Activate/vote.svg?react';
