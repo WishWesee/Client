@@ -4,7 +4,7 @@ export const FeatureBoxContainer = styled.div`
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    width: 42.5vw;
+    width: 43.5vw;
     height: 8.5rem; 
     border-radius: 0.25rem;
     background-color: #EAF0F7;
@@ -19,7 +19,7 @@ export const FeatureBoxContainer2 = styled.div`
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    width: 42.5vw;
+    width: 43.5vw;
     height: 8.5rem; 
     border-radius: 0.25rem;
     background-color: #EAF0F7;
@@ -34,7 +34,7 @@ export const FeatureBoxContainer3 = styled.div`
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    width: 42.5vw;
+    width: 43.5vw;
     height: 8.5rem; 
     border-radius: 0.25rem;
     gap: 0.5625rem;
@@ -105,7 +105,7 @@ export const Rectangle1 = styled.div`
     export const Rectangle6 = styled.div`
     box-sizing: border-box;
     height: 4.375rem;
-    @media (min-height: 841px) {
+    @media (min-height: 845px) {
         height: 8.5rem;
     }
     border-radius: 0.25rem;

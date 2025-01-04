@@ -1,9 +1,9 @@
-import Tsta from "@components/Test";
+import LoginScreen from "@components/LoginScreen";
 
 const Home = () => {
   return (
     <div>
-      <Tsta />
+      <LoginScreen />
     </div>
   );
 };

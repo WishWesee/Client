@@ -1,13 +1,13 @@
 import React from 'react';
 import * as Style from '@/styles/login/LoginScreenPageStyle';
-import TopHeader from './top/Top_Header';
-import GreetingMessage from './login/GreetingMessage';
-import LoginSection from './login/LoginSection';
-import Column from './login/Column';
+import TopHeader from '@/components/top/Top_Header';
+import GreetingMessage from '@/components/login/GreetingMessage';
+import LoginSection from '@/components/login/LoginSection';
+import LoginBoxColumn from '@/components/login/LoginBoxColumn';
 import { FirstColumConstants, SecondColumConstants, greetingMessage } from '../constants/login/loginScreen';
-import Mail from '../assets/icons/화면GUI_Full/2424_Activate/Invitation.svg?react';
-import SaveBox from '../assets/icons/화면GUI_Full/2424_Activate/SaveBox.svg?react';
-import Vote from '../assets/icons/화면GUI_Full/2424_Activate/vote.svg?react';
+import Mail from '@/assets/icons/화면GUI_Full/2424_Activate/Invitation.svg?react';
+import SaveBox from '@/assets/icons/화면GUI_Full/2424_Activate/SaveBox.svg?react';
+import Vote from '@/assets/icons/화면GUI_Full/2424_Activate/vote.svg?react';
 
 const LoginScreen: React.FC = () => {
     const firstColumnFeatures = [
@@ -91,8 +91,8 @@ const LoginScreen: React.FC = () => {
                 <LoginSection />
             </Style.HeaderComp>
             <Style.Columns>
-                <Column features={firstColumnFeatures} />
-                <Column features={secondColumnFeatures} />
+                <LoginBoxColumn features={firstColumnFeatures} />
+                <LoginBoxColumn features={secondColumnFeatures} />
             </Style.Columns>
         </Style.Background>
     );

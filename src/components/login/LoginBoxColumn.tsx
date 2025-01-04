@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Style from '@/styles/login/ColumnComponentStyle';
-import FeatureBoxFull from './FeatureBoxFull';
-import FeatureBoxEmpty from './FeatureBoxEmpty';
+import FeatureBoxFull from '@/components/login/FeatureBoxFull';
+import FeatureBoxEmpty from '@/components/login/FeatureBoxEmpty';
 
 interface ColumnProps {
     features: {
@@ -12,7 +12,7 @@ interface ColumnProps {
     }[];
 }
 
-const Column: React.FC<ColumnProps> = ({ features }) => (
+const LoginBoxColumn: React.FC<ColumnProps> = ({ features }) => (
     <Style.ColumnContainer>
         {features.map((feature, index) => (
             feature.title.includes('Rectangle') ? 
@@ -28,4 +28,4 @@ const Column: React.FC<ColumnProps> = ({ features }) => (
     </Style.ColumnContainer>
 );
 
-export default Column;
+export default LoginBoxColumn;
