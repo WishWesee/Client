@@ -9,7 +9,6 @@ button:hover {
     border: none;
 }
 
-
 .toggle-button {
     display: flex;
     width: 160px;
@@ -33,7 +32,7 @@ button:hover {
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
   
-  .toggle-button.toggled {
+  .toggle-button.blue {
     background-color: #358FFE;
     color: #FCFCFD;
   }
