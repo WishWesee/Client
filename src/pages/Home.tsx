@@ -1,4 +1,4 @@
-import LoginScreen from "@components/LoginScreen";
+import LoginScreen from "@/components/LoginScreen";
 
 const Home = () => {
   return (
