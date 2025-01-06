@@ -1,9 +1,77 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+  src: local("Pretendard Bold"),
+    url(../../../packages/pretendard/dist/web/static/woff2/Pretendard-Bold.woff2)
+      format("woff2"),
+    url(../../../packages/pretendard/dist/web/static/woff/Pretendard-Bold.woff)
+      format("woff");
+}
 
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+  src: local("Pretendard SemiBold"),
+    url(../../../packages/pretendard/dist/web/static/woff2/Pretendard-SemiBold.woff2)
+      format("woff2"),
+    url(../../../packages/pretendard/dist/web/static/woff/Pretendard-SemiBold.woff)
+      format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+  src: local("Pretendard Regular"),
+    url(../../../packages/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2)
+      format("woff2"),
+    url(../../../packages/pretendard/dist/web/static/woff/Pretendard-Regular.woff)
+      format("woff");
+}
+
+@font-face {
+  font-family: "Noto Serif KR";
+  font-weight: 700;
+  font-style: normal;
+  src: url(./assets/fonts/NotoSerifKR-Bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Noto Serif KR";
+  font-weight: 500;
+  font-style: normal;
+  src: url(./assets/fonts/NotoSerifKR-Regular.ttf) format("truetype");
+}
+
+:root {
   color: rgba(255, 255, 255, 0.87);
+
+  --White: #fcfcfd;
+  --Black: #151516;
+  --Primary: #358ffe;
+  --Secondary: #a8ceff;
+  --Caution: #ff4b4b;
+
+  --TitleText: 700 24px / 150% Pretendard;
+  --BoldProperty-rNBRight: 700 16px / 100% Pretendard;
+  --PageName: 600 20px / 160% Pretendard;
+  --BoldContext: 600 16px / 150% Pretendard;
+  --Selected-BtnName-FileName: 600 16px / 100% Pretendard;
+  --Link: 600 12px / 150% Pretendard;
+  --Unselected-Field-rNBLeft: 400 16px / 100% Pretendard;
+  --RegularContext: 400 16px / 150% Pretendard;
+  --UnderlineContext: 400 16px / 150% Pretendard;
+  --DashedContext: 400 16px / 150% Pretendard;
+  --FeatureBodyText: 400 12px / 150% Pretendard;
+  --AdditionalText: 400 12px / 100% Pretendard;
+
+  --SerifContextRegular: 500 14px / 170% Noto Serif KR;
+  --SerifContextBold: 700 14px / 170% Noto Serif KR;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
