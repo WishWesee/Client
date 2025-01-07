@@ -1,4 +1,3 @@
-
 @font-face {
   font-family: "Pretendard";
   font-weight: 700;
@@ -57,6 +56,12 @@
   --Primary: #358ffe;
   --Secondary: #a8ceff;
   --Caution: #ff4b4b;
+  --Gray5: #f8f8f8;
+  --Gray10: #e1e1e2;
+  --Gray40: #88898a;
+  --Blue5: #eaf0f7;
+  --Blue10: #d7e9ff;
+  --Blue20: #aed2ff;
 
   --TitleText: 700 24px / 150% Pretendard;
   --BoldProperty-rNBRight: 700 16px / 100% Pretendard;
