@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
-export const ToggleButton = styled.button`
+export const ToggleButton = styled.div`
   display: flex;
   width: 160px;
   height: 40px;
   gap: 0;
   border-radius: 8px;
-  opacity: 0;
-  background-color: #e1e1e2;
+  background-color: #E1E1E2;
   transition: background-color 0.2s ease, color 0.2s ease;
   align-items: center;
   justify-content: center;

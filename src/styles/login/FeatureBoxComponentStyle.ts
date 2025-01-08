@@ -4,8 +4,6 @@ export const FeatureBoxContainer = styled.div`
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    width: 43.5vw;
-    height: 8.5rem; 
     border-radius: 0.25rem;
     background-color: #EAF0F7;
     gap: 0.5625rem;
@@ -19,8 +17,6 @@ export const FeatureBoxContainer2 = styled.div`
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    width: 43.5vw;
-    height: 8.5rem; 
     border-radius: 0.25rem;
     background-color: #EAF0F7;
     gap: 0.5625rem;
@@ -34,11 +30,9 @@ export const FeatureBoxContainer3 = styled.div`
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    width: 43.5vw;
-    height: 8.5rem; 
     border-radius: 0.25rem;
     gap: 0.5625rem;
-    padding: 0.75rem 0.625rem 0.625rem 0.75rem;
+    padding: 0.75rem 0.27rem 0.625rem 0.75rem;
     border-radius: 0.25rem;
     background: linear-gradient(101.66deg, #A8CEFF 0%, #D7E9FF 100%);
     margin-top: 1.4375rem;
@@ -49,26 +43,19 @@ export const TextFeature = styled.div`
     display: flex;
     flex-direction: column;
     text-align: left;
-    gap: 0.5rem;
     box-sizing: border-box;
     width: 9.125rem;
     height: 3.75rem;
     `;
 
 export const TitleText = styled.div`
-    color: #358FFE; 
-    font-weight: 600;
-    font-size: 1rem;
-    line-height: 1rem;
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--Primary);
+    font: var(--BoldContext);
     `;
 
 export const SubText = styled.div`
-    color: #151516; 
-    font-weight: 400;
-    font-size: 0.75rem;
-    line-height: 1.125rem;
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--Black);
+    font: var(--FeatureBodyText);
     `;
 
 export const ImageBox = styled.div`
