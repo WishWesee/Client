@@ -14,8 +14,9 @@ export const Container = styled.div`
 export const Main = styled.main`
   flex: 1;
   width: 100%;
-  padding: 0 20px;
+  padding: 0;
   margin: 0 auto;
+  margin-top: 54px;
   box-sizing: border-box;
 `;
 
