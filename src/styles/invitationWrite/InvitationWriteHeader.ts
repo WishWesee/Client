@@ -15,11 +15,13 @@ export const Container = styled.div`
   box-sizing: border-box;
 `;
 
-export const BackContainer = styled.div`
+export const BackContainer = styled.button`
   display: flex;
   gap: 2px;
   align-items: center;
   height: 100%;
+  background-color: white;
+  border: none;
 `;
 
 export const BackText = styled.p`

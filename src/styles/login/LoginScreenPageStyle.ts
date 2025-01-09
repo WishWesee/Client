@@ -5,9 +5,12 @@ export const Background = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   align-items: center;
+  padding: 0 20px;
+  margin: 0;
   width: 100%;
   height: 100%;
   background-color: #fcfcfd;
+  box-sizing: border-box;
 `;
 
 export const HeaderComp = styled.div`
