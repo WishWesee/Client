@@ -10,6 +10,12 @@ export const TopReactNB = styled.div`
   align-items: center;
   background-color: #fcfcfd;
   border-bottom: 0.125rem solid #f4f4f4;
+
+  &.white {
+    background-color: var(--Black);
+    border-bottom: 0;
+    color: var(--White);
+  }
 `;
 
 export const BtnRNBack = styled.div`
@@ -22,10 +28,11 @@ export const BtnRNBack = styled.div`
   cursor: pointer;
 
   color: #151516;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1rem;
-  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font: var(--RegularContext);
+
+  &.white {
+    color: var(--White);
+  }
 `;
 
 export const BtnRNSave = styled.div`
@@ -39,4 +46,8 @@ export const BtnRNSave = styled.div`
   font-size: 1rem;
   line-height: 1rem;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+   &.white {
+    color: var(--White);
+  }
 `;

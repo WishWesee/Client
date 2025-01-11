@@ -1,19 +1,25 @@
 import styled from 'styled-components';
 
 export const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%; /* 퍼센트는 그대로 유지 */
   height: 100%; /* 퍼센트는 그대로 유지 */
-  background-color: var(--Black);
-  opacity: 60%;
+  background-color: rgba(0, 0, 0, 0.6);
 `;
 
 export const Modal = styled.div`
   display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center;  
   width: 21.875rem; /* 350px -> 21.875rem */
   height: 10.25rem; /* 164px -> 10.25rem */
   background-color: var(--White);

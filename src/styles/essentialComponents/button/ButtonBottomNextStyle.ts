@@ -14,6 +14,7 @@ export const ToggleButton = styled.div`
   outline: none;
   box-shadow: none;
   -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
 
   color: #88898a;
   font-weight: 600;

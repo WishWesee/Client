@@ -4,6 +4,7 @@ export const Content = styled.div`
   display: flex;
   box-sizing: border-box;
   width: 100%;
+  height: 100%;
   flex-direction: column;
   gap: 1.25rem; /* 20px -> 1.25rem */
 `;
@@ -67,4 +68,5 @@ export const Bottom = styled.div`
   justify-content: center;
   padding: 1.25rem 0 2.5rem 0; /* 20px -> 1.25rem, 40px -> 2.5rem */
   width: 100%;
+  cursor: pointer;
 `;
