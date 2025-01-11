@@ -26,7 +26,7 @@ export const HomeWrap = styled.div`
   align-items: center;
   padding-top: 54px;
 
-  ${isTablet} {
+  ${isDesktop} {
     flex-direction: row;
     justify-content: center;
     gap: 120px;
@@ -46,12 +46,12 @@ export const LogoWrap = styled.div`
 
   ${isTablet} {
     margin-top: 0px;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 
   ${isDesktop} {
     margin-top: 0px;
-    padding-top: 40px;
-    padding-bottom: 40px;
   }
 `;
 
@@ -84,12 +84,12 @@ export const MailBoxWrap = styled.div`
 
   ${isTablet} {
     margin-top: 0px;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 
   ${isDesktop} {
     margin-top: 0px;
-    padding-top: 40px;
-    padding-bottom: 40px;
   }
 `;
 
@@ -105,10 +105,10 @@ export const MailTopWrap = styled.div`
   align-items: center;
 
   ${isTablet} {
-    margin-top: 120px;
+    margin-top: 160px;
   }
 
   ${isDesktop} {
-    margin-top: 160px;
+    margin-top: 120px;
   }
 `;
