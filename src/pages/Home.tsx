@@ -1,9 +1,9 @@
-import LoginScreen from "@/components/LoginScreen";
+import ButtonBottomNext from "@/components/button/Btn_Bottom_Next";
 
 const Home = () => {
   return (
     <div>
-      <LoginScreen />
+      <ButtonBottomNext text={"초대장 만들기"} color={"blue"} />
     </div>
   );
 };
