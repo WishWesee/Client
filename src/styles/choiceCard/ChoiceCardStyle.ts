@@ -4,7 +4,7 @@ export const Content = styled.div`
   display: flex;
   box-sizing: border-box;
   width: 100%;
-  height: 100%;
+  height: calc( 100vh - 107.6px );
   flex-direction: column;
   gap: 1.25rem; /* 20px -> 1.25rem */
 `;
@@ -12,7 +12,7 @@ export const Content = styled.div`
 export const Wrap_Card = styled.div`
   display: flex;
   box-sizing: border-box;
-  padding: 0.75rem 0; /* 12px -> 0.75rem */
+  padding-top: 0.75rem; /* 12px -> 0.75rem */
   width: 100%;
   flex-direction: column;
   background-color: var(--Blue5);
@@ -55,6 +55,7 @@ export const Img_Content_Card = styled.div`
 export const Column = styled.div`
   display: flex;
   width: 100%; /*사진 크기 비율 이상하면 이거 width 관련 없애고 RectangleStyle에서 width: 10.5rem; 설정*/
+  height: calc( 100vh - 500px );
   max-width: 100%;
   max-height: 100%;
   flex-direction: column;
@@ -68,5 +69,5 @@ export const Bottom = styled.div`
   justify-content: center;
   padding: 1.25rem 0 2.5rem 0; /* 20px -> 1.25rem, 40px -> 2.5rem */
   width: 100%;
-  cursor: pointer;
+  background-color: var(--White);
 `;

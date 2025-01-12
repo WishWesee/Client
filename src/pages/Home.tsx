@@ -1,7 +1,7 @@
 import ReactNB from "@/components/top/Top_reactNB";
 import {choiceCardPageUI} from "@/constants/choiceCard/Wrap";
 import Layout from "@/components/Layout";
-import ChoiceCard from "@/components/ChoiceCard/ImgContentCut";
+import ChoiceCard from "@/components/ChoiceCard";
 
 const Home = () => {
   return (

@@ -9,6 +9,7 @@ import NextButton from "@/components/button/Btn_Bottom_Next";
 import { Top, WrapTexts, Modal, SB, ButtonNext, Button } from "@/constants/choiceCard/Wrap";
 import * as style from '@/styles/choiceCard/ChoiceCardStyle';
 import * as modalStyle from '@/styles/choiceCard/ModalStyle';
+import { Navigate } from 'react-router-dom';
 
 const ChoiceCard: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -82,8 +83,8 @@ const ChoiceCard: React.FC = () => {
               <Rectangle />
             </style.Column>
           </style.Img_Content_Card>
-          <style.Bottom onClick={renderModal}>
-            <NextButton text={Button.text} color={Button.color} />
+          <style.Bottom>
+            <NextButton text={Button.text} color={Button.color} onClick={renderModal}/>
           </style.Bottom>
         </style.Wrap_Card>
       </style.Content>
