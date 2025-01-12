@@ -91,6 +91,10 @@ export const MailBoxWrap = styled.div`
   ${isDesktop} {
     margin-top: 0px;
   }
+
+  svg {
+    display: block;
+  }
 `;
 
 export const MailTopWrap = styled.div`
