@@ -65,15 +65,14 @@ export const ImageBox = styled.div`
     
 export const Rectangle1 = styled.div`
     box-sizing: border-box;
-    height: 7.6875rem; 
+    height: 8.5rem; 
     margin-bottom: 0.75rem; 
     border-radius: 0.25rem;
     background-color: #EAF0F7;
     `;
 
     export const Rectangle2 = styled.div`
-    box-sizing: border-box;
-    height: 7.6875rem; 
+    box-sizing: border-box; 
     margin-bottom: 1.4375rem;
     height: 8.5rem; 
     border-radius: 0.25rem;
@@ -82,7 +81,6 @@ export const Rectangle1 = styled.div`
 
     export const Rectangle5 = styled.div`
     box-sizing: border-box;
-    height: 7.6875rem; 
     margin-bottom: 0.75rem; 
     height: 8.5rem; 
     border-radius: 0.25rem;
@@ -92,7 +90,7 @@ export const Rectangle1 = styled.div`
     export const Rectangle6 = styled.div`
     box-sizing: border-box;
     height: 4.375rem;
-    @media (min-height: 845px) {
+    @media (min-height: 844px) {
         height: 8.5rem;
     }
     border-radius: 0.25rem;
@@ -101,7 +99,6 @@ export const Rectangle1 = styled.div`
 
     export const Rectangle7 = styled.div`
     box-sizing: border-box;
-    height: 7.6875rem; 
     margin-top: 3.8125rem; 
     height: 8.5rem; 
     border-radius: 0.25rem;
@@ -110,7 +107,6 @@ export const Rectangle1 = styled.div`
     
     export const Rectangle8 = styled.div`
     box-sizing: border-box;
-    height: 7.6875rem; 
     margin-top: 0.75rem; 
     height: 8.5rem; 
     border-radius: 0.25rem;
@@ -119,7 +115,6 @@ export const Rectangle1 = styled.div`
 
     export const Rectangle10 = styled.div`
     box-sizing: border-box;
-    height: 7.6875rem; 
     margin-top: 0.0625rem; 
     height: 8.5rem; 
     border-radius: 0.25rem;
@@ -128,7 +123,6 @@ export const Rectangle1 = styled.div`
 
     export const Rectangle11 = styled.div`
     box-sizing: border-box;
-    height: 7.6875rem; 
     margin-top: 0.75rem;
     height: 8.5rem; 
     border-radius: 0.25rem;

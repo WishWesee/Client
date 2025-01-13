@@ -36,10 +36,8 @@ const ImgContentCut: React.FC = () => {
         <Cropper
             src={TestImage} // 이미지 URL
             style={{ height: 262, width: 350 }} // Cropper 크기
-            aspectRatio={4 / 3} // 4:3 비율로 고정
             guides={true} // 가이드 라인 표시
             ref={cropperRef} // 참조 연결
-            viewMode={1} // 크롭 박스가 컨테이너를 초과하지 않도록 설정
             zoomable={false} // 확대/축소 가능
             scalable={true} // 이미지 비율 변경 가능
             cropBoxResizable={true} // 크롭 박스 크기 조정 가능

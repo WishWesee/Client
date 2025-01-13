@@ -10,7 +10,7 @@ export const LoginContainer = styled.div`
     padding: 3.75rem 1.25rem;
     width: 100%;
     height: 12.875rem;
-    margin-top: 18.4375rem;
+    margin-top: 18rem;
     `;
 
 export const GoogleLoginButton = styled.div`

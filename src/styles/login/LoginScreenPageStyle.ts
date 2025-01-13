@@ -6,7 +6,7 @@ export const Background = styled.div`
   box-sizing: border-box;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: calc( 100vh - 54px );
   padding: 0px 20px;
   background-color: #fcfcfd;
 `;
@@ -22,6 +22,6 @@ export const Columns = styled.div`
   flex-direction: row;
   gap: 0.75rem;
   width: 100%;
+  height: 100vh;
   max-width: 100%;
-  max-height: 100%;
 `;
