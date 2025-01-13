@@ -1,15 +1,13 @@
-import ReactNB from "@/components/top/Top_reactNB";
-import {choiceCardPageUI} from "@/constants/choiceCard/Wrap";
-import Layout from "@/components/Layout";
-import ChoiceCard from "@/components/ImgContentCut";
+import FeaturesGuide from "@/components/home/FeaturesGuide";
+import HomeLogin from "@/components/home/HomeLogin";
+import UsageGuide from "@/components/home/UsageGuide";
 
 const Home = () => {
   return (
-    /**<div>
-      <Layout children={<ReactNB Back={choiceCardPageUI.Btn_rNB_Back} Front='null'/>}/>
-    </div>*/
     <>
-    <Layout children={<ChoiceCard/>}/>
+      <HomeLogin />
+      <FeaturesGuide />
+      <UsageGuide />
     </>
   );
 };
