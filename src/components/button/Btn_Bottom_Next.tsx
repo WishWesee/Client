@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
-import * as style from '@/styles/essentialComponents/button/ButtonBottomNextStyle';
+import * as style from "@/styles/essentialComponents/button/ButtonBottomNextStyle";
 
-type ButtonBottomNextProps = {
+interface ButtonBottomNextProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
   color: string;
-};
+}
 
-const ButtonBottomNext: React.FC<ButtonBottomNextProps> = ({ text, color }) => {
-  const [state, setState] = useState(color);
-
+const ButtonBottomNext = ({ text, color, ...props }: ButtonBottomNextProps) => {
   return (
-    <style.ToggleButton className={state === 'blue' ? 'blue' : ''}>
+    <style.ToggleButton $color={color} {...props}>
       {text}
     </style.ToggleButton>
   );

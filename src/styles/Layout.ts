@@ -16,7 +16,6 @@ export const Main = styled.main`
   width: 100%;
   padding: 0;
   margin: 0 auto;
-  margin-top: 54px;
   box-sizing: border-box;
 `;
 
@@ -26,4 +25,5 @@ export const HeaderComp = styled.div`
   width: 100%;
   height: 54px;
   border-bottom: 0.125rem solid #f4f4f4;
+  z-index: 10;
 `;
