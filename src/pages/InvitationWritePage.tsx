@@ -1,3 +1,4 @@
+import InvitationWriteComponent from "@/components/invitationWrite/InvitationWriteComponent";
 import InvitationWriteHeader from "@/components/invitationWrite/InvitationWriteHeader";
 import InvitationWriteToolBar from "@/components/invitationWrite/InvitationWriteToolBar";
 import * as S from "@styles/invitationWrite/invitationWritePage";
@@ -14,6 +15,7 @@ const InvitationWritePage = () => {
         isEnable={isButtonEnable}
       />
       <InvitationWriteToolBar />
+      <InvitationWriteComponent />
     </S.Container>
   );
 };

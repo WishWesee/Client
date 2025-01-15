@@ -3,7 +3,7 @@ import * as S from "@styles/invitationWrite/invitationWriteToolBar";
 import { useState } from "react";
 
 const InvitationWriteToolBar = () => {
-  const [selectedTool, setSelectedTool] = useState<number>(0);
+  const [selectedTool, setSelectedTool] = useState<number>();
   return (
     <S.Container>
       {TOOLBARICONLIST.map((item, index) => (

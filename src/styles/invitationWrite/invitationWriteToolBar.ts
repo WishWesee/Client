@@ -20,6 +20,7 @@ export const ToolButton = styled.button`
   background-color: var(--Blue5);
   border: none;
   padding: 0;
+  cursor: pointer;
 `;
 
 export const ToolButtonText = styled.p<{ $isActive: boolean }>`
