@@ -12,6 +12,8 @@ const FeatureBoxEmpty: React.FC<FeatureBoxEmptyProps> = ({title}) => {
             return <Style.Rectangle1/>;
         case "Rectangle2":
             return <Style.Rectangle2/>;
+        case "Rectangle3":
+            return <Style.Rectangle3/>;
         case "Rectangle5":
             return <Style.Rectangle5/>
         case "Rectangle6":

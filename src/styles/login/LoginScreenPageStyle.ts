@@ -6,9 +6,12 @@ export const Background = styled.div`
   box-sizing: border-box;
   align-items: center;
   width: 100%;
-  height: calc( 100vh - 54px );
   padding: 0px 20px;
   background-color: #fcfcfd;
+
+   @media (min-width: 768px) {
+        height: auto;
+    }
 `;
 
 export const HeaderComp = styled.div`
@@ -22,6 +25,11 @@ export const Columns = styled.div`
   flex-direction: row;
   gap: 0.75rem;
   width: 100%;
-  height: 100vh;
+  height: auto;
   max-width: 100%;
+
+  @media (min-width: 768px) {
+    gap: 16px;
+    justify-content: center;
+  }
 `;

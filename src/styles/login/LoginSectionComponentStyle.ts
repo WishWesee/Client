@@ -11,6 +11,18 @@ export const LoginContainer = styled.div`
     width: 100%;
     height: 12.875rem;
     margin-top: 18rem;
+
+    @media (min-width: 768px)  {
+        margin-top: 505px;
+        padding: 0 1.25rem 0 1.25rem;
+        height: auto;
+    }
+
+    @media (min-width: 1200px) {
+        margin-top: 615px;
+        padding: 0 1.25rem 0 1.25rem;
+        height: auto;
+    }
     `;
 
 export const GoogleLoginButton = styled.div`
@@ -31,6 +43,11 @@ export const GoogleLoginButton = styled.div`
     line-height: 1rem;
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     cursor: pointer;
+
+        @media (min-width: 768px) {
+        width: 340px;
+        height: 56px;
+    }
     `;
 
 export const RegisterContainer = styled.div`

@@ -19,5 +19,9 @@ export const GreetingMessageContainer = styled.div`
     .highlight {
         color: #358FFE;
     }
+
+    @media (min-width: 768px) {
+        margin-top: 20px;
+    }
 `;
     
