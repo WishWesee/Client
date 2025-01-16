@@ -3,11 +3,12 @@ import * as style from "@/styles/essentialComponents/button/ButtonBottomNextStyl
 interface ButtonBottomNextProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
   color: string;
+  width?: boolean;
 }
 
-const ButtonBottomNext = ({ text, color, ...props }: ButtonBottomNextProps) => {
+const ButtonBottomNext = ({ text, color, width, ...props }: ButtonBottomNextProps) => {
   return (
-    <style.ToggleButton $color={color} {...props}>
+    <style.ToggleButton $color={color} $width={width} {...props}>
       {text}
     </style.ToggleButton>
   );

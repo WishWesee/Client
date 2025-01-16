@@ -20,4 +20,5 @@ export const Bottom = styled.div`
   width: 100%;
   cursor: pointer;
   background-color: var(--Black);
+  
 `;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ToggleButton = styled.button<{ $color: string }>`
+export const ToggleButton = styled.button<{ $color: string, $width?: boolean }>`
   width: 160px;
   height: 40px;
   border-radius: 8px;
@@ -13,7 +13,9 @@ export const ToggleButton = styled.button<{ $color: string }>`
   font: var(--Selected-BtnName-FileName);
 
   @media (min-width: 768px) {
-    width: calc( 100vw - 128px );
-    height: 48px;
+    width: ${(props) => 
+    props.$width ? "calc( 100vw - 128px )" : "160px" };
+    height:  ${(props) => 
+    props.$width ? "48px" : "40px" };
   }
 `;

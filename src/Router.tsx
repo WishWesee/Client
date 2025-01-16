@@ -2,6 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import InvitationWritePage from "./pages/InvitationWritePage";
+import LoginScreen from "./components/loginScreen";
+import ImgContentCut from "./components/ImgContentCut";
+import ChoiceCard from "./pages/ChoiceCard";
 
 const Router = () => {
   return (
@@ -10,6 +13,9 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/write" element={<InvitationWritePage />} />
+          <Route path="/login" element={<LoginScreen />} />
+          <Route path="/contentcut" element={<ImgContentCut />} />
+          <Route path="/choicecard" element={<ChoiceCard/>} />
         </Routes>
       </Layout>
     </BrowserRouter>

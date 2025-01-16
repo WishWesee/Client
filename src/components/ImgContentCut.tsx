@@ -45,7 +45,7 @@ const ImgContentCut: React.FC = () => {
         />
       </style.Container>
       <style.Bottom>
-        <NextButton text="다음" color="blue" onClick={handleNext} />
+        <NextButton text="다음" color="blue" width={true} onClick={handleNext} />
       </style.Bottom>
     </>
   );
