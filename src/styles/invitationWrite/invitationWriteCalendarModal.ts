@@ -1,4 +1,3 @@
-import Calendar from "react-calendar";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -18,73 +17,28 @@ export const Container = styled.div`
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
-export const StyledCalendar = styled(Calendar)`
+export const TimeButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-top: 2px solid var(--Gray5);
   width: 100%;
-  height: 100%;
+  margin-top: 24px;
+  color: black;
+  padding-top: 24px;
+  font: var(--Selected-BtnName-FileName);
+  align-items: center;
+`;
 
-  .react-calendar {
-    width: 100%;
-    border: none;
-    background: var(--White);
-  }
-
-  .react-calendar__month-view__weekdays abbr {
-    text-decoration: none;
-    font: var(--Selected-BtnName-FileName);
-    color: var(--Black);
-  }
-
-  .react-calendar__navigation {
-    display: flex;
-    height: 30px;
-    margin-bottom: 20px;
-    border: none;
-    font-family: Noto_Sans;
-    font-weight: 700;
-    font-size: 20px;
-    align-items: center;
-
-    button {
-      border: none;
-      background: none;
-      font: var(--Selected-BtnName-FileName);
-    }
-
-    .react-calendar__navigation__prev2-button,
-    .react-calendar__navigation__next2-button {
-      display: none;
-    }
-  }
-
-  .react-calendar__month-view__weekdays__weekday {
-    text-align: center;
-    font-family: Noto_Sans;
-    font-weight: 500;
-    font-size: 14px;
-    margin-bottom: 8px;
-
-    abbr {
-      text-decoration: none;
-    }
-  }
-
-  .react-calendar__tile {
-    text-align: center;
-    padding: 10px 0;
-    font: var(--Unselected-Field-rNBLeft);
-    background: none;
-    border: none;
-    outline: none;
-
-    &--now {
-      font: var(--BoldProperty-rNBRight);
-    }
-
-    &--active {
-      background-color: var(--Primary);
-      color: white !important;
-      font: var(--Selected-BtnName-FileName);
-      border-radius: 50%;
-    }
-  }
+export const OkButton = styled.button`
+  display: flex;
+  width: 160px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: none;
+  margin-top: 24px;
+  background: var(--Primary);
+  color: white;
+  font: var(--Selected-BtnName-FileName);
 `;

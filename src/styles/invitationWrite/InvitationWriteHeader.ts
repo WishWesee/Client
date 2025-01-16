@@ -13,6 +13,7 @@ export const Container = styled.div`
   height: 48px;
   padding: 14px 20px;
   box-sizing: border-box;
+  background-color: white;
 `;
 
 export const BackContainer = styled.button`
