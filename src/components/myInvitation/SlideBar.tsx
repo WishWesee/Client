@@ -8,11 +8,11 @@ type NBProps = {
   ShowDetailBool?: boolean;
 };
 
-const SlideBar: React.FC<NBProps> = ({ MenuTitle, MenuSub, ShowDetailBool}) => {
+const SlideBar: React.FC<NBProps> = ({ MenuTitle, MenuSub, ShowDetailBool }) => {
   return (
     <style.CardContainer>
 
-       <MenuContainer MenuTitle={MenuTitle} MenuSub={MenuSub} ShowDetailBool={ShowDetailBool}/>
+       <MenuContainer MenuTitle={MenuTitle} MenuSub={MenuSub} ShowDetailBool={ShowDetailBool} />
 
     </style.CardContainer>
   );

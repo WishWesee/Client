@@ -13,3 +13,6 @@ export const MenuSubText = {
     number: "개"  
 }
 
+export const ReviewModalText = {
+    SubText: "지난 불라불라, 어떠셨나요?\n사진과 함께 한마디 추억을 남겨보세요!"
+}
