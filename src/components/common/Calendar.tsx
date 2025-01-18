@@ -4,16 +4,28 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 interface CalendarProps {
-  date: Value;
-  handleDateChange: (newDate: Value) => void;
+  date: ValuePiece;
+  handleDateChange: (value: ValuePiece) => void;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ date, handleDateChange }) => {
+const CalendarComponent: React.FC<CalendarProps> = ({
+  date,
+  handleDateChange,
+}) => {
+  const handleOnChange = (value: Value) => {
+    // 단일 날짜 혹은 범위를 처리
+    if (Array.isArray(value)) {
+      handleDateChange(value[0]); // 범위의 시작 날짜로 설정
+    } else {
+      handleDateChange(value); // 단일 날짜
+    }
+  };
+
   return (
     <div>
       <S.StyledCalendar
         value={date}
-        onChange={handleDateChange}
+        onChange={handleOnChange}
         formatDay={(locale, date) => date.getDate().toString()} // 날짜 포맷을 숫자로만 표시
         calendarType="gregory" // 일요일 부터 시작
         showNeighboringMonth={false} // 전달, 다음달 날짜 숨기기
@@ -27,4 +39,4 @@ const Calendar: React.FC<CalendarProps> = ({ date, handleDateChange }) => {
   );
 };
 
-export default Calendar;
+export default CalendarComponent;

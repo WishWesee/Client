@@ -3,10 +3,16 @@ import React, { useState } from "react";
 
 interface SlideButtonProps {
   handleState: () => void;
+  currentState?: boolean;
 }
 
-const SlideButton: React.FC<SlideButtonProps> = ({ handleState }) => {
-  const [isToggled, setIsToggled] = useState(false);
+const SlideButton: React.FC<SlideButtonProps> = ({
+  handleState,
+  currentState,
+}) => {
+  const [isToggled, setIsToggled] = useState(
+    currentState ? currentState : false
+  );
 
   const handleToggle = () => {
     setIsToggled(!isToggled);

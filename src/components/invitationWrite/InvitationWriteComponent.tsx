@@ -1,5 +1,5 @@
 import * as S from "@styles/invitationWrite/invitationWriteComponent";
-import InvitationWriteCalendar from "./invitationWriteCalendar";
+import InvitationWriteCalendar from "./InvitationWriteCalendar";
 
 const InvitationWriteComponent = () => {
   return (
