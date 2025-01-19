@@ -1,10 +1,15 @@
 import { Value } from "@/types/invitationWrite/calendar";
 import * as S from "@styles/common/calendar";
-import { useState } from "react";
 
-const CalendarComponent: React.FC = () => {
-  const [date, setDate] = useState<Value>(null);
+interface CalendarComponentProps {
+  date: Value;
+  setDate: (newDate: Value) => void;
+}
 
+const CalendarComponent: React.FC<CalendarComponentProps> = ({
+  date,
+  setDate,
+}) => {
   const handleOnChange = (newDate: Value) => {
     if (!Array.isArray(newDate)) {
       // 단일 날짜 선택

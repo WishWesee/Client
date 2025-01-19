@@ -34,6 +34,7 @@ export const OkButton = styled.button`
   width: 160px;
   height: 40px;
   justify-content: center;
+  cursor: pointer;
   align-items: center;
   border-radius: 8px;
   border: none;

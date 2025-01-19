@@ -9,11 +9,11 @@ import { useState } from "react";
 import InvitationWriteCalendarModal from "./InvitationWriteCalendarModal";
 import InvitationWriteTimeModal from "./InvitationWriteTimeModal";
 
+type activeState = "startTime" | "endTime" | "date" | null;
+
 const InvitationWriteCalendar = () => {
   const [isTimeShow, setIsTimeShow] = useState<boolean>(false);
-  const [activeStateModal, setActiveStateModal] = useState<
-    "time" | "date" | null
-  >(null);
+  const [activeStateModal, setActiveStateModal] = useState<activeState>(null);
 
   const { invitation, setInvitation } = useInvitationStore();
   const formatDate =
@@ -33,7 +33,7 @@ const InvitationWriteCalendar = () => {
     setIsTimeShow((prev) => !prev);
   };
 
-  const toggleState = (state: "time" | "date") =>
+  const toggleState = (state: activeState) =>
     setActiveStateModal((prev) => (prev === state ? null : state));
 
   return (
@@ -42,40 +42,80 @@ const InvitationWriteCalendar = () => {
         <S.Label>일정</S.Label>
         <S.Text>일정 박스를 눌러 투표를 추가해보세요.</S.Text>
       </S.TitleContainer>
+
       <S.DateContainer>
-        <S.SelectDateButton onClick={() => toggleState("date")}>
-          {formatDate === "날짜 선택" ? (
-            <>
-              <Calendar />
-              <S.ButtonText>{formatDate}</S.ButtonText>
-            </>
-          ) : (
-            <>
-              <ActiveCalendar />
-              <S.ButtonText style={{ color: "var(--Black)" }}>
-                {formatDate}
-              </S.ButtonText>
-            </>
-          )}
-        </S.SelectDateButton>
-        {isTimeShow && (
-          <S.SelectTimeButton onClick={() => toggleState("time")}>
-            {formatTime === "시간 선택" ? (
-              <>
-                <Time />
-                <S.ButtonText>{formatTime}</S.ButtonText>
-              </>
-            ) : (
-              <>
-                <ActiveTime />
-                <S.ButtonText style={{ color: "var(--Black)" }}>
-                  {formatTime}
-                </S.ButtonText>
-              </>
+        <S.ComponentContainer>
+          <S.ButtonContainer>
+            <S.SelectDateButton onClick={() => toggleState("date")}>
+              {formatDate === "날짜 선택" ? (
+                <>
+                  <Calendar />
+                  <S.ButtonText>{formatDate}</S.ButtonText>
+                </>
+              ) : (
+                <>
+                  <ActiveCalendar />
+                  <S.ButtonText style={{ color: "var(--Black)" }}>
+                    {formatDate}
+                  </S.ButtonText>
+                </>
+              )}
+            </S.SelectDateButton>
+
+            {isTimeShow && (
+              <S.SelectTimeButton
+                disabled={invitation.startDate === ""}
+                onClick={() => toggleState("startTime")}
+              >
+                {formatTime === "시간 선택" ? (
+                  <>
+                    <Time />
+                    <S.ButtonText>{formatTime}</S.ButtonText>
+                  </>
+                ) : (
+                  <>
+                    <ActiveTime />
+                    <S.ButtonText style={{ color: "var(--Black)" }}>
+                      {formatTime}
+                    </S.ButtonText>
+                  </>
+                )}
+              </S.SelectTimeButton>
             )}
-          </S.SelectTimeButton>
-        )}
+          </S.ButtonContainer>
+
+          {invitation.endDate !== "" && (
+            <S.ButtonContainer>
+              <S.SelectDateButton onClick={() => toggleState("date")}>
+                <ActiveCalendar />
+                <S.ButtonText style={{ color: "var(--Black)" }}>
+                  {invitation.endDate}
+                </S.ButtonText>
+              </S.SelectDateButton>
+              {isTimeShow && (
+                <S.SelectTimeButton onClick={() => toggleState("endTime")}>
+                  {invitation.endTime === "" ? (
+                    <>
+                      <Time />
+                      <S.ButtonText>시간 선택</S.ButtonText>
+                    </>
+                  ) : (
+                    <>
+                      <ActiveTime />
+                      <S.ButtonText style={{ color: "var(--Black)" }}>
+                        {formatTimeToCustomFormat(invitation.endTime)}
+                      </S.ButtonText>
+                    </>
+                  )}
+                </S.SelectTimeButton>
+              )}
+            </S.ButtonContainer>
+          )}
+        </S.ComponentContainer>
       </S.DateContainer>
+
+      {/* Modal */}
+
       {activeStateModal === "date" && (
         <InvitationWriteCalendarModal
           handleCloseModal={() => toggleState("date")}
@@ -83,9 +123,16 @@ const InvitationWriteCalendar = () => {
           handleTimeShow={toggleTimeShow}
         />
       )}
-      {activeStateModal === "time" && (
+      {activeStateModal === "startTime" && (
         <InvitationWriteTimeModal
-          handleCloseModal={() => toggleState("time")}
+          isStartTime={true}
+          handleCloseModal={() => toggleState("startTime")}
+        />
+      )}
+      {activeStateModal === "endTime" && (
+        <InvitationWriteTimeModal
+          isStartTime={false}
+          handleCloseModal={() => toggleState("endTime")}
         />
       )}
     </S.Container>

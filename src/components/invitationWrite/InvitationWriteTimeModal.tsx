@@ -6,30 +6,34 @@ import * as S from "@styles/invitationWrite/invitationWriteTimeModal";
 import { useState } from "react";
 
 interface InvitationWriteTimeModalProps {
+  isStartTime: boolean;
   handleCloseModal: () => void;
 }
 
 const InvitationWriteTimeModal: React.FC<InvitationWriteTimeModalProps> = ({
+  isStartTime,
   handleCloseModal,
 }) => {
   const { invitation, setInvitation } = useInvitationStore();
 
+  const time = isStartTime ? invitation.startTime : invitation.endTime;
+
   const [hour, setHour] = useState<number>(
-    invitation.startTime === "" ? 0 : formatTimeToAM(invitation.startTime)
+    time === "" ? 0 : formatTimeToAM(time)
   );
   const [minute, setMinute] = useState<number>(
-    invitation.startTime === "" ? 0 : Number(invitation.startTime.split(":")[1])
+    time === "" ? 0 : Number(time.split(":")[1])
   );
-  const [isAM, setIsAM] = useState<boolean>(
-    Number(invitation.startTime.split(":")[0]) < 12
-  );
+  const [isAM, setIsAM] = useState<boolean>(Number(time.split(":")[0]) < 12);
 
   const handleDateChange = () => {
     const newHour = isAM ? hour : hour + 12;
     const newMinute = minute < 10 ? "0" + minute : minute;
     const newStartTime = newHour + ":" + newMinute;
     setInvitation((prevInvitation) => {
-      prevInvitation.startTime = newStartTime;
+      isStartTime
+        ? (prevInvitation.startTime = newStartTime)
+        : (prevInvitation.endTime = newStartTime);
     });
     handleCloseModal();
   };

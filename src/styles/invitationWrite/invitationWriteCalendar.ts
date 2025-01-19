@@ -30,10 +30,20 @@ export const Text = styled.p`
 `;
 
 export const DateContainer = styled.div`
-  display: flex;
   gap: 4px;
   align-items: center;
   width: 100%;
+`;
+
+export const ComponentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 4px;
 `;
 
 export const SelectDateButton = styled.button`
