@@ -12,7 +12,7 @@ export const Content = styled.div`
     gap: 60px;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 1200px) {
     padding: 30px 32px 60px 32px;
     gap: 80px;
   }
@@ -66,6 +66,7 @@ export const Btn_hSB_New = styled.div`
   padding: 0.5rem; /* 8px -> 0.5rem */
   gap: 0.25rem; /* 4px -> 0.25rem */
   background-color: var(--White);
+  cursor: pointer;
 `;
 
 export const Img_Content_Card = styled.div`
@@ -78,7 +79,22 @@ export const Img_Content_Card = styled.div`
   max-width: 390px;
   width: 100%;
   padding: 0 1.3125rem; /* 좌우 여백 설정 */
-  
+
+  @media (max-width: 389px) and (min-width: 350px) {
+      padding: 0 16px 16px 16px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+      max-width: 704px;
+      gap: 16px;
+  }
+
+  @media (max-width: 349px) {
+      padding: 0 16px 16px 16px;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+      max-width: 704px;
+      gap: 16px
+  }
+
+
   @media (min-width: 768px) {
     padding: 0 16px 16px 16px;
     grid-template-columns: repeat(auto-fit, minmax(212px, 1fr)); 

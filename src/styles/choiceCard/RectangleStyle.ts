@@ -8,6 +8,14 @@ export const Rectangle = styled.div`
   box-sizing: border-box;
   border-radius: 4px;
   background-color: #D9D9D9;
+  cursor: pointer;
+
+  @media (max-width: 389px) {
+    width: 43vw;
+    height: 120px;
+    min-width: 150px;
+    min-height: 110px;
+  }
 
   @media (min-width: 768px){
   width: 212px;

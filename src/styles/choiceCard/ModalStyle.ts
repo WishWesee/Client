@@ -16,8 +16,10 @@ export const ModalBackground = styled.div`
 
 export const Modal = styled.div`
   display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center;  
   width: 21.875rem; /* 350px -> 21.875rem */
   height: 10.25rem; /* 164px -> 10.25rem */
   background-color: var(--White);

@@ -12,6 +12,7 @@ export const HorizontalSBActive = styled.div`
   background-color: var(--Primary);
   font: var(--Selected-BtnName-FileName);
   color: var(--White);
+  cursor: pointer;
 `;
 
 export const HorizontalSBDefault = styled.div`
@@ -25,4 +26,5 @@ export const HorizontalSBDefault = styled.div`
   background-color: var(--White);
   font: var(--Unselected-Field-rNBLeft);
   color: var(--Black);
+  cursor: pointer;
 `;
