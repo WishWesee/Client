@@ -1,25 +1,29 @@
+import { Value } from "@/types/invitationWrite/calendar";
 import * as S from "@styles/common/calendar";
+import { useState } from "react";
 
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+const CalendarComponent: React.FC = () => {
+  const [date, setDate] = useState<Value>(null);
 
-interface CalendarProps {
-  date: ValuePiece;
-  handleDateChange: (value: ValuePiece) => void;
-}
-
-const CalendarComponent: React.FC<CalendarProps> = ({
-  date,
-  handleDateChange,
-}) => {
-  const handleOnChange = (value: Value) => {
-    // 단일 날짜 혹은 범위를 처리
-    if (Array.isArray(value)) {
-      handleDateChange(value[0]); // 범위의 시작 날짜로 설정
-    } else {
-      handleDateChange(value); // 단일 날짜
+  const handleOnChange = (newDate: Value) => {
+    if (!Array.isArray(newDate)) {
+      // 단일 날짜 선택
+      if (!date || Array.isArray(date)) {
+        // 첫 번째 날짜 클릭
+        setDate(newDate);
+      } else {
+        // 두 번째 날짜 클릭 시 범위로 설정
+        if (newDate! < date) {
+          // 두 번째 날짜가 첫 번째 날짜보다 이전일 경우 선택 방지
+          alert("두 번째 날짜는 첫 번째 날짜 이후여야 합니다.");
+          return;
+        }
+        setDate([date, newDate]);
+      }
     }
   };
+
+  const isRangeSelected = Array.isArray(date);
 
   return (
     <div>
@@ -27,13 +31,14 @@ const CalendarComponent: React.FC<CalendarProps> = ({
         value={date}
         onChange={handleOnChange}
         formatDay={(locale, date) => date.getDate().toString()} // 날짜 포맷을 숫자로만 표시
-        calendarType="gregory" // 일요일 부터 시작
+        calendarType="gregory" // 일요일부터 시작
         showNeighboringMonth={false} // 전달, 다음달 날짜 숨기기
-        minDetail="year" // 10년단위 년도 숨기기
+        minDetail="year" // 10년 단위 년도 숨기기
         formatShortWeekday={(locale, date) => {
           const weekdays = ["S", "M", "T", "W", "T", "F", "S"];
           return weekdays[date.getDay()];
         }}
+        isRangeSelected={isRangeSelected} // 단일/범위 선택 상태 전달
       />
     </div>
   );

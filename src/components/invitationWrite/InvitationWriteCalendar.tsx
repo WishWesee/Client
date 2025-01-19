@@ -1,9 +1,5 @@
 import useInvitationStore from "@/store/invitation";
-import { ValuePiece } from "@/types/invitationWrite/calendar";
-import {
-  formatDateToCustomFormat,
-  formatTimeToCustomFormat,
-} from "@/utils/calendar/formatCustomDateFromDate";
+import { formatTimeToCustomFormat } from "@/utils/calendar/formatCustomDateFromDate";
 import ActiveCalendar from "@assets/icons/화면GUI_Full/2424_Activate/Calendar.svg?react";
 import ActiveTime from "@assets/icons/화면GUI_Full/2424_Activate/Time.svg?react";
 import Calendar from "@assets/icons/화면GUI_Full/2424_Default/Calendar.svg?react";
@@ -14,20 +10,18 @@ import InvitationWriteCalendarModal from "./InvitationWriteCalendarModal";
 import InvitationWriteTimeModal from "./InvitationWriteTimeModal";
 
 const InvitationWriteCalendar = () => {
-  const [date, setDate] = useState<ValuePiece>();
-
   const [isTimeShow, setIsTimeShow] = useState<boolean>(false);
   const [activeStateModal, setActiveStateModal] = useState<
     "time" | "date" | null
   >(null);
 
   const { invitation, setInvitation } = useInvitationStore();
-
-  const formatDate = date ? formatDateToCustomFormat(date) : "날짜 선택.";
+  const formatDate =
+    invitation.startDate === "" ? "날짜 선택" : invitation.startDate;
 
   const formatTime =
     invitation.startTime === ""
-      ? "시간 선택."
+      ? "시간 선택"
       : formatTimeToCustomFormat(invitation.startTime);
 
   const toggleTimeShow = () => {
@@ -50,7 +44,7 @@ const InvitationWriteCalendar = () => {
       </S.TitleContainer>
       <S.DateContainer>
         <S.SelectDateButton onClick={() => toggleState("date")}>
-          {date === undefined ? (
+          {formatDate === "날짜 선택" ? (
             <>
               <Calendar />
               <S.ButtonText>{formatDate}</S.ButtonText>
@@ -66,7 +60,7 @@ const InvitationWriteCalendar = () => {
         </S.SelectDateButton>
         {isTimeShow && (
           <S.SelectTimeButton onClick={() => toggleState("time")}>
-            {formatTime === "시간 선택." ? (
+            {formatTime === "시간 선택" ? (
               <>
                 <Time />
                 <S.ButtonText>{formatTime}</S.ButtonText>
@@ -84,8 +78,6 @@ const InvitationWriteCalendar = () => {
       </S.DateContainer>
       {activeStateModal === "date" && (
         <InvitationWriteCalendarModal
-          date={date!}
-          setDate={setDate}
           handleCloseModal={() => toggleState("date")}
           isTimeShow={isTimeShow}
           handleTimeShow={toggleTimeShow}

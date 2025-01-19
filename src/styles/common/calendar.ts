@@ -1,7 +1,7 @@
 import Calendar from "react-calendar";
 import styled from "styled-components";
 
-export const StyledCalendar = styled(Calendar)`
+export const StyledCalendar = styled(Calendar)<{ isRangeSelected: boolean }>`
   width: 100%;
   height: 100%;
 
@@ -22,9 +22,7 @@ export const StyledCalendar = styled(Calendar)`
     height: 30px;
     margin-bottom: 20px;
     border: none;
-    font-family: Noto_Sans;
-    font-weight: 700;
-    font-size: 20px;
+    font: var(--Selected-BtnName-FileName);
     align-items: center;
 
     button {
@@ -39,40 +37,73 @@ export const StyledCalendar = styled(Calendar)`
     }
 
     .react-calendar__navigation__arrow {
-      font-size: 20px; /* 버튼 크기 */
+      font-size: 20px;
       padding: 10px;
       font-weight: 100;
     }
   }
 
-  .react-calendar__month-view__weekdays__weekday {
-    text-align: center;
+  .react-calendar__month-view__weekdays {
+    width: 100%;
     margin-bottom: 8px;
+  }
 
-    abbr {
-      text-decoration: none;
-      font: var(--Selected-BtnName-FileName);
-      color: var(--Black);
-    }
+  .react-calendar__month-view__weekdays__weekday {
+    display: flex;
+    justify-content: center;
   }
 
   .react-calendar__tile {
-    text-align: center;
-    padding: 10px 0;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    height: 24px;
+    margin: 8px 0;
+    padding: 0;
     font: var(--Unselected-Field-rNBLeft);
     background: none;
-    border: none;
     outline: none;
+    border: none;
+    cursor: pointer;
+
+    abbr {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
     &--now {
       font: var(--BoldProperty-rNBRight);
     }
 
-    &--active {
-      background-color: var(--Primary);
+    &--rangeStart,
+    &--rangeEnd {
       color: white !important;
       font: var(--Selected-BtnName-FileName);
-      border-radius: 50%;
+      padding: 0 calc((14.2857% - 24px) / 2);
+
+      abbr {
+        background: var(--Primary) !important;
+        border-radius: 50% !important;
+        height: 24px;
+      }
+    }
+
+    &--range {
+      background-color: var(--Blue10);
+      color: black;
+    }
+
+    &--rangeStart {
+      background: linear-gradient(to right, white 50%, var(--Blue10) 50%);
+    }
+
+    &--rangeEnd {
+      ${({ isRangeSelected }) =>
+        isRangeSelected
+          ? `background: linear-gradient(to left, white 50%, var(--Blue10) 50%);`
+          : `background: none;`}
     }
   }
 `;
