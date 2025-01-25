@@ -1,4 +1,5 @@
 import { useInvitationQuery } from "@/api/invitation/getInvitation";
+import TotheTopBtn from "@/components/invite/TotheTopBtn";
 import VoteBox from "@/components/invite/VoteBox";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -11,6 +12,7 @@ const InvitationDetailPage = () => {
 
   return (
     <Container>
+      <TotheTopBtn />
       <VoteBox data={data} refetch={refetch} />
     </Container>
   );
@@ -22,6 +24,7 @@ const Container = styled.div`
   margin-top: 54px;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
