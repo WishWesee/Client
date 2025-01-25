@@ -7,7 +7,6 @@ export const ModalWrap = styled.div`
   margin-top: 8px;
   left: 50%;
   transform: translateX(-50%);
-  box-sizing: border-box;
   width: 310px;
   padding: 24px;
   border: 2px solid var(--Blue10);
