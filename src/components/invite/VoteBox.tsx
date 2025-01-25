@@ -1,7 +1,6 @@
 import * as S from "@styles/invite/VoteBoxStyle";
 import VoteDueIcon from "@assets/icons/화면GUI_Full/2424_Activate/VoteDue.svg?react";
 import VoteIcon from "@assets/icons/화면GUI_Full/2424_Activate/Vote.svg?react";
-import DeleteIcon from "@assets/icons/화면GUI_Line/2020/Delete.svg?react";
 import { TInvitationRes, TVoterRes } from "@/types/invite";
 import RadioButton from "../button/Btn_Radio";
 import { useEffect, useState } from "react";
@@ -11,6 +10,7 @@ import { putSchedule } from "@/api/schedultVote/putSchedule";
 import { getVoters } from "@/api/schedultVote/getVoters";
 import VotePersonModal from "./VotePersonModal";
 import { formatVoteDateTime } from "@/utils/formatVoteDateTime";
+import InputWrap from "./InputWrap";
 
 interface Props {
   data: TInvitationRes;
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const VoteBox = ({ data, refetch }: Props) => {
-  const isLogin = true; //로그인되어있는 경우
+  const isLogin = false; //로그인되어있는 경우
 
   const [selectedVotes, setSelectedVotes] = useState<number[]>([]);
   const [personName, setPersonName] = useState("");
@@ -133,30 +133,20 @@ const VoteBox = ({ data, refetch }: Props) => {
       <hr />
       {!isLogin && !data.scheduleVoteClosed && (
         <>
-          <S.PersonInputWrap $isCheckPersonName={isCheckPersonName}>
-            <label htmlFor="inputPerson">투표자</label>
-            <input
-              type="text"
-              id="inputPerson"
-              placeholder="이름을 입력하세요"
-              value={personName}
-              onChange={(e) => {
-                setPersonName(e.target.value);
-                setIsCheckPersonName(false);
-              }}
-              readOnly={isVoteComplete}
-            />
-            {personName.length > 0 && (
-              <>
-                {isVoteComplete && (
-                  <DeleteIcon onClick={() => setPersonName("")} />
-                )}
-                {!isCheckPersonName && (
-                  <button onClick={handleGuestSchedule}>확인</button>
-                )}
-              </>
-            )}
-          </S.PersonInputWrap>
+          <InputWrap
+            labelText="투표자"
+            placeholder="이름을 입력하세요"
+            value={personName}
+            onChange={(e) => {
+              setPersonName(e.target.value);
+              setIsCheckPersonName(false);
+            }}
+            isReadOnly={isVoteComplete}
+            isViewDeleteButton={isVoteComplete}
+            isViewCheckButton={isCheckPersonName}
+            handleDeleteClick={() => setPersonName("")}
+            handleCheckClick={handleGuestSchedule}
+          />
           <hr />
         </>
       )}
