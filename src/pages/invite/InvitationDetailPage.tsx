@@ -1,4 +1,5 @@
 import { useInvitationQuery } from "@/api/invitation/getInvitation";
+import ComingWrap from "@/components/invite/ComingWrap";
 import KakaoWrap from "@/components/invite/KakaoWrap";
 import PageFoldBtn from "@/components/invite/PageFoldBtn";
 import ShareWrap from "@/components/invite/ShareWrap";
@@ -26,6 +27,7 @@ const InvitationDetailPage = () => {
         title={data.title}
         cardImage={data.cardImage}
       />
+      <ComingWrap id={data.invitationId} />
     </Container>
   );
 };

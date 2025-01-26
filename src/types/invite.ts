@@ -1,5 +1,6 @@
 export type TInvitationRes = {
   invitationId: number;
+  alreadySaved: boolean;
   cardImage: string;
   title: string;
   startDate: string;
@@ -34,4 +35,15 @@ export type TVoterRes = {
   endTime: string;
   voterCount: number;
   voterNames: string[];
+};
+
+export type TAttendanceRes = {
+  check: boolean;
+  information: {
+    attendanceSurveyClosed: boolean;
+    attendingCount: number;
+    notAttendingCount: number;
+    isAttending: boolean | null;
+    isSender: boolean;
+  };
 };

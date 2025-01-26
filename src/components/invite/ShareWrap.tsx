@@ -17,7 +17,7 @@ const ShareWrap = ({
   const { isMobile } = useWMediaQuery();
 
   const ClipBoard = () => {
-    const url = `http://localhost:3000/invite/${id}/share`;
+    const url = `http://localhost:3000/invite/${id}`;
 
     navigator.clipboard.writeText(url).then(() => {
       alert("초대 링크가 복사되었습니다");
@@ -50,7 +50,7 @@ const ShareWrap = ({
           title={title}
           text="초대장이 도착했어요!"
           imageUrl={cardImage}
-          link={`http://localhost:3000/invite/${id}/share`}
+          link={`http://localhost:3000/invite/${id}`}
           buttonComponent={<ShareBtn text="카카오톡" icon={KakaoTalkIcon} />}
         />
         <ShareBtn text="링크 복사" icon={LinkIcon} onClick={ClipBoard} />
