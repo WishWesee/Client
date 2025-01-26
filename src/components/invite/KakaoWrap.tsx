@@ -4,6 +4,7 @@ import InputWrap from "./InputWrap";
 import ButtonBottomNext from "../button/Btn_Bottom_Next";
 import useWMediaQuery from "@/hooks/useWMediaQuery";
 import { TInvitationRes } from "@/types/invite";
+import ShareKakaoBtn from "../shareSNS/ShareKakaoBtn";
 
 interface Props {
   data: TInvitationRes;
@@ -40,7 +41,15 @@ const KakaoWrap = ({ data }: Props) => {
                 marginTop: 20,
               }}
             >
-              <ButtonBottomNext text="보내기" color="blue" />
+              <ShareKakaoBtn
+                title={data.title}
+                text={content ? content : "초대장이 도착했어요!"}
+                imageUrl={data.cardImage}
+                link={`http://localhost:3000/invite/${data.invitationId}/share`}
+                buttonComponent={
+                  <ButtonBottomNext text="보내기" color="blue" />
+                }
+              />
             </div>
           )}
         </div>
@@ -60,7 +69,15 @@ const KakaoWrap = ({ data }: Props) => {
             </S.KakaoPreviewTextWrap>
           </S.KakaoPreviewWrap>
         </S.KakaoPreview>
-        {!isDesktop && <ButtonBottomNext text="보내기" color="blue" />}
+        {!isDesktop && (
+          <ShareKakaoBtn
+            title={data.title}
+            text={content ? content : "초대장이 도착했어요!"}
+            imageUrl={data.cardImage}
+            link={`http://localhost:3000/invite/${data.invitationId}/share`}
+            buttonComponent={<ButtonBottomNext text="보내기" color="blue" />}
+          />
+        )}
       </S.ContentWrap>
     </S.Container>
   );
