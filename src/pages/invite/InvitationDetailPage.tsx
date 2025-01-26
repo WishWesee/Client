@@ -1,6 +1,7 @@
 import { useInvitationQuery } from "@/api/invitation/getInvitation";
 import KakaoWrap from "@/components/invite/KakaoWrap";
 import PageFoldBtn from "@/components/invite/PageFoldBtn";
+import ShareWrap from "@/components/invite/ShareWrap";
 import TotheTopBtn from "@/components/invite/TotheTopBtn";
 import VoteBox from "@/components/invite/VoteBox";
 import { useState } from "react";
@@ -20,6 +21,11 @@ const InvitationDetailPage = () => {
       <VoteBox data={data} refetch={refetch} />
       <PageFoldBtn isFold={isFold} setIsFold={setIsFold} />
       <KakaoWrap data={data} />
+      <ShareWrap
+        id={data.invitationId}
+        title={data.title}
+        cardImage={data.cardImage}
+      />
     </Container>
   );
 };

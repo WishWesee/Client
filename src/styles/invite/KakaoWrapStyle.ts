@@ -10,6 +10,7 @@ export const Container = styled.div`
   width: 100%;
   padding-top: 20px;
   padding-bottom: 40px;
+  background-color: var(--White);
 
   ${isTablet} {
     padding-top: 40px;
