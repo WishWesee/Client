@@ -26,7 +26,7 @@ const InvitationDetailPage = () => {
 
   return (
     <Container>
-      {/* <TotheTopBtn /> */}
+      <TotheTopBtn />
       <VoteBox data={data} refetch={refetch} isLogin={isLogin} />
       <PageFoldBtn isFold={isFold} setIsFold={setIsFold} />
       <KakaoWrap data={data} />
@@ -46,7 +46,11 @@ const InvitationDetailPage = () => {
         isLogin={isLogin}
         isShareLink={isShareLink}
       />
-      <ReviewWrap id={data.invitationId} title={data.title} />
+      <ReviewWrap
+        id={data.invitationId}
+        title={data.title}
+        isOwner={data.owner}
+      />
     </Container>
   );
 };

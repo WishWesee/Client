@@ -3,16 +3,21 @@ import { useFeedbackQuery } from "@/api/invitation/getFeedback";
 import ChatIcon from "@assets/icons/화면GUI_Full/2424_Activate/Chat.svg?react";
 import ImgIcon from "@assets/icons/화면GUI_Full/2424_Activate/Img.svg?react";
 import DeleteIcon from "@assets/icons/화면GUI_Line/2020/Delete.svg?react";
+import DeleteRedIcon from "@assets/icons/화면GUI_Full/2424_Activate/Delete.svg?react";
 import { useRef, useState } from "react";
 import { isDesktop, isTablet } from "@/hooks/Media";
+import { postFeedback } from "@/api/invitation/postFeedback";
+import { deleteFeedback } from "@/api/invitation/deleteFeedback";
+import TwoBtnModal from "../modal/TwoBtnModal";
 
 type Props = {
   id: number;
   title: string;
+  isOwner: boolean;
 };
 
-const ReviewWrap = ({ id, title }: Props) => {
-  const { data } = useFeedbackQuery(id);
+const ReviewWrap = ({ id, title, isOwner }: Props) => {
+  const { data, refetch } = useFeedbackQuery(id);
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [reviewText, setReviewText] = useState("");
   const [image, setImage] = useState<{
@@ -21,8 +26,10 @@ const ReviewWrap = ({ id, title }: Props) => {
   }>({
     imageUrl: "",
     imageFile: null,
-  });
+  }); //선택한 사진
   const [isInputFocused, setIsInputFocused] = useState(false); //Focus 상태관리
+  const [deleteId, setDeleteId] = useState<number | null>(null); //삭제 Id 저장
+  const [isDeleteModal, setIsDeleteModal] = useState(false); //삭제 모달
 
   const onAddPicture = () => {
     inputFileRef.current?.click();
@@ -38,6 +45,27 @@ const ReviewWrap = ({ id, title }: Props) => {
 
     const imageUrl = URL.createObjectURL(file);
     setImage({ imageUrl: imageUrl, imageFile: file });
+  };
+
+  //후기 저장 함수
+  const handleSaveReview = async () => {
+    await postFeedback(id, image.imageFile, reviewText);
+    refetch();
+    setReviewText("");
+    setImage({
+      imageUrl: "",
+      imageFile: null,
+    });
+  };
+
+  //후기 삭제 함수
+  const handleDeleteReview = async () => {
+    if (deleteId === null) return;
+
+    await deleteFeedback(id, deleteId);
+    refetch();
+    setDeleteId(null);
+    setIsDeleteModal(false);
   };
 
   return (
@@ -96,10 +124,45 @@ const ReviewWrap = ({ id, title }: Props) => {
               />
             </InputTextWrap>
           </InputWrap>
-          {reviewText.length > 0 && <button>확인</button>}
+          {reviewText.length > 0 && (
+            <button onClick={handleSaveReview}>확인</button>
+          )}
         </InputContainer>
       </HeadWrap>
-      <ContentWrap></ContentWrap>
+      <ContentWrap>
+        {data.information.feedbackResList.map((data) => {
+          return (
+            <ReviewContent key={data.feedbackId}>
+              {data.image && <img src={data.image} alt={data.content} />}
+              <p>{data.content}</p>
+              {isOwner && (
+                <RightWrap>
+                  <DeleteRedIcon
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setDeleteId(data.feedbackId);
+                      setIsDeleteModal(true);
+                    }}
+                  />
+                </RightWrap>
+              )}
+            </ReviewContent>
+          );
+        })}
+      </ContentWrap>
+      {isDeleteModal && (
+        <TwoBtnModal
+          text="해당 후기를 삭제하시겠습니까?"
+          leftBtnText="취소"
+          rightBtnText="삭제"
+          color="red"
+          onLeftClick={() => {
+            setDeleteId(null);
+            setIsDeleteModal(false);
+          }}
+          onRightClick={handleDeleteReview}
+        />
+      )}
     </Container>
   );
 };
@@ -124,6 +187,7 @@ export const Container = styled.div`
 `;
 
 export const HeadWrap = styled.div`
+  transition: all 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
   border-radius: 8px;
@@ -131,10 +195,26 @@ export const HeadWrap = styled.div`
   gap: 20px;
   background-color: var(--White);
 
+  ${isTablet} {
+    padding: 30px;
+  }
+
+  ${isDesktop} {
+    padding: 40px;
+  }
+
   > p {
     font: var(--Selected-BtnName-FileName);
     color: var(--Gray40);
     padding: 0 20px 12px;
+
+    ${isTablet} {
+      padding: 0;
+    }
+
+    ${isDesktop} {
+      padding: 0;
+    }
 
     > span {
       color: var(--Primary);
@@ -143,9 +223,18 @@ export const HeadWrap = styled.div`
 `;
 
 export const TitleWrap = styled.div`
+  transition: all 0.3s ease-in-out;
   display: flex;
   justify-content: space-between;
   padding: 12px 20px 0;
+
+  ${isTablet} {
+    padding: 0;
+  }
+
+  ${isDesktop} {
+    padding: 0;
+  }
 
   > h2 {
     font: var(--TitleText);
@@ -229,5 +318,40 @@ export const InputTextWrap = styled.div`
 `;
 
 export const ContentWrap = styled.div`
-  background-color: var(--Blue5);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 20px 0;
+
+  ${isTablet} {
+    padding: 20px 0 0;
+  }
+
+  ${isDesktop} {
+    padding: 20px 0 0;
+  }
+`;
+
+export const ReviewContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  background-color: var(--White);
+  border-radius: 8px;
+
+  > img {
+    max-width: 326px;
+    border-radius: 8px;
+  }
+
+  > p {
+    font: var(--RegularContext);
+    color: var(--Black);
+  }
+`;
+
+export const RightWrap = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
