@@ -42,9 +42,16 @@ const ReviewWrap = ({ id, title, isOwner }: Props) => {
     }
 
     const file = e.target.files[0];
-
     const imageUrl = URL.createObjectURL(file);
-    setImage({ imageUrl: imageUrl, imageFile: file });
+
+    setImage((prev) => {
+      if (prev.imageUrl) {
+        URL.revokeObjectURL(prev.imageUrl);
+      }
+      return { imageUrl, imageFile: file };
+    });
+
+    e.target.value = "";
   };
 
   //후기 저장 함수
@@ -113,7 +120,13 @@ const ReviewWrap = ({ id, title, isOwner }: Props) => {
                   style={{ cursor: "pointer" }}
                 />
               )}
-              <ImgIcon style={{ cursor: "pointer" }} onClick={onAddPicture} />
+              <ImgIcon
+                style={{
+                  cursor: image.imageFile === null ? "pointer" : "default",
+                  opacity: image.imageFile === null ? 1 : 0.5,
+                }}
+                onClick={() => image.imageFile === null && onAddPicture()}
+              />
               <input
                 id="fileInput"
                 type="file"
