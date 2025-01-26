@@ -13,9 +13,12 @@ import { TAttendanceVotersRes } from "@/types/invite";
 import VotePersonModal from "./VotePersonModal";
 import { getAttendanceVoters } from "@/api/attendanceVote/getAttendanceVoters";
 
-const ComingWrap = ({ id }: { id: number }) => {
-  const isLogin = true; //로그인되어있는 경우
+type Props = {
+  id: number;
+  isLogin: boolean;
+};
 
+const ComingWrap = ({ id, isLogin }: Props) => {
   const { data, refetch } = useAttendanceQuery(id);
 
   const [personName, setPersonName] = useState("");

@@ -2,6 +2,7 @@ import { useInvitationQuery } from "@/api/invitation/getInvitation";
 import ComingWrap from "@/components/invite/ComingWrap";
 import KakaoWrap from "@/components/invite/KakaoWrap";
 import PageFoldBtn from "@/components/invite/PageFoldBtn";
+import SaveWrap from "@/components/invite/SaveWrap";
 import ShareWrap from "@/components/invite/ShareWrap";
 import TotheTopBtn from "@/components/invite/TotheTopBtn";
 import VoteBox from "@/components/invite/VoteBox";
@@ -10,6 +11,8 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const InvitationDetailPage = () => {
+  const isLogin = true; //로그인되어있는 경우
+
   const { id } = useParams();
   const invitationId = id ? parseInt(id) : 0;
 
@@ -19,15 +22,20 @@ const InvitationDetailPage = () => {
   return (
     <Container>
       <TotheTopBtn />
-      <VoteBox data={data} refetch={refetch} />
+      <VoteBox data={data} refetch={refetch} isLogin={isLogin} />
       <PageFoldBtn isFold={isFold} setIsFold={setIsFold} />
       <KakaoWrap data={data} />
+      <ComingWrap id={data.invitationId} isLogin={isLogin} />
+      <SaveWrap
+        id={data.invitationId}
+        isAlreadySave={data.alreadySaved}
+        isLogin={isLogin}
+      />
       <ShareWrap
         id={data.invitationId}
         title={data.title}
         cardImage={data.cardImage}
       />
-      <ComingWrap id={data.invitationId} />
     </Container>
   );
 };
