@@ -6,12 +6,16 @@ import SaveWrap from "@/components/invite/SaveWrap";
 import ShareWrap from "@/components/invite/ShareWrap";
 import TotheTopBtn from "@/components/invite/TotheTopBtn";
 import VoteBox from "@/components/invite/VoteBox";
+import useWMediaQuery from "@/hooks/useWMediaQuery";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const InvitationDetailPage = () => {
   const isLogin = true; //로그인되어있는 경우
+  const isShareLink = false; //공유된 링크로 온건지 여부
+
+  const { isMobile } = useWMediaQuery();
 
   const { id } = useParams();
   const invitationId = id ? parseInt(id) : 0;
@@ -26,15 +30,20 @@ const InvitationDetailPage = () => {
       <PageFoldBtn isFold={isFold} setIsFold={setIsFold} />
       <KakaoWrap data={data} />
       <ComingWrap id={data.invitationId} isLogin={isLogin} />
-      <SaveWrap
-        id={data.invitationId}
-        isAlreadySave={data.alreadySaved}
-        isLogin={isLogin}
-      />
+      {isMobile && isShareLink && (
+        <SaveWrap
+          id={data.invitationId}
+          isAlreadySave={data.alreadySaved}
+          isLogin={isLogin}
+        />
+      )}
       <ShareWrap
         id={data.invitationId}
         title={data.title}
         cardImage={data.cardImage}
+        isAlreadySave={data.alreadySaved}
+        isLogin={isLogin}
+        isShareLink={isShareLink}
       />
     </Container>
   );
