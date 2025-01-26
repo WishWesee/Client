@@ -28,5 +28,5 @@ export const ButtonNext = {
 
 export const Button = { 
     text: "다음",
-    color: "grey"
+    color: "blue"
 }

@@ -13,13 +13,13 @@ export const LoginContainer = styled.div`
     margin-top: 367px;
 
     @media (min-width: 768px)  {
-        margin-top: calc( 100vh - 370px );
+        margin-top: 544px;
         padding: 0 1.25rem 0 1.25rem;
         height: auto;
     }
 
     @media (min-width: 1200px) {
-        margin-top: calc( 100vh - 370px);
+        margin-top: 676px;
         padding: 0 1.25rem 0 1.25rem;
         height: auto;
     }

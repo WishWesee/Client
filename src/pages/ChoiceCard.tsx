@@ -13,20 +13,34 @@ import useWMediaQuery from "@/hooks/useWMediaQuery";
 
 const ChoiceCard: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [activeRectangle, setActiveRectangle] = useState<number>(0);
   const [activeModal, setActiveModal] = useState(false);
-  
+
   // 화면 크기를 감지하는 훅
   const { isDesktop, isTablet } = useWMediaQuery();
 
   const frontProp = isDesktop || isTablet ? "다음" : Top.NullFront;
 
-  const handleToggle = (index: number) => {
-    setActiveIndex(index); 
+  const handleSBToggle = (index: number) => {
+    setActiveIndex(index);
+  };
+
+  const handleRectangleToggle = (index: number) => {
+    setActiveRectangle(index);
   };
 
   const renderModal = () => {
-    setActiveModal(!activeModal); 
+    setActiveModal(!activeModal);
   };
+
+  // HorizontalSB 항목 데이터
+  const sbItems = [
+    { title: SB.All },
+    { title: SB.MY },
+    { title: SB.Birth },
+    { title: SB.Trav },
+    { title: SB.Year },
+  ];
 
   return (
     <>
@@ -46,46 +60,27 @@ const ChoiceCard: React.FC = () => {
         <Wrap Title={WrapTexts.Title} SubText={WrapTexts.SubText} />
         <style.Wrap_Card>
           <style.HorizontalSB_Content>
-            <style.Btn_hSB_New>
+            <style.Btn_hSB_New onClick={renderModal}>
               <AddIcon />
               <ImgIcon />
             </style.Btn_hSB_New>
-            <HorizontalSB
-              Title={SB.All}
-              Toggled={activeIndex === 0}
-              onClick={() => handleToggle(0)}
-            />
-            <HorizontalSB
-              Title={SB.MY}
-              Toggled={activeIndex === 1}
-              onClick={() => handleToggle(1)}
-            />
-            <HorizontalSB
-              Title={SB.Birth}
-              Toggled={activeIndex === 2}
-              onClick={() => handleToggle(2)}
-            />
-            <HorizontalSB
-              Title={SB.Trav}
-              Toggled={activeIndex === 3}
-              onClick={() => handleToggle(3)}
-            />
-            <HorizontalSB
-              Title={SB.Year}
-              Toggled={activeIndex === 4}
-              onClick={() => handleToggle(4)}
-            />
+            {/* HorizontalSB를 map으로 렌더링 */}
+            {sbItems.map((item, index) => (
+              <HorizontalSB
+                key={index}
+                Title={item.title}
+                Toggled={activeIndex === index}
+                onClick={() => handleSBToggle(index)}
+              />
+            ))}
           </style.HorizontalSB_Content>
           <style.Img_Content_Card>
-            <Rectangle />
-            <Rectangle />
-            <Rectangle />
-            <Rectangle />
-            <Rectangle />
-            <Rectangle />
+            {Array.from({ length: 6 }).map((_, index) => (
+                <Rectangle key={index} toggled={activeRectangle === index} onClick={() => handleRectangleToggle(index)} />
+              ))}
           </style.Img_Content_Card>
           <style.Bottom>
-            <NextButton text={Button.text} color={Button.color} onClick={renderModal} />
+            <NextButton text={Button.text} color={Button.color} />
           </style.Bottom>
         </style.Wrap_Card>
       </style.Content>
