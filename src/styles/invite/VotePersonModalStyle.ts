@@ -37,8 +37,14 @@ export const HeadWrap = styled.div`
   gap: 20px;
   width: 100%;
 
-  > h3 {
+  h3 {
     font: var(--Selected-BtnName-FileName);
     color: var(--Primary);
   }
+`;
+
+export const IconWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;

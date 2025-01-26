@@ -9,6 +9,9 @@ import { getGuestAttendance } from "@/api/attendanceVote/getGuestAttendance";
 import { useAttendanceQuery } from "@/api/attendanceVote/getAttendance";
 import { postAttendance } from "@/api/attendanceVote/postAttendance";
 import { putAttendance } from "@/api/attendanceVote/putAttendance";
+import { TAttendanceVotersRes } from "@/types/invite";
+import VotePersonModal from "./VotePersonModal";
+import { getAttendanceVoters } from "@/api/attendanceVote/getAttendanceVoters";
 
 const ComingWrap = ({ id }: { id: number }) => {
   const isLogin = true; //로그인되어있는 경우
@@ -21,6 +24,8 @@ const ComingWrap = ({ id }: { id: number }) => {
   const [attendanceClosed, setAttendanceClosed] = useState(
     data.information.attendanceSurveyClosed
   ); //참석 조사 마감 여부
+  const [modalVote, setModalVote] = useState<boolean | null>(null); //선택한 모달
+  const [modalData, setModalData] = useState<TAttendanceVotersRes | null>(null); //모달 데이터
 
   useEffect(() => {
     if (isLogin) {
@@ -62,6 +67,22 @@ const ComingWrap = ({ id }: { id: number }) => {
       }
     } catch (error) {
       console.error("오류:", error);
+    }
+  };
+
+  //투표자 목록 조회
+  const handleVoter = async (isBool: boolean) => {
+    try {
+      if (isBool === null) return;
+
+      const response = await getAttendanceVoters(id, isBool);
+
+      if (response?.check) {
+        setModalVote(isBool);
+        setModalData(response.information);
+      }
+    } catch (error) {
+      console.error("오류", error);
     }
   };
 
@@ -161,8 +182,13 @@ const ComingWrap = ({ id }: { id: number }) => {
           count={data.information.attendingCount}
           isEnd={attendanceClosed}
           isActive={isAttending === true}
-          onClick={() => handleAttendance(true)}
-          disabled={!isCheckPersonName || attendanceClosed}
+          onClick={() =>
+            attendanceClosed ? handleVoter(true) : handleAttendance(true)
+          }
+          disabled={
+            !isCheckPersonName ||
+            (attendanceClosed && !data.information.isSender)
+          }
         />
         <AttendanceButton
           icon={SadIcon}
@@ -170,9 +196,23 @@ const ComingWrap = ({ id }: { id: number }) => {
           count={data.information.notAttendingCount}
           isEnd={attendanceClosed}
           isActive={isAttending === false}
-          onClick={() => handleAttendance(false)}
-          disabled={!isCheckPersonName || attendanceClosed}
+          onClick={() =>
+            attendanceClosed ? handleVoter(false) : handleAttendance(false)
+          }
+          disabled={
+            !isCheckPersonName ||
+            (attendanceClosed && !data.information.isSender)
+          }
         />
+        {modalVote !== null && modalData && (
+          <VotePersonModal
+            icon={modalVote ? HappyIcon : SadIcon}
+            leftText={modalVote ? "참석 가능해요!" : "다음에 함께..."}
+            rightText={modalData.voterCount}
+            nameTexts={modalData.voterNames}
+            onClick={() => setModalVote(null)}
+          />
+        )}
       </BtnWrap>
       {data.information.isSender && (
         <DeadlineWrap>
@@ -219,6 +259,7 @@ export const Container = styled.div`
 export const BtnWrap = styled.div`
   display: flex;
   gap: 12px;
+  position: relative;
 
   > button {
     display: inline-flex;

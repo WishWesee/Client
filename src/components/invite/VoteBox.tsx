@@ -18,7 +18,7 @@ interface Props {
 }
 
 const VoteBox = ({ data, refetch }: Props) => {
-  const isLogin = false; //로그인되어있는 경우
+  const isLogin = true; //로그인되어있는 경우
 
   const [selectedVotes, setSelectedVotes] = useState<number[]>([]);
   const [personName, setPersonName] = useState("");

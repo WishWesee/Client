@@ -47,3 +47,8 @@ export type TAttendanceRes = {
     isSender: boolean;
   };
 };
+
+export type TAttendanceVotersRes = {
+  voterCount: number;
+  voterNames: string[];
+};
