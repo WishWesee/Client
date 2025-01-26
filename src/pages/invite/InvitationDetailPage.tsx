@@ -14,7 +14,7 @@ import styled from "styled-components";
 
 const InvitationDetailPage = () => {
   const isLogin = true; //로그인되어있는 경우
-  const isShareLink = false; //공유된 링크로 온건지 여부
+  const isShareLink = true; //공유된 링크로 온건지 여부
 
   const { isMobile } = useWMediaQuery();
 
@@ -59,7 +59,6 @@ export default InvitationDetailPage;
 
 const Container = styled.div`
   margin-top: 54px;
-  padding: 20px;
 
   display: flex;
   flex-direction: column;

@@ -10,6 +10,7 @@ export const Container = styled.div`
   padding-top: 20px;
   padding-bottom: 40px;
   background-color: var(--White);
+  border-radius: 8px;
 
   > h3 {
     font: var(--Selected-BtnName-FileName);
@@ -32,6 +33,7 @@ export const Button = styled.button<{ $isAlreadySave: boolean }>`
   border-radius: 8px;
   padding: 8px 12px;
   cursor: pointer;
+  max-width: 348px;
 
   > span {
     display: inline-flex;

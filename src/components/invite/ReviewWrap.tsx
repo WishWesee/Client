@@ -189,13 +189,16 @@ export const Container = styled.div`
   width: 100%;
   background-color: var(--Blue5);
   padding-bottom: 40px;
+  border-radius: 8px;
 
   ${isTablet} {
     padding: 30px 40px;
+    border-radius: 0px;
   }
 
   ${isDesktop} {
     padding: 40px 64px;
+    border-radius: 0px;
   }
 `;
 

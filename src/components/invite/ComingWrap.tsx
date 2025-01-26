@@ -241,15 +241,19 @@ export const Container = styled.div`
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: var(--White);
+  width: 100%;
+  border-radius: 8px;
 
   ${isTablet} {
     padding-top: 30px;
     padding-bottom: 120px;
+    border-radius: 0px;
   }
 
   ${isDesktop} {
     padding-top: 40px;
     padding-bottom: 160px;
+    border-radius: 0px;
   }
 
   > h3 {

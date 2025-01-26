@@ -53,6 +53,15 @@ const ShareWrap = ({
     }
   };
 
+  const handleSaveReceived = async () => {
+    try {
+      await postSaveReceived(id);
+      navigate(`/invite/${id}`);
+    } catch (error) {
+      console.error("오류:", error);
+    }
+  };
+
   const ShareBtn = ({
     text,
     icon: Icon,
@@ -69,15 +78,6 @@ const ShareWrap = ({
         {isMobile && <p>{text}</p>}
       </S.BtnContainer>
     );
-  };
-
-  const handleSaveReceived = async () => {
-    try {
-      await postSaveReceived(id);
-      navigate(`/invite/${id}`);
-    } catch (error) {
-      console.error("오류:", error);
-    }
   };
 
   return (

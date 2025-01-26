@@ -11,19 +11,22 @@ export const Container = styled.div<{ $isShareLink: boolean }>`
   padding-top: 20px;
   padding-bottom: 40px;
   background-color: var(--White);
+  border-radius: 8px;
 
   ${isTablet} {
-    padding: 0px;
+    padding: 0px 40px;
     flex-direction: row;
     justify-content: ${(props) =>
       props.$isShareLink ? "space-between" : "flex-end"};
+    border-radius: 0px;
   }
 
   ${isDesktop} {
-    padding: 0px;
+    padding: 0px 64px;
     flex-direction: row;
     justify-content: ${(props) =>
       props.$isShareLink ? "space-between" : "flex-end"};
+    border-radius: 0px;
   }
 
   > h3 {
