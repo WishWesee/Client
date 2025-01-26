@@ -28,12 +28,29 @@ const ShareWrap = ({
 
   const { isMobile } = useWMediaQuery();
 
+  //초대 링크 복사 함수
   const ClipBoard = () => {
     const url = `http://localhost:3000/invite/${id}`;
 
     navigator.clipboard.writeText(url).then(() => {
       alert("초대 링크가 복사되었습니다");
     });
+  };
+
+  //디바이스 공유 함수
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href,
+        });
+      } catch (error) {
+        console.error("공유 실패:", error);
+      }
+    } else {
+      alert("이 브라우저에서는 공유 기능을 지원하지 않습니다.");
+    }
   };
 
   const ShareBtn = ({
@@ -90,7 +107,9 @@ const ShareWrap = ({
           buttonComponent={<ShareBtn text="카카오톡" icon={KakaoTalkIcon} />}
         />
         <ShareBtn text="링크 복사" icon={LinkIcon} onClick={ClipBoard} />
-        {isMobile && <ShareBtn text="더보기" icon={UploadIcon} />}
+        {isMobile && (
+          <ShareBtn text="더보기" icon={UploadIcon} onClick={handleShare} />
+        )}
       </S.ShareBtnWrap>
     </S.Container>
   );

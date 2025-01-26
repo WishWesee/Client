@@ -2,6 +2,7 @@ import { useInvitationQuery } from "@/api/invitation/getInvitation";
 import ComingWrap from "@/components/invite/ComingWrap";
 import KakaoWrap from "@/components/invite/KakaoWrap";
 import PageFoldBtn from "@/components/invite/PageFoldBtn";
+import ReviewWrap from "@/components/invite/ReviewWrap";
 import SaveWrap from "@/components/invite/SaveWrap";
 import ShareWrap from "@/components/invite/ShareWrap";
 import TotheTopBtn from "@/components/invite/TotheTopBtn";
@@ -25,7 +26,7 @@ const InvitationDetailPage = () => {
 
   return (
     <Container>
-      <TotheTopBtn />
+      {/* <TotheTopBtn /> */}
       <VoteBox data={data} refetch={refetch} isLogin={isLogin} />
       <PageFoldBtn isFold={isFold} setIsFold={setIsFold} />
       <KakaoWrap data={data} />
@@ -45,6 +46,7 @@ const InvitationDetailPage = () => {
         isLogin={isLogin}
         isShareLink={isShareLink}
       />
+      <ReviewWrap id={data.invitationId} title={data.title} />
     </Container>
   );
 };

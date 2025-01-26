@@ -52,3 +52,17 @@ export type TAttendanceVotersRes = {
   voterCount: number;
   voterNames: string[];
 };
+
+export type TFeedbackRes = {
+  check: boolean;
+  information: {
+    count: number;
+    feedbackResList: {
+      feedbackId: number;
+      content: string;
+      image: string | null;
+      deletable: boolean;
+    }[];
+    isWritable: boolean;
+  };
+};
