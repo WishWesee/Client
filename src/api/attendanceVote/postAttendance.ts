@@ -4,10 +4,10 @@ import { api } from "..";
 export const postAttendance = async (
   invitationId: number,
   nickname: string,
-  attending: boolean
+  isAttending: boolean
 ) => {
-  const requestBody: { attending: boolean; nickname?: string } = {
-    attending,
+  const requestBody: { isAttending: boolean; nickname?: string } = {
+    isAttending,
   };
 
   if (nickname.trim()) {
