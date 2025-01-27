@@ -4,7 +4,7 @@ import LoadingIcon2 from "@assets/images/Loading/Loading2.svg?react";
 import LoadingIcon3 from "@assets/images/Loading/Loading3.svg?react";
 import { useEffect, useState } from "react";
 
-const LoadingComponent = () => {
+const LoadingComponent = ({ text }: { text: string }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [direction, setDirection] = useState<"up" | "down">("up");
   const RESULT_IMAGES = [LoadingIcon1, LoadingIcon2, LoadingIcon3];
@@ -45,7 +45,7 @@ const LoadingComponent = () => {
   return (
     <Container>
       <CurrentIcon />
-      <span>초대장을 만들고 있어요...</span>
+      <span>{text}</span>
     </Container>
   );
 };
