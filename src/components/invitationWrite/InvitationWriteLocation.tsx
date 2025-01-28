@@ -7,6 +7,7 @@ import { useToolBarContext } from "@/contexts/toolBarContext";
 import { useGetSearch } from "@/hooks/write/search";
 import { SearchLocation } from "@/types/invitationWrite/location";
 import { useEffect, useState } from "react";
+import TwoBtnModal from "../modal/TwoBtnModal";
 import LocationMapComponent from "./location/LocationMapComponent";
 import LocationModal from "./location/LocationModal";
 
@@ -15,8 +16,10 @@ const InvitationWriteLocation = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [location, setLocation] = useState<SearchLocation | null>(null);
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  const [isShowSearchModal, setIsShowSearchModal] = useState<boolean>(false);
 
-  const { setToolBarContent } = useToolBarContext();
+  const { selectedTool, setToolBarContent } = useToolBarContext();
   const { data, refetch } = useGetSearch(searchInputValue);
 
   const cancelInput = () => {
@@ -29,6 +32,12 @@ const InvitationWriteLocation = () => {
       refetch();
     }
   }, [searchInputValue, refetch]);
+
+  useEffect(() => {
+    if (selectedTool?.type === "ReSearch") {
+      setIsShowSearchModal(true);
+    }
+  }, [selectedTool]);
 
   return (
     <S.Container
@@ -62,10 +71,7 @@ const InvitationWriteLocation = () => {
           <>
             <LocationMapComponent
               location={location}
-              onDelete={() => {
-                setLocation(null);
-                setSearchInputValue("");
-              }}
+              onDelete={() => setIsShowModal(true)}
             />
           </>
         ) : (
@@ -99,6 +105,38 @@ const InvitationWriteLocation = () => {
 
         {searchInputValue !== "" && data !== null && location === null && (
           <LocationModal locaions={data} setLocation={setLocation} />
+        )}
+
+        {isShowSearchModal && (
+          <TwoBtnModal
+            text={
+              "다시 검색하면 기존에 입력된 주소가 삭제됩니다. \n다시 검색하시겠습니까?"
+            }
+            leftBtnText={"취소"}
+            rightBtnText={"다시 검색"}
+            color={"blue"}
+            onLeftClick={() => setIsShowSearchModal(false)}
+            onRightClick={() => {
+              setLocation(null);
+              setSearchInputValue(searchInputValue);
+              setIsShowSearchModal(false);
+            }}
+          />
+        )}
+
+        {isShowModal && (
+          <TwoBtnModal
+            text={"추가한 주소를 삭제하시겠습니까?"}
+            leftBtnText={"취소"}
+            rightBtnText={"삭제"}
+            color={"red"}
+            onLeftClick={() => setIsShowModal(false)}
+            onRightClick={() => {
+              setLocation(null);
+              setSearchInputValue("");
+              setIsShowModal(false);
+            }}
+          />
         )}
       </S.InputContainer>
     </S.Container>

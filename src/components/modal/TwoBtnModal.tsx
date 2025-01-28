@@ -1,5 +1,5 @@
-import BtnModalCaution from "../button/Btn_Modal_Caution";
 import * as S from "@/styles/ModalStyle";
+import BtnModalCaution from "../button/Btn_Modal_Caution";
 
 type Props = {
   text: string;
@@ -21,7 +21,14 @@ const TwoBtnModal = ({
   return (
     <S.Overlay>
       <S.Modal>
-        <h4>{text}</h4>
+        <h4>
+          {text.split("\n").map((line, index) => (
+            <span key={index}>
+              {line}
+              <br />
+            </span>
+          ))}
+        </h4>{" "}
         <S.BtnWrap>
           <BtnModalCaution
             text={leftBtnText}

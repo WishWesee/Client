@@ -26,6 +26,7 @@ export const Modal = styled.div`
   > h4 {
     font: var(--RegularContext);
     color: var(--Black);
+    text-align: center;
   }
 `;
 

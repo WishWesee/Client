@@ -15,13 +15,8 @@ export const Container = styled.div`
   width: 100%;
   height: 48px;
   padding: 14px 20px;
-<<<<<<< HEAD
   box-sizing: border-box;
   background-color: white;
-=======
-  border-bottom: 2px solid var(--Grey5);
-  background-color: var(--White);
->>>>>>> d3d31ee973d3ea2883163200990059e1e7e749dc
 `;
 
 export const BackContainer = styled.button`
@@ -29,12 +24,8 @@ export const BackContainer = styled.button`
   gap: 2px;
   align-items: center;
   height: 100%;
-<<<<<<< HEAD
   background-color: white;
   border: none;
-=======
-  cursor: pointer;
->>>>>>> d3d31ee973d3ea2883163200990059e1e7e749dc
 `;
 
 export const BackText = styled.p`

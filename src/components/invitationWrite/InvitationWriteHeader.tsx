@@ -1,7 +1,6 @@
 // import { ReactComponent as ArrowLeft } from "@assets/icons/화면GUI_Line/2020/Arrow_Left.svg";
 import ArrowLeft from "@assets/icons/화면GUI_Line/2020/Arrow_Left.svg?react";
 import * as S from "@styles/invitationWrite/InvitationWriteHeader";
-import { useNavigate } from "react-router-dom";
 
 interface InvitationWriteHeaderProps {
   backText: string;
@@ -18,7 +17,6 @@ const InvitationWriteHeader: React.FC<InvitationWriteHeaderProps> = ({
   onLeftBtnClick,
   onRightBtnClick,
 }) => {
-  const navigate = useNavigate();
   return (
     <S.Container>
       <S.BackContainer onClick={onLeftBtnClick}>
