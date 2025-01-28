@@ -15,9 +15,10 @@ import { getAttendanceVoters } from "@/api/attendanceVote/getAttendanceVoters";
 type Props = {
   id: number;
   isLogin: boolean;
+  isReview: boolean;
 };
 
-const ComingWrap = ({ id, isLogin }: Props) => {
+const ComingWrap = ({ id, isLogin, isReview }: Props) => {
   const { data, refetch } = useAttendanceQuery(id);
 
   const [personName, setPersonName] = useState("");
@@ -158,7 +159,7 @@ const ComingWrap = ({ id, isLogin }: Props) => {
   };
 
   return (
-    <S.Container>
+    <S.Container $isReview={isReview}>
       <h3>함께할 수 있는지 알려주세요!</h3>
       {!isLogin && !attendanceClosed && (
         <div style={{ width: 348 }}>

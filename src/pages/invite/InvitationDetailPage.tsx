@@ -16,6 +16,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const InvitationDetailPage = () => {
   const isLogin = true; //로그인되어있는 경우
+  const isReview = true; //후기 필드가 열린 경우
+  const isAttendance = true; //참석 조사 조회 필드가 있는 경우
 
   const { isMobile } = useWMediaQuery();
   const navigate = useNavigate();
@@ -46,8 +48,6 @@ const InvitationDetailPage = () => {
       window.removeEventListener("resize", updateScreenWidth);
     };
   }, []);
-
-  const overlayOpacity = Math.max(1 - scrollY / 300, 0);
 
   const { data, refetch, isLoading, isError } =
     useInvitationQuery(invitationId);
@@ -89,7 +89,9 @@ const InvitationDetailPage = () => {
           )}
           <TotheTopBtn />
           <S.BodyWrap $screenWidth={screenWidth}>
-            {isMobile && <S.Overlay style={{ opacity: overlayOpacity }} />}
+            {isMobile && (
+              <S.Overlay style={{ opacity: Math.max(1 - scrollY / 300, 0) }} />
+            )}
             <ContentWrap
               invitationState={invitationState}
               data={data}
@@ -97,7 +99,13 @@ const InvitationDetailPage = () => {
               isLogin={isLogin}
             />
             {/* <KakaoWrap data={data} /> */}
-            <ComingWrap id={data.invitationId} isLogin={isLogin} />
+            {isAttendance && (
+              <ComingWrap
+                id={data.invitationId}
+                isLogin={isLogin}
+                isReview={isReview}
+              />
+            )}
             {isMobile && invitationState === 0 && (
               <SaveWrap
                 id={data.invitationId}
@@ -105,16 +113,18 @@ const InvitationDetailPage = () => {
                 refetch={refetch}
               />
             )}
-            <ShareWrap
-              id={data.invitationId}
-              title={data.title}
-              cardImage={data.cardImage}
-              isAlreadySave={data.alreadySaved}
-              isLogin={isLogin}
-              isShareLink={invitationState === 0}
-              refetch={refetch}
-            />
-            {invitationState !== 0 && (
+            {isMobile && (
+              <ShareWrap
+                id={data.invitationId}
+                title={data.title}
+                cardImage={data.cardImage}
+                isAlreadySave={data.alreadySaved}
+                isLogin={isLogin}
+                isShareLink={invitationState === 0}
+                refetch={refetch}
+              />
+            )}
+            {invitationState !== 0 && isReview && (
               <ReviewWrap
                 id={data.invitationId}
                 title={data.title}

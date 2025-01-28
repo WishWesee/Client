@@ -9,6 +9,7 @@ import LocationIcon from "@assets/icons/화면GUI_Full/2424_Activate/Location.sv
 import useWMediaQuery from "@/hooks/useWMediaQuery";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import ShareWrap from "./ShareWrap";
 
 interface Props {
   invitationState: number;
@@ -75,6 +76,17 @@ const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
       </S.NotFoldWrap>
       {!isFold && <S.FoldWrap>본문</S.FoldWrap>}
       <PageFoldBtn isFold={isFold} setIsFold={setIsFold} />
+      {!isMobile && (
+        <ShareWrap
+          id={data.invitationId}
+          title={data.title}
+          cardImage={data.cardImage}
+          isAlreadySave={data.alreadySaved}
+          isLogin={isLogin}
+          isShareLink={invitationState === 0}
+          refetch={refetch}
+        />
+      )}
     </S.CardWrap>
   );
 };

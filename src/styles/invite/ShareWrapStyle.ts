@@ -14,7 +14,7 @@ export const Container = styled.div<{ $isShareLink: boolean }>`
   border-radius: 8px;
 
   ${isTablet} {
-    padding: 0px 40px;
+    padding: 60px 0;
     flex-direction: row;
     justify-content: ${(props) =>
       props.$isShareLink ? "space-between" : "flex-end"};
@@ -22,7 +22,7 @@ export const Container = styled.div<{ $isShareLink: boolean }>`
   }
 
   ${isDesktop} {
-    padding: 0px 64px;
+    padding: 80px 0;
     flex-direction: row;
     justify-content: ${(props) =>
       props.$isShareLink ? "space-between" : "flex-end"};

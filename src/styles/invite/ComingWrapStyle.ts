@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { isDesktop, isTablet } from "@/hooks/Media";
 
-export const Container = styled.div`
+export const Container = styled.div<{ $isReview: boolean }>`
   transition: all 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
@@ -15,13 +15,13 @@ export const Container = styled.div`
 
   ${isTablet} {
     padding-top: 30px;
-    padding-bottom: 120px;
+    padding-bottom: ${(props) => (props.$isReview ? 40 : 120)}px;
     border-radius: 0px;
   }
 
   ${isDesktop} {
     padding-top: 40px;
-    padding-bottom: 160px;
+    padding-bottom: ${(props) => (props.$isReview ? 40 : 160)}px;
     border-radius: 0px;
   }
 
@@ -61,7 +61,7 @@ export const BtnWrap = styled.div`
 export const DeadlineWrap = styled.div`
   border-top: 2px solid var(--Grey5);
   display: flex;
-  width: 100%;
+  width: 348px;
   align-items: center;
   justify-content: space-between;
   padding-top: 20px;
