@@ -8,6 +8,7 @@ export const Container = styled.div`
   padding: 20px;
   margin-top: 12px;
   flex-direction: column;
+  box-sizing: border-box;
 `;
 
 export const TitleContainer = styled.div`
@@ -27,7 +28,6 @@ export const InputContainer = styled.div`
   position: relative;
   display: flex;
   margin-top: 12px;
-  height: 48px;
   width: 100%;
   align-items: center;
   gap: 9px;

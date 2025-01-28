@@ -8,9 +8,9 @@ const InvitationWriteToolBar = () => {
     <S.Container>
       {toolBarContent.map((item, index) => (
         <S.ToolButton key={index} onClick={() => setSelectedTool(index)}>
-          {selectedTool === index ? <item.activeIcon /> : <item.defaultIcon />}
+          {selectedTool === item ? <item.activeIcon /> : <item.defaultIcon />}
           {item.title && (
-            <S.ToolButtonText $isActive={selectedTool === index}>
+            <S.ToolButtonText $isActive={selectedTool === item}>
               {item.title}
             </S.ToolButtonText>
           )}

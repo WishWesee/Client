@@ -3,7 +3,7 @@ import { toolBarIconListType } from "@/types/invitationWrite/toolBar";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 type ToolBarContextType = {
-  selectedTool: number | undefined;
+  selectedTool: toolBarIconListType | undefined;
   setSelectedTool: (index: number) => void;
   toolBarContent: toolBarIconListType[];
   setToolBarContent: (content: toolBarIconListType[]) => void;
@@ -12,12 +12,15 @@ type ToolBarContextType = {
 const ToolBarContext = createContext<ToolBarContextType | undefined>(undefined);
 
 export const ToolBarProvider = ({ children }: { children: ReactNode }) => {
-  const [selectedTool, setSelectedTool] = useState<number>();
+  const [selectedTool, setSelectedTool] = useState<
+    toolBarIconListType | undefined
+  >(undefined);
   const [toolBarContent, setToolBarContent] =
     useState<toolBarIconListType[]>(NomalToolBarList);
 
   const handleSetSelectedTool = (index: number) => {
-    setSelectedTool((prev) => (prev === index ? undefined : index));
+    const tool = toolBarContent[index];
+    setSelectedTool((prev) => (prev === tool ? undefined : tool));
   };
 
   const handleSetToolBarContent = (content: toolBarIconListType[]) => {

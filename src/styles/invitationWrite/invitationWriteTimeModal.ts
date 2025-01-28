@@ -15,6 +15,7 @@ export const Container = styled.div`
   border: 2px solid var(--Blue10);
   background: var(--White);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  z-index: 100px;
 `;
 
 export const TimeContainer = styled.div`
