@@ -1,12 +1,12 @@
-import { TOOLBARICONLIST } from "@/constants/invitationWrite/toolBar";
+import { useToolBarContext } from "@/contexts/toolBarContext";
 import * as S from "@styles/invitationWrite/invitationWriteToolBar";
-import { useState } from "react";
 
 const InvitationWriteToolBar = () => {
-  const [selectedTool, setSelectedTool] = useState<number>();
+  const { selectedTool, setSelectedTool, toolBarContent } = useToolBarContext();
+
   return (
     <S.Container>
-      {TOOLBARICONLIST.map((item, index) => (
+      {toolBarContent.map((item, index) => (
         <S.ToolButton key={index} onClick={() => setSelectedTool(index)}>
           {selectedTool === index ? <item.activeIcon /> : <item.defaultIcon />}
           {item.title && (

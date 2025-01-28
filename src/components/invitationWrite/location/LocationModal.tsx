@@ -25,20 +25,28 @@ const dummyLocations: SearchLocation[] = [
   },
 ];
 
-const LocationModal = () => {
+interface LocationModalProps {
+  locaions: SearchLocation[];
+}
+
+const LocationModal: React.FC<LocationModalProps> = ({ locaions }) => {
   const handleSetLocation = (location: SearchLocation) => {};
 
   return (
     <S.Container>
-      {dummyLocations.map((location, index) => (
-        <S.ItemContainer
-          key={index}
-          onClick={() => handleSetLocation(location)}
-        >
-          <S.Title>{location.location}</S.Title>
-          <S.Address>{location.address}</S.Address>
-        </S.ItemContainer>
-      ))}
+      {locaions !== null && (
+        <>
+          {locaions.map((location, index) => (
+            <S.ItemContainer
+              key={index}
+              onClick={() => handleSetLocation(location)}
+            >
+              <S.Title>{location.location}</S.Title>
+              <S.Address>{location.address}</S.Address>
+            </S.ItemContainer>
+          ))}
+        </>
+      )}
     </S.Container>
   );
 };

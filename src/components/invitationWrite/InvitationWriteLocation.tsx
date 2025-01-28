@@ -2,7 +2,10 @@ import ActiveFinder from "@assets/icons/화면GUI_Full/2424_Activate/Finder.svg?
 import Finder from "@assets/icons/화면GUI_Full/2424_Default/Finder.svg?react";
 import * as S from "@styles/invitationWrite/invitationWriteLocation";
 
-import { useState } from "react";
+import { LocationToolBarList } from "@/constants/invitationWrite/toolBar";
+import { useToolBarContext } from "@/contexts/toolBarContext";
+import { useGetSearch } from "@/hooks/write/search";
+import { useEffect, useState } from "react";
 import LocationModal from "./location/LocationModal";
 
 const InvitationWriteLocation = () => {
@@ -10,15 +13,30 @@ const InvitationWriteLocation = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [searchInputValue, setSearchInputValue] = useState<string>("");
 
+  const { setToolBarContent } = useToolBarContext();
+  const { data, refetch } = useGetSearch(searchInputValue);
+
   const cancelInput = () => {
     setInputValue("");
     setIsFocused(null);
   };
+
+  useEffect(() => {
+    if (searchInputValue !== "") {
+      refetch();
+    }
+  }, [searchInputValue, refetch]);
+
   const longitude = 126.9784147; // 경도
   const latitude = 37.5666805; // 위도
 
   return (
-    <S.Container>
+    <S.Container
+      onClick={(e) => {
+        e.stopPropagation();
+        setToolBarContent(LocationToolBarList);
+      }}
+    >
       <S.TitleContainer>
         <S.Label>장소</S.Label>
       </S.TitleContainer>
@@ -64,7 +82,9 @@ const InvitationWriteLocation = () => {
           </S.CancelButton>
         )}
 
-        {isFocused === "search" && searchInputValue !== "" && <LocationModal />}
+        {isFocused === "search" && searchInputValue !== "" && data !== null && (
+          <LocationModal locaions={data} />
+        )}
       </S.InputContainer>
     </S.Container>
   );
