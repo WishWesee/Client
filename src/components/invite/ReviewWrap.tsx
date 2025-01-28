@@ -1,11 +1,10 @@
-import styled from "styled-components";
+import * as S from "@styles/invite/ReviewWrapStyle";
 import { useFeedbackQuery } from "@/api/invitation/getFeedback";
 import ChatIcon from "@assets/icons/화면GUI_Full/2424_Activate/Chat.svg?react";
 import ImgIcon from "@assets/icons/화면GUI_Full/2424_Activate/Img.svg?react";
 import DeleteIcon from "@assets/icons/화면GUI_Line/2020/Delete.svg?react";
 import DeleteRedIcon from "@assets/icons/화면GUI_Full/2424_Activate/Delete.svg?react";
 import { useRef, useState } from "react";
-import { isDesktop, isTablet } from "@/hooks/Media";
 import { postFeedback } from "@/api/invitation/postFeedback";
 import { deleteFeedback } from "@/api/invitation/deleteFeedback";
 import TwoBtnModal from "../modal/TwoBtnModal";
@@ -76,22 +75,22 @@ const ReviewWrap = ({ id, title, isOwner }: Props) => {
   };
 
   return (
-    <Container>
-      <HeadWrap>
-        <TitleWrap>
+    <S.Container>
+      <S.HeadWrap>
+        <S.TitleWrap>
           <h2>후기</h2>
           <p>
             <ChatIcon />
             {data.information.count}
           </p>
-        </TitleWrap>
+        </S.TitleWrap>
         <p>
           <span>{title}</span> 어떠셨나요?
         </p>
-        <InputContainer>
-          <InputWrap $isFocused={isInputFocused}>
+        <S.InputContainer>
+          <S.InputWrap $isFocused={isInputFocused}>
             {image.imageFile && (
-              <ImgWrap>
+              <S.ImgWrap>
                 <img src={image.imageUrl} alt="첨부한 이미지" />
                 <DeleteIcon
                   onClick={() =>
@@ -101,9 +100,9 @@ const ReviewWrap = ({ id, title, isOwner }: Props) => {
                     })
                   }
                 />
-              </ImgWrap>
+              </S.ImgWrap>
             )}
-            <InputTextWrap>
+            <S.InputTextWrap>
               <input
                 value={reviewText}
                 placeholder="한 줄 후기를 작성해 보세요!"
@@ -135,21 +134,21 @@ const ReviewWrap = ({ id, title, isOwner }: Props) => {
                 ref={inputFileRef}
                 onChange={handleFileChange}
               />
-            </InputTextWrap>
-          </InputWrap>
+            </S.InputTextWrap>
+          </S.InputWrap>
           {reviewText.length > 0 && (
             <button onClick={handleSaveReview}>확인</button>
           )}
-        </InputContainer>
-      </HeadWrap>
-      <ContentWrap>
+        </S.InputContainer>
+      </S.HeadWrap>
+      <S.ContentWrap>
         {data.information.feedbackResList.map((data) => {
           return (
-            <ReviewContent key={data.feedbackId}>
+            <S.ReviewContent key={data.feedbackId}>
               {data.image && <img src={data.image} alt={data.content} />}
               <p>{data.content}</p>
               {isOwner && (
-                <RightWrap>
+                <S.RightWrap>
                   <DeleteRedIcon
                     style={{ cursor: "pointer" }}
                     onClick={() => {
@@ -157,12 +156,12 @@ const ReviewWrap = ({ id, title, isOwner }: Props) => {
                       setIsDeleteModal(true);
                     }}
                   />
-                </RightWrap>
+                </S.RightWrap>
               )}
-            </ReviewContent>
+            </S.ReviewContent>
           );
         })}
-      </ContentWrap>
+      </S.ContentWrap>
       {isDeleteModal && (
         <TwoBtnModal
           text="해당 후기를 삭제하시겠습니까?"
@@ -176,198 +175,8 @@ const ReviewWrap = ({ id, title, isOwner }: Props) => {
           onRightClick={handleDeleteReview}
         />
       )}
-    </Container>
+    </S.Container>
   );
 };
 
 export default ReviewWrap;
-
-export const Container = styled.div`
-  transition: all 0.3s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background-color: var(--Blue5);
-  padding-bottom: 40px;
-  border-radius: 8px;
-
-  ${isTablet} {
-    padding: 30px 40px;
-    border-radius: 0px;
-  }
-
-  ${isDesktop} {
-    padding: 40px 64px;
-    border-radius: 0px;
-  }
-`;
-
-export const HeadWrap = styled.div`
-  transition: all 0.3s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px;
-  padding: 20px;
-  gap: 20px;
-  background-color: var(--White);
-
-  ${isTablet} {
-    padding: 30px;
-  }
-
-  ${isDesktop} {
-    padding: 40px;
-  }
-
-  > p {
-    font: var(--Selected-BtnName-FileName);
-    color: var(--Gray40);
-    padding: 0 20px 12px;
-
-    ${isTablet} {
-      padding: 0;
-    }
-
-    ${isDesktop} {
-      padding: 0;
-    }
-
-    > span {
-      color: var(--Primary);
-    }
-  }
-`;
-
-export const TitleWrap = styled.div`
-  transition: all 0.3s ease-in-out;
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 20px 0;
-
-  ${isTablet} {
-    padding: 0;
-  }
-
-  ${isDesktop} {
-    padding: 0;
-  }
-
-  > h2 {
-    font: var(--TitleText);
-    color: var(--Black);
-  }
-
-  > p {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    font: var(--Unselected-Field-rNBLeft);
-    color: var(--Black);
-  }
-`;
-
-export const InputContainer = styled.div`
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-
-  > button {
-    background-color: transparent;
-    border: none;
-    padding: 16px 0;
-    cursor: pointer;
-
-    font: var(--Unselected-Field-rNBLeft);
-    color: var(--Black);
-    flex-shrink: 0;
-  }
-`;
-
-export const InputWrap = styled.div<{ $isFocused: boolean }>`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  border: 2px solid
-    ${(props) => (props.$isFocused ? "var(--Primary)" : "var(--Gray10)")};
-  border-radius: 4px;
-  padding: 12px;
-  width: 100%;
-`;
-
-export const ImgWrap = styled.div`
-  position: relative;
-  max-width: 326px;
-
-  > img {
-    width: 100%;
-    border-radius: 8px;
-  }
-
-  > svg {
-    position: absolute;
-    z-index: 10;
-    background-color: var(--White);
-    border-radius: 100%;
-    right: 0;
-    margin: 8px;
-    cursor: pointer;
-  }
-`;
-
-export const InputTextWrap = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  > input {
-    border: none;
-    outline: none;
-    font: var(--Unselected-Field-rNBLeft);
-    color: var(--Black);
-    flex-grow: 1;
-
-    &::placeholder {
-      color: var(--Gray40);
-    }
-  }
-`;
-
-export const ContentWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px 20px 0;
-
-  ${isTablet} {
-    padding: 20px 0 0;
-  }
-
-  ${isDesktop} {
-    padding: 20px 0 0;
-  }
-`;
-
-export const ReviewContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 12px;
-  background-color: var(--White);
-  border-radius: 8px;
-
-  > img {
-    max-width: 326px;
-    border-radius: 8px;
-  }
-
-  > p {
-    font: var(--RegularContext);
-    color: var(--Black);
-  }
-`;
-
-export const RightWrap = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;

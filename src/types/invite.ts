@@ -25,9 +25,38 @@ export type TInvitationRes = {
   location: string;
   address: string;
   mapLink: string;
-  blocks: [];
+  blocks: (BoxType | PhotoType | TextType | TimeTableType)[];
   attendanceSurveyEnabled: boolean;
   owner: boolean;
+};
+
+export type BoxType = {
+  type: "box";
+  sequence: number;
+  title: string;
+  content: string;
+  color: number;
+};
+
+export type PhotoType = {
+  type: "photo";
+  sequence: number;
+  image: string;
+};
+
+export type TextType = {
+  type: "text";
+  sequence: number;
+  content: string;
+};
+
+export type TimeTableType = {
+  type: "timeTable";
+  sequence: number;
+  content: {
+    time: string;
+    content: string;
+  }[];
 };
 
 export type TVoterRes = {

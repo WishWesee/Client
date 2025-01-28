@@ -10,6 +10,8 @@ import useWMediaQuery from "@/hooks/useWMediaQuery";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ShareWrap from "./ShareWrap";
+import ContentTextBox from "./ContentTextBox";
+import ContentTimeTable from "./ContentTimeTable";
 
 interface Props {
   invitationState: number;
@@ -74,7 +76,30 @@ const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
           <a onClick={() => window.open(`${data.mapLink}`)}>{data.address}</a>
         </div>
       </S.NotFoldWrap>
-      {!isFold && <S.FoldWrap>본문</S.FoldWrap>}
+      {!isFold && (
+        <S.FoldWrap>
+          {data.blocks.map((block) => {
+            return (
+              <S.FlodItem key={block.sequence}>
+                {block.type === "box" && (
+                  <ContentTextBox
+                    boxType={0}
+                    title={block.title}
+                    content={block.content}
+                  />
+                )}
+                {block.type === "photo" && (
+                  <img src={block.image} alt="첨부한 이미지" />
+                )}
+                {block.type === "text" && <div>{block.content}</div>}
+                {block.type === "timeTable" && (
+                  <ContentTimeTable content={block.content} />
+                )}
+              </S.FlodItem>
+            );
+          })}
+        </S.FoldWrap>
+      )}
       <PageFoldBtn isFold={isFold} setIsFold={setIsFold} />
       {!isMobile && (
         <ShareWrap
