@@ -9,15 +9,18 @@ export const CardWrap = styled.div`
   border-radius: 8px;
   background-color: var(--White);
   padding: 20px;
+  box-shadow: 0px -20px 8px rgba(0, 0, 0, 0.25);
 
   ${isTablet} {
     padding: 60px 40px;
     border-radius: 0px;
+    box-shadow: none;
   }
 
   ${isDesktop} {
     padding: 80px 64px;
     border-radius: 0px;
+    box-shadow: none;
   }
 `;
 

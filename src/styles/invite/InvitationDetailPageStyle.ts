@@ -1,8 +1,8 @@
 import styled, { keyframes } from "styled-components";
 import { isDesktop, isTablet } from "@/hooks/Media";
 
-export const Container = styled.div`
-  margin-top: 102px;
+export const Container = styled.div<{ $isHeader: boolean }>`
+  margin-top: ${(props) => (props.$isHeader ? 102 : 54)}px;
 
   display: flex;
   flex-direction: column;

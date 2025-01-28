@@ -84,7 +84,7 @@ const InvitationDetailPage = () => {
   };
 
   return (
-    <S.Container>
+    <S.Container $isHeader={invitationState !== 0}>
       {data && (
         <>
           {invitationState !== 0 && (
