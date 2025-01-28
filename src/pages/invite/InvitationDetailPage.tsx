@@ -13,17 +13,21 @@ import TotheTopBtn from "@/components/invite/TotheTopBtn";
 import useWMediaQuery from "@/hooks/useWMediaQuery";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { deleteSentInvite } from "@/api/invitation/deleteSentInvite";
+import { deleteReceivedInvite } from "@/api/invitation/deleteReceivedInvite";
+import TwoBtnModal from "@/components/modal/TwoBtnModal";
 
 const InvitationDetailPage = () => {
   const isLogin = true; //로그인되어있는 경우
-  const isReview = true; //후기 필드가 열린 경우
-  const isAttendance = true; //참석 조사 조회 필드가 있는 경우
 
   const { isMobile } = useWMediaQuery();
   const navigate = useNavigate();
 
   const { id } = useParams();
   const invitationId = id ? parseInt(id) : 0;
+
+  const [isDeleteSentModal, setIsDeleteSentModal] = useState(false); //보낸 메시지 삭제 모달
+  const [isDeleteReceivedModal, setIsDeleteReceivedModal] = useState(false); //받은 메시지 삭제 모달
 
   //애니메이션 스크롤
   const [scrollY, setScrollY] = useState(0);
@@ -59,6 +63,26 @@ const InvitationDetailPage = () => {
   if (isLoading) return <LoadingComponent text="초대장을 가져오고 있어요..." />;
   if (isError) return <EmptyComponent text="유효하지 않은 초대장입니다" />;
 
+  //내가 보낸 초대장 삭제 함수
+  const handleDeleteSentInvite = async () => {
+    if (!data?.invitationId) return;
+
+    await deleteSentInvite(data?.invitationId);
+    setIsDeleteSentModal(false);
+    refetch();
+    navigate("/invite/sent");
+  };
+
+  //내가 받은 초대장 삭제 함수
+  const handleDeleteReceivedInvite = async () => {
+    if (!data?.invitationId) return;
+
+    await deleteReceivedInvite(data?.invitationId);
+    setIsDeleteReceivedModal(false);
+    refetch();
+    navigate("/invite/received");
+  };
+
   return (
     <S.Container>
       {data && (
@@ -74,8 +98,8 @@ const InvitationDetailPage = () => {
               }
               onRightBtnClick={() =>
                 invitationState === 1
-                  ? console.log("내가 보낸 초대장 삭제")
-                  : console.log("내가 받은 초대장 삭제")
+                  ? setIsDeleteSentModal(true)
+                  : setIsDeleteReceivedModal(true)
               }
             />
           )}
@@ -99,11 +123,11 @@ const InvitationDetailPage = () => {
               isLogin={isLogin}
             />
             {/* <KakaoWrap data={data} /> */}
-            {isAttendance && (
+            {data.attendanceSurveyEnabled && (
               <ComingWrap
                 id={data.invitationId}
                 isLogin={isLogin}
-                isReview={isReview}
+                isReview={data.canWriteFeedback}
               />
             )}
             {isMobile && invitationState === 0 && (
@@ -124,7 +148,7 @@ const InvitationDetailPage = () => {
                 refetch={refetch}
               />
             )}
-            {invitationState !== 0 && isReview && (
+            {invitationState !== 0 && data.canWriteFeedback && (
               <ReviewWrap
                 id={data.invitationId}
                 title={data.title}
@@ -132,6 +156,30 @@ const InvitationDetailPage = () => {
               />
             )}
           </S.BodyWrap>
+          {isDeleteSentModal && (
+            <TwoBtnModal
+              text="초대장을 삭제하시겠습니까?"
+              leftBtnText="취소"
+              rightBtnText="삭제"
+              color="red"
+              onLeftClick={() => {
+                setIsDeleteSentModal(false);
+              }}
+              onRightClick={handleDeleteSentInvite}
+            />
+          )}
+          {isDeleteReceivedModal && (
+            <TwoBtnModal
+              text="초대장을 삭제하시겠습니까?"
+              leftBtnText="취소"
+              rightBtnText="삭제"
+              color="red"
+              onLeftClick={() => {
+                setIsDeleteReceivedModal(false);
+              }}
+              onRightClick={handleDeleteReceivedInvite}
+            />
+          )}
         </>
       )}
     </S.Container>

@@ -1,6 +1,7 @@
 export type TInvitationRes = {
   invitationId: number;
   alreadySaved: boolean;
+  canWriteFeedback: boolean;
   cardImage: string;
   title: string;
   startDate: string;
@@ -25,6 +26,7 @@ export type TInvitationRes = {
   address: string;
   mapLink: string;
   blocks: [];
+  attendanceSurveyEnabled: boolean;
   owner: boolean;
 };
 
