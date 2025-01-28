@@ -4,26 +4,28 @@ import KakaoTalkIcon from "@assets/icons/화면GUI_Line/3232/KakaoTalk.svg?react
 import LinkIcon from "@assets/icons/화면GUI_Line/3232/Link.svg?react";
 import UploadIcon from "@assets/icons/화면GUI_Line/3232/Upload.svg?react";
 import SaveBoxIcon from "@assets/icons/화면GUI_Full/3232/SaveBox.svg?react";
-import ArrowRightIcon from "@assets/icons/화면GUI_Line/2020/Arrow_Right.svg?react";
 import ShareKakaoBtn from "../shareSNS/ShareKakaoBtn";
 import { useNavigate } from "react-router-dom";
 import { postSaveReceived } from "@/api/invitation/postSaveReceived";
 
-const ShareWrap = ({
-  id,
-  title,
-  cardImage,
-  isAlreadySave,
-  isLogin,
-  isShareLink,
-}: {
+type Props = {
   id: number;
   title: string;
   cardImage: string;
   isAlreadySave: boolean;
   isLogin: boolean;
   isShareLink: boolean;
-}) => {
+  refetch: () => void;
+};
+
+const ShareWrap = ({
+  id,
+  title,
+  cardImage,
+  isLogin,
+  isShareLink,
+  refetch,
+}: Props) => {
   const navigate = useNavigate();
 
   const { isMobile } = useWMediaQuery();
@@ -56,7 +58,7 @@ const ShareWrap = ({
   const handleSaveReceived = async () => {
     try {
       await postSaveReceived(id);
-      navigate(`/invite/${id}`);
+      refetch();
     } catch (error) {
       console.error("오류:", error);
     }
@@ -85,17 +87,9 @@ const ShareWrap = ({
       {isMobile && <h3>친구들을 초대해보세요!</h3>}
       {!isMobile && isShareLink && (
         <S.Button
-          $isAlreadySave={isAlreadySave}
-          onClick={() =>
-            isAlreadySave
-              ? navigate("/invite")
-              : isLogin
-              ? handleSaveReceived()
-              : navigate("/login")
-          }
+          onClick={() => (isLogin ? handleSaveReceived() : navigate("/login"))}
         >
           <SaveBoxIcon />
-          {isAlreadySave && <ArrowRightIcon color="var(--Primary)" />}
         </S.Button>
       )}
       <S.ShareBtnWrap>

@@ -19,16 +19,14 @@ export const Container = styled.div`
   }
 `;
 
-export const Button = styled.button<{ $isAlreadySave: boolean }>`
+export const Button = styled.button`
   transition: all 0.3s ease-in-out;
   display: flex;
   gap: 8px;
-  justify-content: ${(props) =>
-    props.$isAlreadySave ? "space-between" : "center"};
+  justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: ${(props) =>
-    props.$isAlreadySave ? "var(--Gray5)" : "var(--Blue10)"};
+  background-color: var(--Blue10);
   border: none;
   border-radius: 8px;
   padding: 8px 12px;
@@ -36,10 +34,6 @@ export const Button = styled.button<{ $isAlreadySave: boolean }>`
   max-width: 348px;
 
   > span {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-
     font: var(--Unselected-Field-rNBLeft);
     color: var(--Primary);
   }

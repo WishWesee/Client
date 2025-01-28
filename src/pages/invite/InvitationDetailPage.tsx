@@ -3,7 +3,7 @@ import InvitationWriteHeader from "@/components/invitationWrite/InvitationWriteH
 import ComingWrap from "@/components/invite/ComingWrap";
 import ContentWrap from "@/components/invite/ContentWrap";
 import EmptyComponent from "@/components/invite/EmptyComponent";
-import KakaoWrap from "@/components/invite/KakaoWrap";
+//import KakaoWrap from "@/components/invite/KakaoWrap";
 import LoadingComponent from "@/components/invite/LoadingComponent";
 import ReviewWrap from "@/components/invite/ReviewWrap";
 import SaveWrap from "@/components/invite/SaveWrap";
@@ -16,7 +16,6 @@ import styled from "styled-components";
 
 const InvitationDetailPage = () => {
   const isLogin = false; //로그인되어있는 경우
-  const isShareLink = true; //공유된 링크로 온건지 여부
 
   const { isMobile } = useWMediaQuery();
   const navigate = useNavigate();
@@ -64,13 +63,13 @@ const InvitationDetailPage = () => {
             isFold={isFold}
             setIsFold={setIsFold}
           />
-          <KakaoWrap data={data} />
+          {/* <KakaoWrap data={data} /> */}
           <ComingWrap id={data.invitationId} isLogin={isLogin} />
-          {isMobile && isShareLink && (
+          {isMobile && invitationState === 0 && (
             <SaveWrap
               id={data.invitationId}
-              isAlreadySave={data.alreadySaved}
               isLogin={isLogin}
+              refetch={refetch}
             />
           )}
           <ShareWrap
@@ -79,7 +78,8 @@ const InvitationDetailPage = () => {
             cardImage={data.cardImage}
             isAlreadySave={data.alreadySaved}
             isLogin={isLogin}
-            isShareLink={isShareLink}
+            isShareLink={invitationState === 0}
+            refetch={refetch}
           />
           {invitationState !== 0 && (
             <ReviewWrap

@@ -61,14 +61,13 @@ export const BtnContainer = styled.div`
   }
 `;
 
-export const Button = styled.button<{ $isAlreadySave: boolean }>`
+export const Button = styled.button`
   transition: all 0.3s ease-in-out;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  background-color: ${(props) =>
-    props.$isAlreadySave ? "var(--Gray5)" : "var(--Blue10)"};
+  background-color: var(--Blue10);
   border: none;
   padding: 14px;
   border-radius: 30px;
