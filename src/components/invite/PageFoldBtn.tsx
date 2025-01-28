@@ -8,7 +8,7 @@ type Props = {
 
 const PageFoldBtn = ({ isFold, setIsFold }: Props) => {
   return (
-    <Button onClick={() => setIsFold(!isFold)}>
+    <Button onClick={() => setIsFold(!isFold)} $isFold={isFold}>
       <p>{isFold ? "초대장 펼치기" : "초대장 접기"}</p>
       <ArrowIcon
         color="var(--Primary)"

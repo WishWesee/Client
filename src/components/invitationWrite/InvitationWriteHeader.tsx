@@ -6,16 +6,20 @@ interface InvitationWriteHeaderProps {
   backText: string;
   buttonType: "삭제" | "저장" | null;
   isEnable?: boolean;
+  onLeftBtnClick?: () => void;
+  onRightBtnClick?: () => void;
 }
 
 const InvitationWriteHeader: React.FC<InvitationWriteHeaderProps> = ({
   backText,
   buttonType,
   isEnable,
+  onLeftBtnClick,
+  onRightBtnClick,
 }) => {
   return (
     <S.Container>
-      <S.BackContainer>
+      <S.BackContainer onClick={onLeftBtnClick}>
         <ArrowLeft />
         <S.BackText> {backText}</S.BackText>
       </S.BackContainer>
@@ -23,6 +27,7 @@ const InvitationWriteHeader: React.FC<InvitationWriteHeaderProps> = ({
         <S.SaveButton
           isEnable={buttonType === "삭제" || isEnable}
           buttonType={buttonType}
+          onClick={onRightBtnClick}
         >
           {buttonType}
         </S.SaveButton>

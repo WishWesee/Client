@@ -20,6 +20,7 @@ export const BackContainer = styled.div`
   gap: 2px;
   align-items: center;
   height: 100%;
+  cursor: pointer;
 `;
 
 export const BackText = styled.p`
