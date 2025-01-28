@@ -45,7 +45,7 @@ const KakaoWrap = ({ data }: Props) => {
                 title={data.title}
                 text={content ? content : "초대장이 도착했어요!"}
                 imageUrl={data.cardImage}
-                link={`http://localhost:3000/invite/${data.invitationId}/share`}
+                link={`http://localhost:3000/invite/${data.invitationId}`}
                 buttonComponent={
                   <ButtonBottomNext text="보내기" color="blue" />
                 }
@@ -74,7 +74,7 @@ const KakaoWrap = ({ data }: Props) => {
             title={data.title}
             text={content ? content : "초대장이 도착했어요!"}
             imageUrl={data.cardImage}
-            link={`http://localhost:3000/invite/${data.invitationId}/share`}
+            link={`http://localhost:3000/invite/${data.invitationId}`}
             buttonComponent={<ButtonBottomNext text="보내기" color="blue" />}
           />
         )}

@@ -8,16 +8,18 @@ export const Container = styled.div`
   align-items: center;
   gap: 20px;
   width: 100%;
-  padding-top: 20px;
-  padding-bottom: 40px;
+  padding: 20px 20px 40px;
   background-color: var(--White);
+  border-radius: 8px;
 
   ${isTablet} {
-    padding-top: 40px;
+    padding: 40px;
+    border-radius: 0px;
   }
 
   ${isDesktop} {
-    padding-top: 40px;
+    padding: 40px 64px;
+    border-radius: 0px;
   }
 
   > h3 {
