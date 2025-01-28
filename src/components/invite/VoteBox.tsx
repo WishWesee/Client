@@ -15,11 +15,10 @@ import InputWrap from "./InputWrap";
 interface Props {
   data: TInvitationRes;
   refetch: () => void;
+  isLogin: boolean;
 }
 
-const VoteBox = ({ data, refetch }: Props) => {
-  const isLogin = false; //로그인되어있는 경우
-
+const VoteBox = ({ data, refetch, isLogin }: Props) => {
   const [selectedVotes, setSelectedVotes] = useState<number[]>([]);
   const [personName, setPersonName] = useState("");
   const [isCheckPersonName, setIsCheckPersonName] = useState(isLogin);

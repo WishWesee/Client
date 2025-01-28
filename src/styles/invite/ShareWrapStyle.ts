@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { isDesktop, isTablet } from "@/hooks/Media";
 
-export const Container = styled.div`
+export const Container = styled.div<{ $isShareLink: boolean }>`
   transition: all 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
@@ -11,15 +11,22 @@ export const Container = styled.div`
   padding-top: 20px;
   padding-bottom: 40px;
   background-color: var(--White);
+  border-radius: 8px;
 
   ${isTablet} {
-    padding: 0px;
-    align-items: flex-end;
+    padding: 60px 0;
+    flex-direction: row;
+    justify-content: ${(props) =>
+      props.$isShareLink ? "space-between" : "flex-end"};
+    border-radius: 0px;
   }
 
   ${isDesktop} {
-    padding: 0px;
-    align-items: flex-end;
+    padding: 80px 0;
+    flex-direction: row;
+    justify-content: ${(props) =>
+      props.$isShareLink ? "space-between" : "flex-end"};
+    border-radius: 0px;
   }
 
   > h3 {
@@ -52,4 +59,17 @@ export const BtnContainer = styled.div`
     font: var(--AdditionalText);
     color: var(--Black);
   }
+`;
+
+export const Button = styled.button`
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--Blue10);
+  border: none;
+  padding: 14px;
+  border-radius: 30px;
+  cursor: pointer;
 `;

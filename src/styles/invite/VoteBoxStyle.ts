@@ -6,6 +6,7 @@ export const Container = styled.div`
   gap: 24px;
   width: 100%;
   padding: 20px;
+  margin-top: 20px;
   background-color: var(--Grey5);
   border-radius: 8px;
 
@@ -59,7 +60,6 @@ export const InfoWrap = styled.div`
     color: var(--Black);
   }
 `;
-
 
 export const VoteOptions = styled.div<{ $disabled: boolean }>`
   display: flex;

@@ -1,5 +1,7 @@
 export type TInvitationRes = {
   invitationId: number;
+  alreadySaved: boolean;
+  canWriteFeedback: boolean;
   cardImage: string;
   title: string;
   startDate: string;
@@ -7,8 +9,8 @@ export type TInvitationRes = {
   endDate: string;
   endTime: string;
   voteDeadline: string;
-  scheduleVoteMultiple: boolean;
   hasScheduleVote: boolean;
+  scheduleVoteMultiple: boolean;
   scheduleVotes: {
     scheduleVoteId: number;
     startDate: string;
@@ -24,6 +26,7 @@ export type TInvitationRes = {
   address: string;
   mapLink: string;
   blocks: [];
+  attendanceSurveyEnabled: boolean;
   owner: boolean;
 };
 
@@ -34,4 +37,34 @@ export type TVoterRes = {
   endTime: string;
   voterCount: number;
   voterNames: string[];
+};
+
+export type TAttendanceRes = {
+  check: boolean;
+  information: {
+    attendanceSurveyClosed: boolean;
+    attendingCount: number;
+    notAttendingCount: number;
+    isAttending: boolean | null;
+    isSender: boolean;
+  };
+};
+
+export type TAttendanceVotersRes = {
+  voterCount: number;
+  voterNames: string[];
+};
+
+export type TFeedbackRes = {
+  check: boolean;
+  information: {
+    count: number;
+    feedbackResList: {
+      feedbackId: number;
+      content: string;
+      image: string | null;
+      deletable: boolean;
+    }[];
+    isWritable: boolean;
+  };
 };

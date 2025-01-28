@@ -2,6 +2,7 @@ import * as S from "@styles/invite/VotePersonModalStyle";
 import ButtonBottomNext from "../button/Btn_Bottom_Next";
 
 type Props = {
+  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   leftText: string;
   rightText: number;
   nameTexts: string[];
@@ -9,6 +10,7 @@ type Props = {
 };
 
 const VotePersonModal = ({
+  icon: Icon,
   leftText,
   rightText,
   nameTexts,
@@ -17,7 +19,10 @@ const VotePersonModal = ({
   return (
     <S.ModalWrap>
       <S.HeadWrap>
-        <h3>{leftText}</h3>
+        <S.IconWrap>
+          {Icon && <Icon color="var(--Primary)" />}
+          <h3>{leftText}</h3>
+        </S.IconWrap>
         <h3 style={{ flexShrink: 0 }}>{rightText}명</h3>
       </S.HeadWrap>
       {nameTexts.map((name, index) => {
