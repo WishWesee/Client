@@ -13,10 +13,12 @@ export const LetterImgBox = styled.div`
     border-radius: 4px 4px 0px 0px;
 
     @media (min-width: 768px) {
+    width: 204px;
     height: 156px;
     }
 
     @media (min-width: 1200px) {
+    width: auto;
     height: 183px;
     }
 `;

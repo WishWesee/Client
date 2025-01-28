@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
 export const Rectangle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 168px;
   height: 126px;
   min-width: 168px;
   min-height: 126px;
   box-sizing: border-box;
   border-radius: 4px;
-  background-color: #D9D9D9;
   cursor: pointer;
 
   @media (max-width: 389px) {
@@ -34,6 +36,9 @@ export const Rectangle = styled.div`
 `;
 
 export const ActiveRectangle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 168px;
   height: 126px;
   min-width: 168px;
@@ -42,7 +47,6 @@ export const ActiveRectangle = styled.div`
   border-radius: 4px;
   padding: 4px;
   border: solid var(--Primary);
-  background-color: #D9D9D9;
   cursor: pointer;
 
   @media (max-width: 389px) {

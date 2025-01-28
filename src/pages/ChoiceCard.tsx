@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom"; 
 import AddIcon from "@/assets/icons/화면GUI_Line/2020/Add.svg?react";
 import ImgIcon from "@/assets/icons/화면GUI_Full/2424_Activate/Img.svg?react";
 import HorizontalSB from "@/components/choiceCard/HorizontalSB";
@@ -6,6 +7,12 @@ import ReactNB from "@/components/top/Top_reactNB";
 import Rectangle from "@/components/choiceCard/Rectangle";
 import Wrap from "@/components/choiceCard/Wrap";
 import NextButton from "@/components/button/Btn_Bottom_Next";
+import Birthday1 from "@/assets/images/ChoiceCard/birthday1.svg";
+import Birthday2 from "@/assets/images/ChoiceCard/Birthday2.svg";
+import LastOfYear1 from "@/assets/images/ChoiceCard/lastofyear1.svg";
+import LastOfYear2 from "@/assets/images/ChoiceCard/LastOfYear2.svg";
+import Travel1 from "@/assets/images/ChoiceCard/travel1.svg";
+
 import { Top, WrapTexts, Modal, SB, ButtonNext, Button } from "@/constants/choiceCard/Wrap";
 import * as style from '@/styles/choiceCard/ChoiceCardStyle';
 import * as modalStyle from '@/styles/choiceCard/ModalStyle';
@@ -15,14 +22,16 @@ const ChoiceCard: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [activeRectangle, setActiveRectangle] = useState<number>(0);
   const [activeModal, setActiveModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [myImages, setMyImages] = useState<string[]>([]);
+  const navigate = useNavigate();
 
-  // 화면 크기를 감지하는 훅
   const { isDesktop, isTablet } = useWMediaQuery();
 
   const frontProp = isDesktop || isTablet ? "다음" : Top.NullFront;
 
   const handleSBToggle = (index: number) => {
-    setActiveIndex(index);
+    setActiveIndex(index); // 선택한 HorizontalSB의 index를 저장
   };
 
   const handleRectangleToggle = (index: number) => {
@@ -33,6 +42,27 @@ const ChoiceCard: React.FC = () => {
     setActiveModal(!activeModal);
   };
 
+  useEffect(() => {
+    const savedImages = JSON.parse(localStorage.getItem("myImages") || "[]");
+    setMyImages(savedImages);
+  }, []);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.result) {
+          setSelectedImage(reader.result as string); // Base64 URL로 이미지 저장
+          navigate("/contentcut", { state: { image: reader.result } }); // ContentCut으로 이동
+        }
+      };
+
+      reader.readAsDataURL(file); // 이미지 파일 읽기
+    }
+  };
+
   // HorizontalSB 항목 데이터
   const sbItems = [
     { title: SB.All },
@@ -41,6 +71,21 @@ const ChoiceCard: React.FC = () => {
     { title: SB.Trav },
     { title: SB.Year },
   ];
+
+  // cards 데이터
+  const cards = [
+    ...myImages.map((image) => ({ content: image, category: SB.MY })),
+    { content: Birthday1, category: SB.Birth },
+    { content: Birthday2, category: SB.Birth },
+    { content: LastOfYear1, category: SB.Year },
+    { content: LastOfYear2, category: SB.Year },
+    { content: Travel1, category: SB.Trav },
+  ];
+
+  const filteredCards =
+    activeIndex === 0
+      ? cards // 'All'이면 전체를 보여줌
+      : cards.filter((card) => card.category === sbItems[activeIndex].title);
 
   return (
     <>
@@ -60,10 +105,16 @@ const ChoiceCard: React.FC = () => {
         <Wrap Title={WrapTexts.Title} SubText={WrapTexts.SubText} />
         <style.Wrap_Card>
           <style.HorizontalSB_Content>
-            <style.Btn_hSB_New onClick={renderModal}>
-              <AddIcon />
-              <ImgIcon />
-            </style.Btn_hSB_New>
+          <style.Btn_hSB_New as="label"> {/* as="label"로 스타일 유지 */}
+            <AddIcon />
+            <ImgIcon />
+            <input
+              type="file"
+              accept="image/*" // 이미지 파일만 허용
+              style={{ display: "none" }} // input 요소를 숨김
+              onChange={handleFileChange}
+            />
+          </style.Btn_hSB_New>
             {/* HorizontalSB를 map으로 렌더링 */}
             {sbItems.map((item, index) => (
               <HorizontalSB
@@ -75,9 +126,15 @@ const ChoiceCard: React.FC = () => {
             ))}
           </style.HorizontalSB_Content>
           <style.Img_Content_Card>
-            {Array.from({ length: 6 }).map((_, index) => (
-                <Rectangle key={index} toggled={activeRectangle === index} onClick={() => handleRectangleToggle(index)} />
-              ))}
+            {filteredCards.map((item, index) => (
+              <Rectangle
+                key={index}
+                toggled={activeRectangle === index}
+                onClick={() => handleRectangleToggle(index)}
+              >
+                <style.ImgCard src={item.content} alt={`card-${index}`} />
+              </Rectangle>
+            ))}
           </style.Img_Content_Card>
           <style.Bottom>
             <NextButton text={Button.text} color={Button.color} />

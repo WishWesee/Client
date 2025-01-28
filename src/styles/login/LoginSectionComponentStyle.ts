@@ -13,17 +13,22 @@ export const LoginContainer = styled.div`
     margin-top: 367px;
 
     @media (min-width: 768px)  {
-        margin-top: 544px;
+        margin-top: calc( 100vh - 370px );
         padding: 0 1.25rem 0 1.25rem;
         height: auto;
     }
 
     @media (min-width: 1200px) {
-        margin-top: 676px;
+        margin-top: calc( 100vh - 370px );
         padding: 0 1.25rem 0 1.25rem;
         height: auto;
     }
+
+    @media (min-width: 1200px) and (max-height: 894px) {
+         margin-top: 500px;
+    }
     `;
+
 
 export const GoogleLoginButton = styled.div`
     display: flex;

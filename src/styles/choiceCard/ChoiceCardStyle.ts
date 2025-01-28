@@ -77,7 +77,6 @@ export const Img_Content_Card = styled.div`
   box-sizing: border-box;
   margin: 0 auto; /* 중앙 정렬 */
   max-width: 390px;
-  width: 100%;
   padding: 0 1.3125rem; /* 좌우 여백 설정 */
 
   @media (max-width: 389px) and (min-width: 350px) {
@@ -127,5 +126,41 @@ export const Bottom = styled.div`
 
   @media (min-width: 768px) {
     display: none;
+  }
+`;
+
+export const ImgCard = styled.img`
+  width: 152px; 
+  height: 110px; 
+  object-fit: cover;
+  border-radius: 4px;
+
+  @media (max-width: 389px) {
+    width: 39vw;
+    height: 104px;
+  }
+
+  @media (min-width: 768px){
+  width: 196px;
+  height: 143px;
+  }
+
+  @media (min-width: 1200px){
+  width: 244px;
+  height: 179px;
+  }
+`;
+
+export const CropperContainer = styled.div`
+  width: 350px;
+  height: 350px;
+  max-width: 350px;
+  max-height: 350px;
+
+  @media (min-width: 768px) {
+    width: 634px;
+    height: 634px;
+    max-width: 634px;
+    max-height: 634px;
   }
 `;
