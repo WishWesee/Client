@@ -10,9 +10,9 @@ const ContentTimeTable = ({ content }: Props) => {
   return (
     <TimeTableWrap>
       <h4>타임테이블</h4>
-      {content.map((data) => {
+      {content.map((data, index) => {
         return (
-          <TimeTableItem>
+          <TimeTableItem key={index}>
             <div className="time">{formatTime(data.time)}</div>
             <div className="content">{data.content}</div>
           </TimeTableItem>

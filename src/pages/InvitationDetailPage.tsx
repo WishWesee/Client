@@ -4,7 +4,6 @@ import InvitationWriteHeader from "@/components/invitationWrite/InvitationWriteH
 import ComingWrap from "@/components/invite/ComingWrap";
 import ContentWrap from "@/components/invite/ContentWrap";
 import EmptyComponent from "@/components/invite/EmptyComponent";
-//import KakaoWrap from "@/components/invite/KakaoWrap";
 import LoadingComponent from "@/components/invite/LoadingComponent";
 import ReviewWrap from "@/components/invite/ReviewWrap";
 import SaveWrap from "@/components/invite/SaveWrap";
@@ -16,6 +15,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { deleteSentInvite } from "@/api/invitation/deleteSentInvite";
 import { deleteReceivedInvite } from "@/api/invitation/deleteReceivedInvite";
 import TwoBtnModal from "@/components/modal/TwoBtnModal";
+//import KakaoWrap from "@/components/invite/KakaoWrap";
+//import InviteBottom from "@/components/invite/InviteBottom";
 
 const InvitationDetailPage = () => {
   const isLogin = false; //로그인되어있는 경우
@@ -155,6 +156,17 @@ const InvitationDetailPage = () => {
                 isOwner={data.owner}
               />
             )}
+            {/* <InviteBottom
+              btnText="완료"
+              onBtnClick={function (): void {
+                throw new Error("Function not implemented.");
+              }}
+              isDisabled={false}
+              isCheck={false}
+              onCheckClick={function (): void {
+                throw new Error("Function not implemented.");
+              }}
+            /> */}
           </S.BodyWrap>
           {isDeleteSentModal && (
             <TwoBtnModal
