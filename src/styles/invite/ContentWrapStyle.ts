@@ -149,7 +149,7 @@ export const FoldWrap = styled.div`
   }
 
   ${isDesktop} {
-    padding-top: 240px;
+    padding: 240px 16px 80px;
     gap: 80px;
   }
 `;
@@ -161,5 +161,18 @@ export const FlodItem = styled.div`
   > img {
     border-radius: 8px;
     width: 100%;
+  }
+
+  > hr {
+    border: 1px solid var(--Gray10);
+    margin: 10px 55px;
+
+    ${isTablet} {
+      margin: 10px 120px;
+    }
+
+    ${isDesktop} {
+      margin: 10px 160px;
+    }
   }
 `;

@@ -26,3 +26,13 @@ export const formatVoteDateTime = (
 
   return `${startDate} ${startTime} ~ ${endDate} ${endTime}`;
 };
+
+//시간 포맷팅 함수 (hh:mm AM/PM)
+export const formatTime = (time: string) => {
+  const [hours, minutes] = time.split(":").map(Number);
+  return new Date(0, 0, 0, hours, minutes).toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+};

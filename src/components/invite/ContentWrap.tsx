@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ShareWrap from "./ShareWrap";
 import ContentTextBox from "./ContentTextBox";
+import ContentTimeTable from "./ContentTimeTable";
 
 interface Props {
   invitationState: number;
@@ -80,17 +81,19 @@ const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
           {data.blocks.map((block) => {
             return (
               <S.FlodItem key={block.sequence}>
-                {block.type === "box" && <ContentTextBox boxType={0} />}
+                {block.type === "box" && (
+                  <ContentTextBox
+                    boxType={0}
+                    title={block.title}
+                    content={block.content}
+                  />
+                )}
                 {block.type === "photo" && (
                   <img src={block.image} alt="첨부한 이미지" />
                 )}
                 {block.type === "text" && <div>{block.content}</div>}
                 {block.type === "timeTable" && (
-                  <div>
-                    {block.content.map((timeItem) => {
-                      return <div>{timeItem.time}</div>;
-                    })}
-                  </div>
+                  <ContentTimeTable content={block.content} />
                 )}
               </S.FlodItem>
             );
