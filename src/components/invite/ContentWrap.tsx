@@ -27,7 +27,7 @@ const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
     <S.CardWrap>
       <S.HeaderWrap>
         <S.StatusWrap>
-          {invitationState !== 0 && (
+          {invitationState !== 0 && !isMobile && (
             <ArrowBackIcon
               onClick={() =>
                 invitationState === 1

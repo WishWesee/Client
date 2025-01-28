@@ -8,8 +8,8 @@ export type TInvitationRes = {
   endDate: string;
   endTime: string;
   voteDeadline: string;
-  scheduleVoteMultiple: boolean;
   hasScheduleVote: boolean;
+  scheduleVoteMultiple: boolean;
   scheduleVotes: {
     scheduleVoteId: number;
     startDate: string;

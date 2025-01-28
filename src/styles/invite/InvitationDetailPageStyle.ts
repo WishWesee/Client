@@ -2,7 +2,7 @@ import styled, { keyframes } from "styled-components";
 import { isDesktop, isTablet } from "@/hooks/Media";
 
 export const Container = styled.div`
-  margin-top: 54px;
+  margin-top: 102px;
 
   display: flex;
   flex-direction: column;
