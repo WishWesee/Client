@@ -138,16 +138,28 @@ export const FoldWrap = styled.div`
   transition: all 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 40px;
   padding-bottom: 80px;
   color: var(--Black);
 
   ${isTablet} {
     padding-top: 180px;
     padding-bottom: 60px;
+    gap: 60px;
   }
 
   ${isDesktop} {
     padding-top: 240px;
+    gap: 80px;
+  }
+`;
+
+export const FlodItem = styled.div`
+  text-align: center;
+  width: 100%;
+
+  > img {
+    border-radius: 8px;
+    width: 100%;
   }
 `;
