@@ -26,7 +26,7 @@ const ChoiceCard: React.FC = () => {
   const [myImages, setMyImages] = useState<string[]>([]);
   const navigate = useNavigate();
 
-  const { selectedImage, setSelectedImage } = useChoiceStore(); //전역상태용
+  const { selectedImage, setSelectedImage } = useChoiceStore(); //이미지 src 전역상태 설정
 
   const { isDesktop, isTablet } = useWMediaQuery();
 

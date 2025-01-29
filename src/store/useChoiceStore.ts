@@ -7,5 +7,5 @@ type ChoiceStore = {
 
 export const useChoiceStore = create<ChoiceStore>((set) => ({
   selectedImage: null,
-  setSelectedImage: (image) => set({ selectedImage: image }),
+  setSelectedImage: (image) => set({ selectedImage: image }), 
 }));
