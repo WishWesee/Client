@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import * as style from '@/styles/essentialComponents/button/BtnModalCautionStyle';
+import * as style from "@/styles/essentialComponents/button/BtnModalCautionStyle";
 
-type BtnModalCautionProps = {
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
   color: string;
-};
+}
 
-const BtnModalCaution: React.FC<BtnModalCautionProps> = ({ text, color }) => {
-  const [state, setState] = useState(color);
-
+const BtnModalCaution = ({ text, color, ...props }: Props) => {
   return (
     <style.CautionButton
       className={
-        color === 'red' ? 'red' : color === 'blue' ? 'blue' : 'default'
+        color === "red" ? "red" : color === "blue" ? "blue" : "default"
       }
+      {...props}
     >
       {text}
     </style.CautionButton>

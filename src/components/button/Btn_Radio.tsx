@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import * as style from '@/styles/essentialComponents/button/RadioButtonStyle';
+import * as style from "@/styles/essentialComponents/button/RadioButtonStyle";
 
-const RadioButton: React.FC = () => {
-  const [isToggled, setIsToggled] = useState(false);
+interface Props {
+  isSelected: boolean;
+  onClick: () => void;
+}
 
-  const handleToggle = () => {
-    setIsToggled(!isToggled);
-  };
-
+const RadioButton = ({ isSelected, onClick }: Props) => {
   return (
     <style.RadioButton
-      className={isToggled ? 'toggled' : ''}
-      onClick={handleToggle}
+      className={isSelected ? "toggled" : ""}
+      onClick={onClick}
     >
-      <style.RadioCircle className={isToggled ? 'toggled' : ''} />
+      <style.RadioCircle className={isSelected ? "toggled" : ""} />
     </style.RadioButton>
   );
 };

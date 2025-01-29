@@ -7,12 +7,16 @@ interface SaveButtonProps {
 
 export const Container = styled.div`
   position: fixed;
+  top: 0;
+  z-index: 10;
+  margin-top: 54px;
   display: flex;
   justify-content: space-between;
   width: 100%;
   height: 48px;
   padding: 14px 20px;
-  box-sizing: border-box;
+  border-bottom: 2px solid var(--Grey5);
+  background-color: var(--White);
 `;
 
 export const BackContainer = styled.div`
@@ -20,6 +24,7 @@ export const BackContainer = styled.div`
   gap: 2px;
   align-items: center;
   height: 100%;
+  cursor: pointer;
 `;
 
 export const BackText = styled.p`

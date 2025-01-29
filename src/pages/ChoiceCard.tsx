@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom"; 
+import { useChoiceStore } from "@/store/useChoiceStore";
 import AddIcon from "@/assets/icons/화면GUI_Line/2020/Add.svg?react";
 import ImgIcon from "@/assets/icons/화면GUI_Full/2424_Activate/Img.svg?react";
 import HorizontalSB from "@/components/choiceCard/HorizontalSB";
@@ -22,9 +23,10 @@ const ChoiceCard: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [activeRectangle, setActiveRectangle] = useState<number>(0);
   const [activeModal, setActiveModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [myImages, setMyImages] = useState<string[]>([]);
   const navigate = useNavigate();
+
+  const { selectedImage, setSelectedImage } = useChoiceStore(); //전역상태용
 
   const { isDesktop, isTablet } = useWMediaQuery();
 
@@ -34,8 +36,9 @@ const ChoiceCard: React.FC = () => {
     setActiveIndex(index); // 선택한 HorizontalSB의 index를 저장
   };
 
-  const handleRectangleToggle = (index: number) => {
+  const handleRectangleToggle = (index: number, imageSrc: string) => {
     setActiveRectangle(index);
+    setSelectedImage(imageSrc); 
   };
 
   const renderModal = () => {
@@ -55,7 +58,7 @@ const ChoiceCard: React.FC = () => {
       reader.onload = () => {
         if (reader.result) {
           setSelectedImage(reader.result as string); // Base64 URL로 이미지 저장
-          navigate("/contentcut", { state: { image: reader.result } }); // ContentCut으로 이동
+          navigate("/contentcut", { state: { image: reader.result } });
         }
       };
 
@@ -105,17 +108,16 @@ const ChoiceCard: React.FC = () => {
         <Wrap Title={WrapTexts.Title} SubText={WrapTexts.SubText} />
         <style.Wrap_Card>
           <style.HorizontalSB_Content>
-          <style.Btn_hSB_New as="label"> {/* as="label"로 스타일 유지 */}
+          <style.Btn_hSB_New as="label">
             <AddIcon />
             <ImgIcon />
             <input
               type="file"
-              accept="image/*" // 이미지 파일만 허용
-              style={{ display: "none" }} // input 요소를 숨김
+              accept="image/*" 
+              style={{ display: "none" }}
               onChange={handleFileChange}
             />
           </style.Btn_hSB_New>
-            {/* HorizontalSB를 map으로 렌더링 */}
             {sbItems.map((item, index) => (
               <HorizontalSB
                 key={index}
@@ -130,7 +132,7 @@ const ChoiceCard: React.FC = () => {
               <Rectangle
                 key={index}
                 toggled={activeRectangle === index}
-                onClick={() => handleRectangleToggle(index)}
+                onClick={() => handleRectangleToggle(index, item.content)}
               >
                 <style.ImgCard src={item.content} alt={`card-${index}`} />
               </Rectangle>
