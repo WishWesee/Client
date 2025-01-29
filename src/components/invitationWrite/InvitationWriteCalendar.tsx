@@ -1,3 +1,5 @@
+import { DateToolBarList } from "@/constants/invitationWrite/toolBar";
+import { useToolBarContext } from "@/contexts/toolBarContext";
 import useInvitationStore from "@/store/invitation";
 import { formatTimeToCustomFormat } from "@/utils/calendar/formatCustomDateFromDate";
 import ActiveCalendar from "@assets/icons/화면GUI_Full/2424_Activate/Calendar.svg?react";
@@ -5,8 +7,9 @@ import ActiveTime from "@assets/icons/화면GUI_Full/2424_Activate/Time.svg?reac
 import Calendar from "@assets/icons/화면GUI_Full/2424_Default/Calendar.svg?react";
 import Time from "@assets/icons/화면GUI_Full/2424_Default/Time.svg?react";
 import * as S from "@styles/invitationWrite/invitationWriteCalendar";
-import { useState } from "react";
-import InvitationWriteCalendarModal from "./InvitationWriteCalendarModal";
+import { useEffect, useState } from "react";
+import InvitationWriteCalendarModal from "./calendar/InvitationWriteCalendarModal";
+import VoteModal from "./calendar/VoteModal";
 import InvitationWriteTimeModal from "./InvitationWriteTimeModal";
 
 type activeState = "startTime" | "endTime" | "date" | null;
@@ -14,8 +17,17 @@ type activeState = "startTime" | "endTime" | "date" | null;
 const InvitationWriteCalendar = () => {
   const [isTimeShow, setIsTimeShow] = useState<boolean>(false);
   const [activeStateModal, setActiveStateModal] = useState<activeState>(null);
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
   const { invitation, setInvitation } = useInvitationStore();
+  const { selectedTool, setToolBarContent } = useToolBarContext();
+
+  useEffect(() => {
+    if (selectedTool?.type === "Vote") {
+      setIsShowModal(true);
+    }
+  }, [selectedTool]);
+
   const formatDate =
     invitation.startDate === "" ? "날짜 선택" : invitation.startDate;
 
@@ -37,7 +49,12 @@ const InvitationWriteCalendar = () => {
     setActiveStateModal((prev) => (prev === state ? null : state));
 
   return (
-    <S.Container>
+    <S.Container
+      onClick={(e) => {
+        e.stopPropagation();
+        setToolBarContent(DateToolBarList);
+      }}
+    >
       <S.TitleContainer>
         <S.Label>일정</S.Label>
         <S.Text>일정 박스를 눌러 투표를 추가해보세요.</S.Text>
@@ -135,6 +152,8 @@ const InvitationWriteCalendar = () => {
           handleCloseModal={() => toggleState("endTime")}
         />
       )}
+
+      {isShowModal && <VoteModal onClose={() => setIsShowModal(false)} />}
     </S.Container>
   );
 };

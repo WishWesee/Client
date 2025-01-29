@@ -16,7 +16,7 @@ const initialState: InvitationState = {
     address: "",
     mapLink: "",
     mapViewType: 0,
-    voteDeadline: "2025-01-18",
+    voteDeadline: "",
     attendanceSurveyEnabled: true,
     scheduleVoteMultiple: true,
     scheduleVoteClosed: true,

@@ -28,7 +28,7 @@ const TwoBtnModal = ({
               <br />
             </span>
           ))}
-        </h4>{" "}
+        </h4>
         <S.BtnWrap>
           <BtnModalCaution
             text={leftBtnText}

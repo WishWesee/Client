@@ -3,8 +3,8 @@ import { Value, ValuePiece } from "@/types/invitationWrite/calendar";
 import { formatDateToCustomFormat } from "@/utils/calendar/formatCustomDateFromDate";
 import * as S from "@styles/invitationWrite/invitationWriteCalendarModal";
 import { useState } from "react";
-import SlideButton from "../button/Btn_Boolean";
-import CalendarComponent from "../common/Calendar";
+import SlideButton from "../../button/Btn_Boolean";
+import CalendarComponent from "../../common/Calendar";
 
 interface InvitationWriteCalendarModalProps {
   startDate?: ValuePiece;

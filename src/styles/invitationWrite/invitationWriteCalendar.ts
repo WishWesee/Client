@@ -8,7 +8,8 @@ export const Container = styled.div`
   padding: 20px;
   margin-top: 80px;
   flex-direction: column;
-  z-index: 1;
+  /* z-index: 1; */
+  cursor: pointer;
 `;
 
 export const TitleContainer = styled.div`

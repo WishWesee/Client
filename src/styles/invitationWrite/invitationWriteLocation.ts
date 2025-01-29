@@ -9,6 +9,7 @@ export const Container = styled.div`
   margin-top: 12px;
   flex-direction: column;
   box-sizing: border-box;
+  cursor: pointer;
 `;
 
 export const TitleContainer = styled.div`

@@ -7,6 +7,7 @@ import ActiveLocation from "@assets/icons/화면GUI_Full/2424_Activate/Location.
 import ActiveMap from "@assets/icons/화면GUI_Full/2424_Activate/Map.svg?react";
 import ActiveText from "@assets/icons/화면GUI_Full/2424_Activate/Text.svg?react";
 import ActiveTimeTable from "@assets/icons/화면GUI_Full/2424_Activate/Timetable.svg?react";
+import ActiveVote from "@assets/icons/화면GUI_Full/2424_Activate/Vote.svg?react";
 import Box from "@assets/icons/화면GUI_Full/2424_Default/Box.svg?react";
 import Finder from "@assets/icons/화면GUI_Full/2424_Default/Finder.svg?react";
 import Image from "@assets/icons/화면GUI_Full/2424_Default/Img.svg?react";
@@ -15,6 +16,7 @@ import Location from "@assets/icons/화면GUI_Full/2424_Default/Location.svg?rea
 import Map from "@assets/icons/화면GUI_Full/2424_Default/Map.svg?react";
 import Text from "@assets/icons/화면GUI_Full/2424_Default/Text.svg?react";
 import TimeTable from "@assets/icons/화면GUI_Full/2424_Default/Timetable.svg?react";
+import Vote from "@assets/icons/화면GUI_Full/2424_Default/Vote.svg?react";
 
 export const NomalToolBarList: toolBarIconListType[] = [
   {
@@ -65,5 +67,14 @@ export const LocationToolBarList: toolBarIconListType[] = [
     defaultIcon: Finder,
     activeIcon: ActiveFinder,
     title: "다시 검색",
+  },
+];
+
+export const DateToolBarList: toolBarIconListType[] = [
+  {
+    type: "Vote",
+    defaultIcon: Vote,
+    activeIcon: ActiveVote,
+    title: "투표",
   },
 ];
