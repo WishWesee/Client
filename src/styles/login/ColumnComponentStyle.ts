@@ -6,4 +6,8 @@ export const ColumnContainer = styled.div`
     width: 100%;
     max-width: 100%;
     max-height: 100%;
+    @media (min-width: 768px) {
+        margin-top: 54px;
+        width: auto;
+    }
 `;

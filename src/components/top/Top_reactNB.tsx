@@ -1,17 +1,31 @@
 import React from "react";
-import Arrow_Left from "@/assets/icons/화면GUI_Line/2020/Arrow_Left.svg?react";
-import { constants } from "@/constants/essentialComponents/Comp_Top";
+import Arrow_Left from "@/assets/icons/화면GUI_Line/2020/Arrow_Left.tsx";
 import * as style from "@/styles/essentialComponents/top/TopReactNBStyles";
 
-const ReactNB: React.FC = () => {
-  return (
-    <style.TopReactNB>
-      <style.BtnRNBack>
-        <Arrow_Left />
-        {constants.Btn_rNB_Back}
-      </style.BtnRNBack>
+type NBProps = {
+  Back: string;
+  Front: string;
+  Color?: string;
+  onBackClick?: () => void;
+  onFrontClick?: () => void;
+};
 
-      <style.BtnRNSave>{constants.Btn_rNB_Save}</style.BtnRNSave>
+const ReactNB: React.FC<NBProps> = ({ Back, Front, Color = "blue", onBackClick, onFrontClick }) => {
+
+  return (
+    <style.TopReactNB className={Color === "white" ? "white" : undefined}>
+      <style.BtnRNBack className={Color === "white" ? "white" : undefined} onClick={onBackClick}>
+        {Color === "white" ? <Arrow_Left stroke="#FCFCFD" /> : <Arrow_Left />}
+        {Back}
+      </style.BtnRNBack>
+      {Front !== "null" ? (
+        <style.BtnRNSave
+          className={Color === "blue" ? "" : "white"}
+          onClick={onFrontClick} // Front 클릭 시 콜백 호출
+        >
+          {Front}
+        </style.BtnRNSave>
+      ) : null}
     </style.TopReactNB>
   );
 };
