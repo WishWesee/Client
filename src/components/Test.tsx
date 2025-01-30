@@ -1,4 +1,4 @@
-import LoginScreen from "./LoginScreens";
+import LoginScreen from "./LoginScreen";
 
 const Tsta = () => {
   return (
