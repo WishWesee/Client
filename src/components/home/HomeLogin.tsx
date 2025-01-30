@@ -6,9 +6,11 @@ import BGMail from "@assets/images/Home/BGMail.svg?react";
 import ImgIntroBG from "@assets/images/Home/ImgIntroBG.svg?react";
 import * as S from "@styles/home/HomeLoginStyle";
 import useWMediaQuery from "@/hooks/useWMediaQuery";
+import { useNavigate } from "react-router-dom";
 
 const HomeLogin = () => {
   const { isMobile } = useWMediaQuery();
+  const navigate = useNavigate();
 
   return (
     <S.Container>
@@ -35,7 +37,11 @@ const HomeLogin = () => {
               </S.BlackText>
               <S.BlueText>우리만의 특별한 초대장을 만들어보세요!</S.BlueText>
             </S.TextWrap>
-            <ButtonBottomNext text={"초대장 만들기"} color={"blue"} />
+            <ButtonBottomNext
+              text={"초대장 만들기"}
+              color={"blue"}
+              onClick={() => navigate("/write")}
+            />
           </S.MailTopWrap>
         </S.MailBoxWrap>
       </S.HomeWrap>
