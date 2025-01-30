@@ -6,23 +6,18 @@ import Google from '@/assets/icons/화면GUI_Full/3232/Google.svg?react';
 
 const LoginSection: React.FC = () => {
     const navigate = useNavigate();
-
+    //토큰갱신 및 구글로그인 후 이동할 페이지 서버에서 세팅해주면 바꾸기
     useEffect(() => {
-        // URL에서 토큰 추출
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
 
         if (token) {
-            // 로컬 스토리지에 토큰 저장
             localStorage.setItem('authToken', token);
-
-            // 메인 페이지로 리다이렉트
             navigate('/');
         }
     }, [navigate]);
 
     const handleGoogleLogin = () => {
-        // Google 로그인 페이지로 리다이렉트
         window.location.href = 'https://wishwesee.n-e.kr/oauth2/authorize/google';
     };
 
