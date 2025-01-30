@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate }  from "react-router-dom";
 import Arrow_Left from "@/assets/icons/화면GUI_Line/2020/Arrow_Left.tsx";
 import * as style from "@/styles/essentialComponents/top/TopReactNBStyles";
 
@@ -8,7 +7,7 @@ type NBProps = {
   Front: string;
   Color?: string;
   onBackClick?: () => void;
-  onFrontClick?: () => void; // Front 버튼의 동작을 콜백으로 받음
+  onFrontClick?: () => void;
 };
 
 const ReactNB: React.FC<NBProps> = ({ Back, Front, Color = "blue", onBackClick, onFrontClick }) => {

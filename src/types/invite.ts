@@ -25,7 +25,7 @@ export type TInvitationRes = {
   location: string;
   address: string;
   mapLink: string;
-  blocks: (BoxType | PhotoType | TextType | TimeTableType)[];
+  blocks: (BoxType | DividerType | PhotoType | TextType | TimeTableType)[];
   attendanceSurveyEnabled: boolean;
   owner: boolean;
 };
@@ -35,7 +35,12 @@ export type BoxType = {
   sequence: number;
   title: string;
   content: string;
-  color: number;
+  colorCode: number;
+};
+
+export type DividerType = {
+  type: "divider";
+  sequence: number;
 };
 
 export type PhotoType = {
@@ -48,6 +53,9 @@ export type TextType = {
   type: "text";
   sequence: number;
   content: string;
+  font: string;
+  color: string;
+  styles: string;
 };
 
 export type TimeTableType = {
