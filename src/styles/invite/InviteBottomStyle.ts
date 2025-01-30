@@ -28,6 +28,7 @@ export const Container = styled.div`
     font: var(--Selected-BtnName-FileName);
     color: var(--White);
     width: 160px;
+    cursor: pointer;
 
     ${isTablet} {
       width: 100%;
@@ -40,6 +41,7 @@ export const Container = styled.div`
     &:disabled {
       background-color: var(--Gray10);
       color: var(--Gray40);
+      cursor: default;
     }
   }
 `;
