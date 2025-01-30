@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom"; 
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useChoiceStore } from "@/store/useChoiceStore";
 import AddIcon from "@/assets/icons/화면GUI_Line/2020/Add.svg?react";
 import ImgIcon from "@/assets/icons/화면GUI_Full/2424_Activate/Img.svg?react";
@@ -8,15 +8,22 @@ import ReactNB from "@/components/top/Top_reactNB";
 import Rectangle from "@/components/choiceCard/Rectangle";
 import Wrap from "@/components/choiceCard/Wrap";
 import NextButton from "@/components/button/Btn_Bottom_Next";
-import Birthday1 from "@/assets/images/ChoiceCard/birthday1.svg";
+import Birthday1 from "@/assets/images/ChoiceCard/Birthday1.svg";
 import Birthday2 from "@/assets/images/ChoiceCard/Birthday2.svg";
 import LastOfYear1 from "@/assets/images/ChoiceCard/lastofyear1.svg";
 import LastOfYear2 from "@/assets/images/ChoiceCard/LastOfYear2.svg";
 import Travel1 from "@/assets/images/ChoiceCard/travel1.svg";
 
-import { Top, WrapTexts, Modal, SB, ButtonNext, Button } from "@/constants/choiceCard/Wrap";
-import * as style from '@/styles/choiceCard/ChoiceCardStyle';
-import * as modalStyle from '@/styles/choiceCard/ModalStyle';
+import {
+  Top,
+  WrapTexts,
+  Modal,
+  SB,
+  ButtonNext,
+  Button,
+} from "@/constants/choiceCard/Wrap";
+import * as style from "@/styles/choiceCard/ChoiceCardStyle";
+import * as modalStyle from "@/styles/choiceCard/ModalStyle";
 import useWMediaQuery from "@/hooks/useWMediaQuery";
 
 const ChoiceCard: React.FC = () => {
@@ -38,7 +45,7 @@ const ChoiceCard: React.FC = () => {
 
   const handleRectangleToggle = (index: number, imageSrc: string) => {
     setActiveRectangle(index);
-    setSelectedImage(imageSrc); 
+    setSelectedImage(imageSrc);
   };
 
   const renderModal = () => {
@@ -96,28 +103,36 @@ const ChoiceCard: React.FC = () => {
         <modalStyle.ModalBackground>
           <modalStyle.Modal>
             <modalStyle.Title>{Modal.Title}</modalStyle.Title>
-            <NextButton text={ButtonNext.text} color={ButtonNext.color} onClick={renderModal} />
+            <NextButton
+              text={ButtonNext.text}
+              color={ButtonNext.color}
+              onClick={renderModal}
+            />
           </modalStyle.Modal>
         </modalStyle.ModalBackground>
       )}
 
       {/* 화면 크기에 따라 Front prop에 "다음" 또는 기존 값을 전달 */}
-      <ReactNB Back={Top.Btn_rNB_Back} Front={frontProp} onBackClick={() => navigate("/")}/>
+      <ReactNB
+        Back={Top.Btn_rNB_Back}
+        Front={frontProp}
+        onBackClick={() => navigate("/")}
+      />
 
       <style.Content>
         <Wrap Title={WrapTexts.Title} SubText={WrapTexts.SubText} />
         <style.Wrap_Card>
           <style.HorizontalSB_Content>
-          <style.Btn_hSB_New as="label">
-            <AddIcon />
-            <ImgIcon />
-            <input
-              type="file"
-              accept="image/*" 
-              style={{ display: "none" }}
-              onChange={handleFileChange}
-            />
-          </style.Btn_hSB_New>
+            <style.Btn_hSB_New as="label">
+              <AddIcon />
+              <ImgIcon />
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+              />
+            </style.Btn_hSB_New>
             {sbItems.map((item, index) => (
               <HorizontalSB
                 key={index}
