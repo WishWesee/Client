@@ -133,7 +133,7 @@ export const ListItem = styled.div`
 
   > img {
     width: 100%;
-    aspect-ratio: 350/262;
+    aspect-ratio: 4 / 3;
     object-fit: cover;
     border-radius: 8px 8px 0px 0px;
   }

@@ -19,7 +19,7 @@ export const BodyWrap = styled.div<{ $screenWidth: number }>`
   align-items: center;
   gap: 20px;
   width: 100%;
-  margin-top: ${(props) => props.$screenWidth * (262 / 350)}px;
+  margin-top: ${(props) => props.$screenWidth * (3 / 4)}px;
   z-index: 1;
 
   ${isTablet} {
@@ -47,12 +47,12 @@ export const FadeInImage = styled.img<{
   position: fixed;
   top: 0;
   width: 100%;
-  height: ${(props) => props.$screenWidth * (262 / 350)};
+  height: ${(props) => props.$screenWidth * (3 / 4)};
   aspect-ratio: 1;
   object-fit: cover;
   animation: ${fadeIn} 3s ease-out forwards;
   visibility: ${(props) =>
-    props.$scrollY > props.$screenWidth * (262 / 350) ? "hidden" : "visible"};
+    props.$scrollY > props.$screenWidth * (3 / 4) ? "hidden" : "visible"};
 `;
 
 export const Overlay = styled.div`
