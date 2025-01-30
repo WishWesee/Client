@@ -1,6 +1,7 @@
 import { UsageText } from "@/constants/home";
 import * as S from "@styles/home/UsageGuideStyle";
 import UsageCard from "./UsageCard";
+import GoogleLogin from "../login/GoogleLogin";
 
 const UsageGuide = () => {
   return (
@@ -16,6 +17,7 @@ const UsageGuide = () => {
           <UsageCard key={item.id} item={item} />
         ))}
       </S.CardWrap>
+      <GoogleLogin />
     </S.Container>
   );
 };

@@ -1,6 +1,6 @@
 import Mail from "@/assets/icons/화면GUI_Full/2424_Activate/Invitation.svg?react";
 import SaveBox from "@/assets/icons/화면GUI_Full/2424_Activate/SaveBox.svg?react";
-import Vote from "@/assets/icons/화면GUI_Full/2424_Activate/vote.svg?react";
+import Vote from "@/assets/icons/화면GUI_Full/2424_Activate/Vote.svg?react";
 import GreetingMessage from "@/components/login/GreetingMessage";
 import LoginBoxColumn from "@/components/login/LoginBoxColumn";
 import LoginSection from "@/components/login/LoginSection";
