@@ -13,15 +13,23 @@ import { useState } from "react";
 import ShareWrap from "./ShareWrap";
 import ContentTextBox from "./ContentTextBox";
 import ContentTimeTable from "./ContentTimeTable";
+import KakaoWrap from "./KakaoWrap";
 
 interface Props {
   invitationState: number;
   data: TInvitationRes;
   refetch: () => void;
   isLogin: boolean;
+  isDone: boolean;
 }
 
-const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
+const ContentWrap = ({
+  invitationState,
+  data,
+  refetch,
+  isLogin,
+  isDone,
+}: Props) => {
   const { isMobile, isTablet, isDesktop } = useWMediaQuery();
   const navigate = useNavigate();
 
@@ -40,7 +48,9 @@ const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
           {invitationState !== 0 &&
             (isTablet ? <ArrowBackIcon /> : isDesktop && <ArrowLeftIcon />)}
           <span>
-            {invitationState === 1
+            {isDone
+              ? "초대장이 완성되었어요!"
+              : invitationState === 1
               ? "내가 보낸 초대장"
               : invitationState === 2
               ? "내가 받은 초대장"
@@ -120,16 +130,20 @@ const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
         </S.FoldWrap>
       )}
       <PageFoldBtn isFold={isFold} setIsFold={setIsFold} />
-      {!isMobile && (
-        <ShareWrap
-          id={data.invitationId}
-          title={data.title}
-          cardImage={data.cardImage}
-          isAlreadySave={data.alreadySaved}
-          isLogin={isLogin}
-          isShareLink={invitationState === 0}
-          refetch={refetch}
-        />
+      {isDone ? (
+        <KakaoWrap data={data} />
+      ) : (
+        !isMobile && (
+          <ShareWrap
+            id={data.invitationId}
+            title={data.title}
+            cardImage={data.cardImage}
+            isAlreadySave={data.alreadySaved}
+            isLogin={isLogin}
+            isShareLink={invitationState === 0}
+            refetch={refetch}
+          />
+        )
       )}
     </S.CardWrap>
   );

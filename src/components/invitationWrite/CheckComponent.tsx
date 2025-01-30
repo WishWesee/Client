@@ -44,7 +44,9 @@ const CheckComponent = ({ data, isCheck }: Props) => {
   const handleSaveInvite = () => {
     //저장 후 결과로 받은 id값
     const id = 1;
-    navigate(`/invite/${id}`);
+    navigate(`/invites/${id}`, {
+      state: { isDone: true },
+    });
   };
 
   return (
