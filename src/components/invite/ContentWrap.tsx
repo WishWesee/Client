@@ -4,6 +4,7 @@ import VoteBox from "./VoteBox";
 import PageFoldBtn from "./PageFoldBtn";
 import { formatVoteDateTime } from "@/utils/formatVoteDateTime";
 import ArrowBackIcon from "@assets/icons/화면GUI_Line/2020/Arrow_Back.svg?react";
+import ArrowLeftIcon from "@assets/icons/화면GUI_Line/2020/Arrow_Left.svg?react";
 import CalendarIcon from "@assets/icons/화면GUI_Full/2424_Activate/Calendar.svg?react";
 import LocationIcon from "@assets/icons/화면GUI_Full/2424_Activate/Location.svg?react";
 import useWMediaQuery from "@/hooks/useWMediaQuery";
@@ -21,7 +22,7 @@ interface Props {
 }
 
 const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
-  const { isMobile } = useWMediaQuery();
+  const { isMobile, isTablet, isDesktop } = useWMediaQuery();
   const navigate = useNavigate();
 
   const [isFold, setIsFold] = useState(false); //글이 접힌 상태인지 여부
@@ -29,16 +30,15 @@ const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
   return (
     <S.CardWrap>
       <S.HeaderWrap>
-        <S.StatusWrap>
-          {invitationState !== 0 && !isMobile && (
-            <ArrowBackIcon
-              onClick={() =>
-                invitationState === 1
-                  ? navigate("/invite/sent")
-                  : navigate("/invite/received")
-              }
-            />
-          )}
+        <S.StatusWrap
+          onClick={() =>
+            invitationState === 1
+              ? navigate("/invite/sent")
+              : navigate("/invite/received")
+          }
+        >
+          {invitationState !== 0 &&
+            (isTablet ? <ArrowBackIcon /> : isDesktop && <ArrowLeftIcon />)}
           <span>
             {invitationState === 1
               ? "내가 보낸 초대장"

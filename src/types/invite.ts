@@ -105,3 +105,13 @@ export type TFeedbackRes = {
     isWritable: boolean;
   };
 };
+
+export type TInviteListRes = {
+  totalInvitations: number;
+  invitations: {
+    invitationId: number;
+    cardImage: string;
+    title: string;
+    date: string;
+  }[];
+};

@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Suspense } from "react";
+
 import Router from "./Router";
 
 function App() {
@@ -7,9 +7,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Suspense fallback={<></>}>
         <Router />
-      </Suspense>
     </QueryClientProvider>
   );
 }

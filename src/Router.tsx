@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import InvitationWritePage from "./pages/InvitationWritePage";
 import InvitationDetailPage from "./pages/InvitationDetailPage";
 import EmptyComponent from "./components/invite/EmptyComponent";
+import SentInvitationListPage from "./pages/SentInvitationListPage";
+import ReceivedInvitationListPage from "./pages/ReceivedInvitationListPage";
 
 const Router = () => {
   return (
@@ -13,6 +15,11 @@ const Router = () => {
           <Route path="/" element={<Home />} />
           <Route path="/write" element={<InvitationWritePage />} />
           <Route path="/invite/:id" element={<InvitationDetailPage />} />
+          <Route path="/invite/sent" element={<SentInvitationListPage />} />
+          <Route
+            path="/invite/received"
+            element={<ReceivedInvitationListPage />}
+          />
           <Route
             path="*"
             element={<EmptyComponent text="요청하신 페이지를 찾을 수 없어요" />}

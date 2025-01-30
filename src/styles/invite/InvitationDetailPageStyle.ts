@@ -12,7 +12,6 @@ export const Container = styled.div<{ $isHeader: boolean }>`
 `;
 
 export const BodyWrap = styled.div<{ $screenWidth: number }>`
-  transition: all 0.3s ease-in-out;
   position: relative;
   display: flex;
   flex-direction: column;
