@@ -136,3 +136,13 @@ export type TInvitationReq = {
   cardImage: string;
   photoImages: string[];
 };
+
+export type TInviteListRes = {
+  totalInvitations: number;
+  invitations: {
+    invitationId: number;
+    cardImage: string;
+    title: string;
+    date: string;
+  }[];
+};

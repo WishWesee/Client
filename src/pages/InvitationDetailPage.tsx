@@ -71,7 +71,7 @@ const InvitationDetailPage = () => {
     await deleteSentInvite(data?.invitationId);
     setIsDeleteSentModal(false);
     refetch();
-    navigate("/invite/sent");
+    navigate("/invites/sent");
   };
 
   //내가 받은 초대장 삭제 함수
@@ -81,7 +81,7 @@ const InvitationDetailPage = () => {
     await deleteReceivedInvite(data?.invitationId);
     setIsDeleteReceivedModal(false);
     refetch();
-    navigate("/invite/received");
+    navigate("/invites/received");
   };
 
   return (
@@ -94,8 +94,8 @@ const InvitationDetailPage = () => {
               buttonType="삭제"
               onLeftBtnClick={() =>
                 invitationState === 1
-                  ? navigate("/invite/sent")
-                  : navigate("/invite/received")
+                  ? navigate("/invites/sent")
+                  : navigate("/invites/received")
               }
               onRightBtnClick={() =>
                 invitationState === 1
