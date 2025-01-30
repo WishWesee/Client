@@ -12,7 +12,7 @@ import InvitationWriteCalendarModal from "./calendar/InvitationWriteCalendarModa
 import VoteModal from "./calendar/VoteModal";
 import InvitationWriteTimeModal from "./InvitationWriteTimeModal";
 
-type activeState = "startTime" | "endTime" | "date" | null;
+export type activeState = "startTime" | "endTime" | "date" | null;
 
 const InvitationWriteCalendar = () => {
   const [isTimeShow, setIsTimeShow] = useState<boolean>(false);
@@ -129,31 +129,31 @@ const InvitationWriteCalendar = () => {
             </S.ButtonContainer>
           )}
         </S.ComponentContainer>
+
+        {/* Modal */}
+
+        {activeStateModal === "date" && (
+          <InvitationWriteCalendarModal
+            handleCloseModal={() => toggleState("date")}
+            isTimeShow={isTimeShow}
+            handleTimeShow={toggleTimeShow}
+          />
+        )}
+        {activeStateModal === "startTime" && (
+          <InvitationWriteTimeModal
+            isStartTime={true}
+            handleCloseModal={() => toggleState("startTime")}
+          />
+        )}
+        {activeStateModal === "endTime" && (
+          <InvitationWriteTimeModal
+            isStartTime={false}
+            handleCloseModal={() => toggleState("endTime")}
+          />
+        )}
+
+        {isShowModal && <VoteModal onClose={() => setIsShowModal(false)} />}
       </S.DateContainer>
-
-      {/* Modal */}
-
-      {activeStateModal === "date" && (
-        <InvitationWriteCalendarModal
-          handleCloseModal={() => toggleState("date")}
-          isTimeShow={isTimeShow}
-          handleTimeShow={toggleTimeShow}
-        />
-      )}
-      {activeStateModal === "startTime" && (
-        <InvitationWriteTimeModal
-          isStartTime={true}
-          handleCloseModal={() => toggleState("startTime")}
-        />
-      )}
-      {activeStateModal === "endTime" && (
-        <InvitationWriteTimeModal
-          isStartTime={false}
-          handleCloseModal={() => toggleState("endTime")}
-        />
-      )}
-
-      {isShowModal && <VoteModal onClose={() => setIsShowModal(false)} />}
     </S.Container>
   );
 };

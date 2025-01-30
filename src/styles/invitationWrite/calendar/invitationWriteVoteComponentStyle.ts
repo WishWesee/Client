@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  background-color: var(--Blue5);
-  border-radius: 8px;
   padding: 20px;
-  margin-top: 68px;
   flex-direction: column;
-  /* z-index: 1; */
-  cursor: pointer;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: 8px;
+  background: var(--Blue5, #eaf0f7);
 `;
 
 export const TitleContainer = styled.div`
@@ -16,6 +16,7 @@ export const TitleContainer = styled.div`
   width: 100%;
   height: fit-content;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const Label = styled.p`
@@ -26,15 +27,20 @@ export const Label = styled.p`
 
 export const Text = styled.p`
   font: var(--AdditionalText);
-  color: var(--Gray40);
+  color: var(--Black);
   margin: 0;
+`;
+
+export const SlideButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;
 
 export const DateContainer = styled.div`
   gap: 4px;
   align-items: center;
   width: 100%;
-  position: relative;
 `;
 
 export const ComponentContainer = styled.div`
@@ -46,11 +52,12 @@ export const ComponentContainer = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   gap: 4px;
+  align-items: center;
+  height: fit-content;
 `;
 
 export const SelectDateButton = styled.button`
   display: flex;
-  margin-top: 14px;
   height: 48px;
   width: 100%;
   padding: 12px;
@@ -69,7 +76,6 @@ export const ButtonText = styled.p`
 
 export const SelectTimeButton = styled.button`
   display: flex;
-  margin-top: 14px;
   height: 48px;
   padding: 12px;
   min-width: 128px;
@@ -78,5 +84,57 @@ export const SelectTimeButton = styled.button`
   border-radius: 4px;
   border: 2px solid var(--Blue-10, #d7e9ff);
   background: var(--White, #fcfcfd);
+  cursor: pointer;
+`;
+
+export const ItemContainer = styled.div<{ isSelected?: boolean }>`
+  display: flex;
+  align-items: center;
+  height: fit-content;
+  width: 100%;
+  padding: 8px 4px;
+  margin-bottom: 4px;
+  position: relative;
+  gap: 4px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: ${({ isSelected }) =>
+    isSelected ? "var(--Blue10)" : "transparent"};
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--Gray10);
+  }
+
+  &:last-of-type::after {
+    display: none;
+  }
+`;
+
+export const Index = styled.p`
+  font: var(--Unselected-Field-rNBLeft);
+  color: var(--Black);
+  width: 20px;
+  text-align: center;
+`;
+
+export const AddButton = styled.button`
+  display: flex;
+  height: 48px;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  align-self: stretch;
+  border-radius: 8px;
+  background: var(--Primary, #358ffe);
+  color: white;
+  font: var(--Selected-BtnName-FileName);
+  border: none;
   cursor: pointer;
 `;

@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin-top: 96px;
+  margin-top: 84px;
   display: flex;
   flex-direction: column;
   padding: 20px;
+  gap: 12px;
 `;
 
 export const TitleInput = styled.input`

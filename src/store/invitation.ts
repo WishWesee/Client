@@ -51,10 +51,10 @@ const initialState: InvitationState = {
     ],
     scheduleVotes: [
       {
-        startDate: "2024-12-24",
-        startTime: "10:00",
-        endDate: "2024-12-28",
-        endTime: "14:00",
+        startDate: "",
+        startTime: "",
+        endDate: "",
+        endTime: "",
       },
     ],
   },

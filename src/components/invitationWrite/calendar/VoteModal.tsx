@@ -6,7 +6,7 @@ import { formatDateToCustomFormat } from "@/utils/calendar/formatCustomDateFromD
 import ActiveCalendar from "@assets/icons/화면GUI_Full/2424_Activate/Calendar.svg?react";
 import Calendar from "@assets/icons/화면GUI_Full/2424_Default/Calendar.svg?react";
 import { useState } from "react";
-import InvitationWriteVoteCalendarModal from "./InvitationWriteVoteCalendarModal";
+import InvitationWriteVoteCalendarModal from "./InvitationWriteVoteModal";
 
 type Props = {
   onClose: () => void;
@@ -17,10 +17,9 @@ const VoteModal: React.FC<Props> = ({ onClose }) => {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [date, setDate] = useState<ValuePiece>(null);
 
-  const formatDate =
-    invitation.voteDeadline === "" || !date
-      ? "투표 마감일 선택"
-      : formatDateToCustomFormat(date);
+  const formatDate = !date
+    ? "투표 마감일 선택"
+    : formatDateToCustomFormat(date);
 
   const handleSetVoteDate = () => {
     setInvitation((prevInvitation) => {
@@ -31,6 +30,7 @@ const VoteModal: React.FC<Props> = ({ onClose }) => {
   };
 
   console.log(invitation.voteDeadline);
+  console.log(date);
 
   return (
     <S.Overlay>

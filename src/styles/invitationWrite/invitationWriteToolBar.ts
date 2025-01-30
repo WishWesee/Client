@@ -11,6 +11,7 @@ export const Container = styled.div`
   padding: 0 20px;
   background-color: var(--Blue5);
   box-sizing: border-box;
+  z-index: 1000;
 `;
 
 export const ToolButton = styled.button`
