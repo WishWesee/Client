@@ -1,7 +1,7 @@
-import React from 'react';
-import Arrow_Left from '@/assets/icons/화면GUI_Line/2020/Arrow_Left.svg?react';
-import { constants } from '@/constants/Comp_Top.ts';
-import * as style from '@/styles/essentialComponents/top/TopReactNBStyles';
+import React from "react";
+import Arrow_Left from "@/assets/icons/화면GUI_Line/2020/Arrow_Left.svg?react";
+import { constants } from "@/constants/essentialComponents/Comp_Top";
+import * as style from "@/styles/essentialComponents/top/TopReactNBStyles";
 
 const ReactNB: React.FC = () => {
   return (

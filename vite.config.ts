@@ -28,4 +28,7 @@ export default defineConfig({
       "@apis": path.resolve(__dirname, "./src/api"),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 600,
+  },
 });

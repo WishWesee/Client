@@ -1,9 +1,11 @@
-import LoginScreen from "./LoginScreen";
+import LoginScreen from "./LoginScreens";
 
 const Tsta = () => {
-  return <>
-    <LoginScreen/>
-  </>;
+  return (
+    <>
+      <LoginScreen />
+    </>
+  );
 };
 
 export default Tsta;
