@@ -26,7 +26,7 @@ const ChoiceCard: React.FC = () => {
   const [myImages, setMyImages] = useState<string[]>([]);
   const navigate = useNavigate();
 
-  const { selectedImage, setSelectedImage } = useChoiceStore(); //이미지 src 전역상태 설정
+  const { /**selectedImage, */ setSelectedImage } = useChoiceStore(); //이미지 src 전역상태 설정
 
   const { isDesktop, isTablet } = useWMediaQuery();
 
@@ -102,7 +102,7 @@ const ChoiceCard: React.FC = () => {
       )}
 
       {/* 화면 크기에 따라 Front prop에 "다음" 또는 기존 값을 전달 */}
-      <ReactNB Back={Top.Btn_rNB_Back} Front={frontProp} />
+      <ReactNB Back={Top.Btn_rNB_Back} Front={frontProp} onBackClick={() => navigate("/")}/>
 
       <style.Content>
         <Wrap Title={WrapTexts.Title} SubText={WrapTexts.SubText} />

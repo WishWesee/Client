@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from 'react';
-import TestImage from './TestImage2.svg?react';
 import ArrowRight from '@/assets/icons/화면GUI_Line/2020/Arrow_Right.svg?react';
 import * as style from '@/styles/myInvitation/MyInvitationContainerStyle';
 

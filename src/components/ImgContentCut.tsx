@@ -1,9 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ReactNB from "@/components/top/Top_reactNB";
 import NextButton from "@/components/button/Btn_Bottom_Next";
 import Cropper from "react-cropper";
-import TestImage from "@assets/테스트이미지/TestImage.svg";
 import "cropperjs/dist/cropper.css";
 import * as style from "@/styles/choiceCard/ImgContentCut";
 import { CropperContainer } from "@/styles/choiceCard/ChoiceCardStyle";

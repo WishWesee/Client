@@ -1,7 +1,6 @@
 import * as style from "@/styles/essentialComponents/top/TopHeaderStyle";
 import HeaderLogo from "@assets/icons/Logo/HeaderLogo.svg?react";
 import { FetchMyInfo } from "@/api/login/profile";
-import Profile from "@assets/icons/화면GUI_Full/3232/Profile.svg?react";
 import SaveBox from "@assets/icons/화면GUI_Full/3232/SaveBox.svg?react";
 import React, { useState, useEffect } from "react";
 

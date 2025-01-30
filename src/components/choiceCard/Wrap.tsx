@@ -1,6 +1,6 @@
 import React from 'react';
 import * as style from '@/styles/choiceCard/WrapStyle';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Btn from '@/components/button/Btn_Bottom_Next';
 
 type WrapProps = {
