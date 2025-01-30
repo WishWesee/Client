@@ -33,8 +33,8 @@ const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
         <S.StatusWrap
           onClick={() =>
             invitationState === 1
-              ? navigate("/invite/sent")
-              : navigate("/invite/received")
+              ? navigate("/invites/sent")
+              : navigate("/invites/received")
           }
         >
           {invitationState !== 0 &&

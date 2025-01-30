@@ -32,7 +32,7 @@ const ShareWrap = ({
 
   //초대 링크 복사 함수
   const ClipBoard = () => {
-    const url = `http://localhost:3000/invite/${id}`;
+    const url = `https://wishwesee.netlify.app/invites/${id}`;
 
     navigator.clipboard.writeText(url).then(() => {
       alert("초대 링크가 복사되었습니다");
@@ -97,7 +97,7 @@ const ShareWrap = ({
           title={title}
           text="초대장이 도착했어요!"
           imageUrl={cardImage}
-          link={`http://localhost:3000/invite/${id}`}
+          link={`https://wishwesee.netlify.app/invites/${id}`}
           buttonComponent={<ShareBtn text="카카오톡" icon={KakaoTalkIcon} />}
         />
         <ShareBtn text="링크 복사" icon={LinkIcon} onClick={ClipBoard} />

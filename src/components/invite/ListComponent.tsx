@@ -23,7 +23,7 @@ const ListComponent = ({ data, year, setYear, title }: Props) => {
   return (
     <S.Container>
       {!isMobile && (
-        <StatusWrap onClick={() => navigate("/invite")}>
+        <StatusWrap onClick={() => navigate("/invites")}>
           <ArrowBackIcon color="var(--Gray40)" />
           <span style={{ paddingTop: 1 }}>나의 초대장</span>
         </StatusWrap>
@@ -49,7 +49,7 @@ const ListComponent = ({ data, year, setYear, title }: Props) => {
           return (
             <S.ListItem
               key={data.invitationId}
-              onClick={() => navigate(`/invite/${data.invitationId}`)}
+              onClick={() => navigate(`/invites/${data.invitationId}`)}
             >
               <img src={data.cardImage} alt={data.title} />
               <S.TitleWrap>
