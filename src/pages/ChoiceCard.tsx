@@ -10,7 +10,7 @@ import Wrap from "@/components/choiceCard/Wrap";
 import NextButton from "@/components/button/Btn_Bottom_Next";
 import Birthday1 from "@/assets/images/ChoiceCard/Birthday1.svg";
 import Birthday2 from "@/assets/images/ChoiceCard/Birthday2.svg";
-import LastOfYear1 from "@/assets/images/ChoiceCard/Lastofyear1.svg";
+import LastOfYear1 from "@/assets/images/ChoiceCard/LastOfyear1.svg";
 import LastOfYear2 from "@/assets/images/ChoiceCard/LastOfYear2.svg";
 import Travel1 from "@/assets/images/ChoiceCard/travel1.svg";
 
