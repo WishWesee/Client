@@ -4,6 +4,7 @@ import VoteBox from "./VoteBox";
 import PageFoldBtn from "./PageFoldBtn";
 import { formatVoteDateTime } from "@/utils/formatVoteDateTime";
 import ArrowBackIcon from "@assets/icons/화면GUI_Line/2020/Arrow_Back.svg?react";
+import ArrowLeftIcon from "@assets/icons/화면GUI_Line/2020/Arrow_Left.svg?react";
 import CalendarIcon from "@assets/icons/화면GUI_Full/2424_Activate/Calendar.svg?react";
 import LocationIcon from "@assets/icons/화면GUI_Full/2424_Activate/Location.svg?react";
 import useWMediaQuery from "@/hooks/useWMediaQuery";
@@ -12,16 +13,24 @@ import { useState } from "react";
 import ShareWrap from "./ShareWrap";
 import ContentTextBox from "./ContentTextBox";
 import ContentTimeTable from "./ContentTimeTable";
+import KakaoWrap from "./KakaoWrap";
 
 interface Props {
   invitationState: number;
   data: TInvitationRes;
   refetch: () => void;
   isLogin: boolean;
+  isDone: boolean;
 }
 
-const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
-  const { isMobile } = useWMediaQuery();
+const ContentWrap = ({
+  invitationState,
+  data,
+  refetch,
+  isLogin,
+  isDone,
+}: Props) => {
+  const { isMobile, isTablet, isDesktop } = useWMediaQuery();
   const navigate = useNavigate();
 
   const [isFold, setIsFold] = useState(false); //글이 접힌 상태인지 여부
@@ -29,18 +38,19 @@ const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
   return (
     <S.CardWrap>
       <S.HeaderWrap>
-        <S.StatusWrap>
-          {invitationState !== 0 && !isMobile && (
-            <ArrowBackIcon
-              onClick={() =>
-                invitationState === 1
-                  ? navigate("/invite/sent")
-                  : navigate("/invite/received")
-              }
-            />
-          )}
+        <S.StatusWrap
+          onClick={() =>
+            invitationState === 1
+              ? navigate("/invites/sent")
+              : navigate("/invites/received")
+          }
+        >
+          {invitationState !== 0 &&
+            (isTablet ? <ArrowBackIcon /> : isDesktop && <ArrowLeftIcon />)}
           <span>
-            {invitationState === 1
+            {isDone
+              ? "초대장이 완성되었어요!"
+              : invitationState === 1
               ? "내가 보낸 초대장"
               : invitationState === 2
               ? "내가 받은 초대장"
@@ -81,6 +91,7 @@ const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
           {data.blocks.map((block) => {
             return (
               <S.FlodItem key={block.sequence}>
+                {block.type === "divider" && <hr />}
                 {block.type === "box" && (
                   <ContentTextBox
                     boxType={0}
@@ -91,7 +102,25 @@ const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
                 {block.type === "photo" && (
                   <img src={block.image} alt="첨부한 이미지" />
                 )}
-                {block.type === "text" && <div>{block.content}</div>}
+                {block.type === "text" && (
+                  <div
+                    style={{
+                      font: `var(${block.font})`,
+                      color: block.color,
+                      fontWeight: block.styles === "bold" ? 600 : "normal",
+                      transform:
+                        block.styles === "italic" ? "skewX(-10deg)" : "none",
+                      textDecoration:
+                        block.styles === "strikethru"
+                          ? "line-through"
+                          : block.styles === "underline"
+                          ? "underline"
+                          : "none",
+                    }}
+                  >
+                    {block.content}
+                  </div>
+                )}
                 {block.type === "timeTable" && (
                   <ContentTimeTable content={block.content} />
                 )}
@@ -101,16 +130,20 @@ const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
         </S.FoldWrap>
       )}
       <PageFoldBtn isFold={isFold} setIsFold={setIsFold} />
-      {!isMobile && (
-        <ShareWrap
-          id={data.invitationId}
-          title={data.title}
-          cardImage={data.cardImage}
-          isAlreadySave={data.alreadySaved}
-          isLogin={isLogin}
-          isShareLink={invitationState === 0}
-          refetch={refetch}
-        />
+      {isDone ? (
+        <KakaoWrap data={data} />
+      ) : (
+        !isMobile && (
+          <ShareWrap
+            id={data.invitationId}
+            title={data.title}
+            cardImage={data.cardImage}
+            isAlreadySave={data.alreadySaved}
+            isLogin={isLogin}
+            isShareLink={invitationState === 0}
+            refetch={refetch}
+          />
+        )
       )}
     </S.CardWrap>
   );

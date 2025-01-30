@@ -11,7 +11,6 @@ const InvitationWriteVoteComponent = () => {
   const [isMultiple, setIsMultiple] = useState(false);
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
-  console.log(invitation);
   const handleNewVote = () => {
     setInvitation((prevInvitation) => {
       prevInvitation.scheduleVotes[prevInvitation.scheduleVotes.length] = {

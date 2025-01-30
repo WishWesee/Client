@@ -5,7 +5,7 @@ export const GreetingMessageContainer = styled.div`
     flex-direction: column;
     box-sizing: border-box;
     width: 100%;
-    height: 14.25rem;
+    padding-top: 75px;
     text-align: center;
     align-items: center;
     justify-content: center;
@@ -19,5 +19,10 @@ export const GreetingMessageContainer = styled.div`
     .highlight {
         color: #358FFE;
     }
+
+    @media (min-width: 768px) {
+        padding-top: 79px;
+    }
 `;
+
     
