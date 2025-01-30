@@ -81,6 +81,7 @@ const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
           {data.blocks.map((block) => {
             return (
               <S.FlodItem key={block.sequence}>
+                {block.type === "divider" && <hr />}
                 {block.type === "box" && (
                   <ContentTextBox
                     boxType={0}
@@ -91,7 +92,25 @@ const ContentWrap = ({ invitationState, data, refetch, isLogin }: Props) => {
                 {block.type === "photo" && (
                   <img src={block.image} alt="첨부한 이미지" />
                 )}
-                {block.type === "text" && <div>{block.content}</div>}
+                {block.type === "text" && (
+                  <div
+                    style={{
+                      font: `var(${block.font})`,
+                      color: block.color,
+                      fontWeight: block.styles === "bold" ? 600 : "normal",
+                      transform:
+                        block.styles === "italic" ? "skewX(-10deg)" : "none",
+                      textDecoration:
+                        block.styles === "strikethru"
+                          ? "line-through"
+                          : block.styles === "underline"
+                          ? "underline"
+                          : "none",
+                    }}
+                  >
+                    {block.content}
+                  </div>
+                )}
                 {block.type === "timeTable" && (
                   <ContentTimeTable content={block.content} />
                 )}
