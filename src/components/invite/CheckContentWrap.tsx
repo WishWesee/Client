@@ -53,11 +53,12 @@ const CheckContentWrap = ({ data }: Props) => {
           )}
           <S.SectionHeader style={{ marginTop: 40 }}>
             <LocationIcon />
-            <h4>{data.invitation.location}</h4>
+            <h4>{data.invitation.userLocation || data.invitation.location}</h4>
           </S.SectionHeader>
           <a onClick={() => window.open(`${data.invitation.mapLink}`)}>
             {data.invitation.address}
           </a>
+          <div style={{ color: "red" }}>지도링크</div>
         </div>
       </S.NotFoldWrap>
       {!isFold && (
