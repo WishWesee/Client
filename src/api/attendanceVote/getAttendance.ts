@@ -1,9 +1,6 @@
 import { TAttendanceRes } from "@/types/invite";
 import { api } from "..";
-import {
-  useSuspenseQuery,
-  UseSuspenseQueryResult,
-} from "@tanstack/react-query";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
 //참석 조사 조회
 export const getAttendance = async (invitationId: number) => {
@@ -15,8 +12,8 @@ export const getAttendance = async (invitationId: number) => {
 
 export const useAttendanceQuery = (
   invitationId: number
-): UseSuspenseQueryResult<TAttendanceRes, Error> => {
-  return useSuspenseQuery({
+): UseQueryResult<TAttendanceRes, Error> => {
+  return useQuery({
     queryKey: ["attendance", invitationId],
     queryFn: () => getAttendance(invitationId),
   });

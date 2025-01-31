@@ -17,7 +17,7 @@ import { deleteReceivedInvite } from "@/api/invitation/deleteReceivedInvite";
 import TwoBtnModal from "@/components/modal/TwoBtnModal";
 
 const InvitationDetailPage = () => {
-  const isLogin = false; //로그인되어있는 경우
+  const isLogin = true; //로그인되어있는 경우
 
   const { isMobile } = useWMediaQuery();
   const navigate = useNavigate();
