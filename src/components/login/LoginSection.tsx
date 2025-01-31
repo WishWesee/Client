@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LogIn } from '@/constants/login/loginScreen';
 import * as Style from '@/styles/login/LoginSectionComponentStyle';
-import Google from '@/assets/icons/화면GUI_Full/3232/Google.svg?react';
+import GoogleLogin from '@/components/login/GoogleLogin';
 
 const LoginSection: React.FC = () => {
     const navigate = useNavigate();
@@ -23,10 +23,7 @@ const LoginSection: React.FC = () => {
 
     return (
         <Style.LoginContainer>
-            <Style.GoogleLoginButton onClick={handleGoogleLogin}>
-                <Google />
-                {LogIn.logIn}
-            </Style.GoogleLoginButton>
+            <GoogleLogin/>
             <Style.RegisterContainer>
                 <Style.RegisterMessage>{LogIn.registerMessage}</Style.RegisterMessage>
                 <Style.RegisterLink onClick={handleGoogleLogin}>{LogIn.register}</Style.RegisterLink>
