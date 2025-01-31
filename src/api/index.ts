@@ -1,12 +1,12 @@
 import axios from "axios";
 
-// const Token =
-//   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMzE0a2VsZWVAZ21haWwuY29tIiwiaWF0IjoxNzM4MDYxNDA2LCJleHAiOjE3MzgwNjg2MDZ9.2ssynO7fG2zP0oRGIgIZ4UWZQE_31YfV1tht8wFz4zLFqvZYnblXrOlMp8Pmq0wYE9Hbl7WUx-JhWO9dIC1okw";
+const Token =
+  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMzE0a2VsZWVAZ21haWwuY29tIiwiaWF0IjoxNzM4MjQzOTQzLCJleHAiOjE3MzgyNDc1NDN9.vSig5efOQ0aST_IHg8cHBq_FWzOMQ9KZUlqtniEc2lwoQskV38yQJo6DSp9aVi0jnP3ENwpM-ZK7oo02boF_fQ";
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 3000,
-  // headers: {
-  //   Authorization: `Bearer ${Token}`,
-  // },
+  headers: {
+    Authorization: `Bearer ${Token}`,
+  },
 });

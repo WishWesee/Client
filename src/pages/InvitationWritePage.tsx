@@ -6,7 +6,7 @@ import * as S from "@styles/invitationWrite/invitationWritePage";
 import { useState } from "react";
 
 const InvitationWritePage = () => {
-  const [isButtonEnable, setIsButtonEnable] = useState<boolean>(false);
+  const [isButtonEnable] = useState<boolean>(false);
 
   return (
     <ToolBarProvider>

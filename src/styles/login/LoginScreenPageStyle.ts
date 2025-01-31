@@ -10,13 +10,23 @@ export const Background = styled.div`
   width: 100%;
   height: 100%;
   background-color: #fcfcfd;
-  box-sizing: border-box;
+  justify-content: center;
+
+  @media (max-width: 389px) {
+    padding: 0;
+  }
+
+   @media (min-width: 768px) {
+        height: auto;
+    }
 `;
 
 export const HeaderComp = styled.div`
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  margin-top: 52px;
+  margin-top: 54px;
 `;
 
 export const Columns = styled.div`
@@ -24,6 +34,11 @@ export const Columns = styled.div`
   flex-direction: row;
   gap: 0.75rem;
   width: 100%;
+  height: auto;
   max-width: 100%;
-  max-height: 100%;
+
+  @media (min-width: 768px) {
+    gap: 16px;
+    justify-content: center;
+  }
 `;
