@@ -1,9 +1,6 @@
 import { TFeedbackRes } from "@/types/invite";
 import { api } from "..";
-import {
-  useSuspenseQuery,
-  UseSuspenseQueryResult,
-} from "@tanstack/react-query";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
 //후기 조회
 export const getFeedback = async (invitationId: number) => {
@@ -13,8 +10,8 @@ export const getFeedback = async (invitationId: number) => {
 
 export const useFeedbackQuery = (
   invitationId: number
-): UseSuspenseQueryResult<TFeedbackRes, Error> => {
-  return useSuspenseQuery({
+): UseQueryResult<TFeedbackRes, Error> => {
+  return useQuery({
     queryKey: ["feedback", invitationId],
     queryFn: () => getFeedback(invitationId),
   });
