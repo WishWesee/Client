@@ -26,3 +26,11 @@ export const TitleInput = styled.input`
     outline: none;
   }
 `;
+
+export const BlocksContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  color: black;
+`;

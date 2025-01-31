@@ -1,22 +1,36 @@
 import { toolBarIconListType } from "@/types/invitationWrite/toolBar";
+import ActiveA from "@assets/icons/화면GUI_Full/2424_Activate/ActiveA.svg?react";
+import ActiveGodic from "@assets/icons/화면GUI_Full/2424_Activate/ActiveGodic.svg?react";
+import ActiveSerif from "@assets/icons/화면GUI_Full/2424_Activate/ActiveSerif.svg?react";
+import ActiveB from "@assets/icons/화면GUI_Full/2424_Activate/B.svg?react";
 import ActiveBox from "@assets/icons/화면GUI_Full/2424_Activate/Box.svg?react";
 import ActiveFinder from "@assets/icons/화면GUI_Full/2424_Activate/Finder.svg?react";
+import ActiveI from "@assets/icons/화면GUI_Full/2424_Activate/I.svg?react";
 import ActiveImage from "@assets/icons/화면GUI_Full/2424_Activate/Img.svg?react";
 import ActiveLine from "@assets/icons/화면GUI_Full/2424_Activate/Line.svg?react";
 import ActiveLocation from "@assets/icons/화면GUI_Full/2424_Activate/Location.svg?react";
 import ActiveMap from "@assets/icons/화면GUI_Full/2424_Activate/Map.svg?react";
+import ActiveS from "@assets/icons/화면GUI_Full/2424_Activate/S.svg?react";
 import ActiveText from "@assets/icons/화면GUI_Full/2424_Activate/Text.svg?react";
 import ActiveTimeTable from "@assets/icons/화면GUI_Full/2424_Activate/Timetable.svg?react";
+import ActiveU from "@assets/icons/화면GUI_Full/2424_Activate/U.svg?react";
 import ActiveVote from "@assets/icons/화면GUI_Full/2424_Activate/Vote.svg?react";
+import A from "@assets/icons/화면GUI_Full/2424_Default/A.svg?react";
+import B from "@assets/icons/화면GUI_Full/2424_Default/B.svg?react";
 import Box from "@assets/icons/화면GUI_Full/2424_Default/Box.svg?react";
 import Finder from "@assets/icons/화면GUI_Full/2424_Default/Finder.svg?react";
+import I from "@assets/icons/화면GUI_Full/2424_Default/I.svg?react";
 import Image from "@assets/icons/화면GUI_Full/2424_Default/Img.svg?react";
 import Line from "@assets/icons/화면GUI_Full/2424_Default/Line.svg?react";
 import Location from "@assets/icons/화면GUI_Full/2424_Default/Location.svg?react";
 import Map from "@assets/icons/화면GUI_Full/2424_Default/Map.svg?react";
+import S from "@assets/icons/화면GUI_Full/2424_Default/S.svg?react";
 import Text from "@assets/icons/화면GUI_Full/2424_Default/Text.svg?react";
 import TimeTable from "@assets/icons/화면GUI_Full/2424_Default/Timetable.svg?react";
+import U from "@assets/icons/화면GUI_Full/2424_Default/U.svg?react";
 import Vote from "@assets/icons/화면GUI_Full/2424_Default/Vote.svg?react";
+import Godic from "@assets/icons/화면GUI_Full/2424_Default/godic.svg?react";
+import Serif from "@assets/icons/화면GUI_Full/2424_Default/serif.svg?react";
 
 export const NomalToolBarList: toolBarIconListType[] = [
   {
@@ -76,5 +90,55 @@ export const DateToolBarList: toolBarIconListType[] = [
     defaultIcon: Vote,
     activeIcon: ActiveVote,
     title: "투표",
+  },
+];
+
+export const TextToolBarList: toolBarIconListType[] = [
+  {
+    type: "Font",
+    defaultIcon: Godic,
+    activeIcon: ActiveGodic,
+  },
+  {
+    type: "AFont",
+    defaultIcon: A,
+    activeIcon: ActiveA,
+  },
+];
+
+// SubToolBarList
+export const SubTextToolBarList: toolBarIconListType[] = [
+  {
+    type: "Godic",
+    defaultIcon: Godic,
+    activeIcon: ActiveGodic,
+  },
+  {
+    type: "Serif",
+    defaultIcon: Serif,
+    activeIcon: ActiveSerif,
+  },
+];
+
+export const SubTextStyleBarList: toolBarIconListType[] = [
+  {
+    type: "Bold",
+    defaultIcon: B,
+    activeIcon: ActiveB,
+  },
+  {
+    type: "Italic",
+    defaultIcon: I,
+    activeIcon: ActiveI,
+  },
+  {
+    type: "TextLine",
+    defaultIcon: S,
+    activeIcon: ActiveS,
+  },
+  {
+    type: "UnderLine",
+    defaultIcon: U,
+    activeIcon: ActiveU,
   },
 ];

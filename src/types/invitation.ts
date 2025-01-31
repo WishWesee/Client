@@ -3,11 +3,13 @@ interface TimeContent {
   content: string;
 }
 
-interface Block {
+export interface Block {
   sequence: number;
   type: string;
   title?: string;
   color?: string;
+  font?: string;
+  styles?: string;
   content?: string | TimeContent[];
 }
 

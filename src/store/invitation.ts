@@ -24,29 +24,11 @@ const initialState: InvitationState = {
     blocks: [
       {
         sequence: 0,
-        type: "string",
-        title: "string",
-        color: "string",
-        content: "string",
-      },
-      {
-        sequence: 0,
-        type: "string",
-      },
-      {
-        sequence: 0,
-        type: "string",
-        content: "string",
-      },
-      {
-        sequence: 0,
-        type: "string",
-        content: [
-          {
-            time: "string",
-            content: "string",
-          },
-        ],
+        type: "text",
+        content: "",
+        font: "--RegularContext",
+        color: "#000000",
+        styles: "",
       },
     ],
     scheduleVotes: [
