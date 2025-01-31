@@ -15,16 +15,17 @@ export const Container = styled.div`
   width: 100%;
   height: 48px;
   padding: 14px 20px;
-  border-bottom: 2px solid var(--Grey5);
-  background-color: var(--White);
+  box-sizing: border-box;
+  background-color: white;
 `;
 
-export const BackContainer = styled.div`
+export const BackContainer = styled.button`
   display: flex;
   gap: 2px;
   align-items: center;
   height: 100%;
-  cursor: pointer;
+  background-color: white;
+  border: none;
 `;
 
 export const BackText = styled.p`
