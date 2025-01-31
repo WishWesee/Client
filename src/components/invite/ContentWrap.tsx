@@ -81,9 +81,10 @@ const ContentWrap = ({
           )}
           <S.SectionHeader style={{ marginTop: 40 }}>
             <LocationIcon />
-            <h4>{data.location}</h4>
+            <h4>{data.userLocation || data.location}</h4>
           </S.SectionHeader>
           <a onClick={() => window.open(`${data.mapLink}`)}>{data.address}</a>
+          <div style={{ color: "red" }}>지도링크</div>
         </div>
       </S.NotFoldWrap>
       {!isFold && (
@@ -116,6 +117,7 @@ const ContentWrap = ({
                           : block.styles === "underline"
                           ? "underline"
                           : "none",
+                      whiteSpace: "pre-wrap",
                     }}
                   >
                     {block.content}
