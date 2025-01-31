@@ -116,6 +116,7 @@ const ContentWrap = ({
                           : block.styles === "underline"
                           ? "underline"
                           : "none",
+                      whiteSpace: "pre-wrap",
                     }}
                   >
                     {block.content}

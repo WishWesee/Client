@@ -22,6 +22,7 @@ export const TextBoxWrap = styled.div`
   > p {
     font: var(--RegularContext);
     color: var(--Gray40);
+    white-space: pre-wrap;
   }
 `;
 
