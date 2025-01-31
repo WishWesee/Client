@@ -5,9 +5,12 @@ export const Background = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   align-items: center;
-  justify-content: center;
+  padding: 0 20px;
+  margin: 0;
   width: 100%;
-  padding: 0px 20px;
+  height: 100%;
+  background-color: #fcfcfd;
+  justify-content: center;
 
   @media (max-width: 389px) {
     padding: 0;

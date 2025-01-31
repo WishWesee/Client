@@ -1,6 +1,6 @@
 import Mail from "@/assets/icons/화면GUI_Full/2424_Activate/Invitation.svg?react";
 import SaveBox from "@/assets/icons/화면GUI_Full/2424_Activate/SaveBox.svg?react";
-import Vote from "@/assets/icons/화면GUI_Full/2424_Activate/vote.svg?react";
+import Vote from "@/assets/icons/화면GUI_Full/2424_Activate/Vote.svg?react";
 import GreetingMessage from "@/components/login/GreetingMessage";
 import LoginBoxColumn from "@/components/login/LoginBoxColumn";
 import LoginSection from "@/components/login/LoginSection";
@@ -13,17 +13,18 @@ import {
 } from "../constants/login/loginScreen";
 
 const LoginScreen: React.FC = () => {
-  const [windowWidth, setWindowWidth] = useState<number>(typeof window !== "undefined" ? window.innerWidth : 0);
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const handleResize = () => setWindowWidth(window.innerWidth);
       window.addEventListener("resize", handleResize);
-  
+
       return () => window.removeEventListener("resize", handleResize);
     }
   }, []);
-  
 
   const MobilefirstColumnFeatures = [
     {

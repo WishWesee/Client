@@ -56,6 +56,7 @@ export const StatusWrap = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
+  cursor: pointer;
 
   > span {
     font: var(--Selected-BtnName-FileName);

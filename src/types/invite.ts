@@ -105,3 +105,44 @@ export type TFeedbackRes = {
     isWritable: boolean;
   };
 };
+
+export type TInvitationReq = {
+  invitation: {
+    invitationId?: number;
+    title: string;
+    tempSaved: boolean;
+    startDate: string;
+    startTime: string;
+    endDate: string;
+    endTime: string;
+    userLocation: string;
+    location: string;
+    address: string;
+    mapLink: string;
+    mapViewType: number;
+    voteDeadline: string;
+    attendanceSurveyEnabled: boolean;
+    scheduleVoteMultiple: boolean;
+    scheduleVoteClosed: boolean;
+    attendanceSurveyClosed: boolean;
+    blocks: (BoxType | DividerType | PhotoType | TextType | TimeTableType)[];
+    scheduleVotes: {
+      startDate: string;
+      startTime: string;
+      endDate: string;
+      endTime: string;
+    }[];
+  };
+  cardImage: string;
+  photoImages: string[];
+};
+
+export type TInviteListRes = {
+  totalInvitations: number;
+  invitations: {
+    invitationId: number;
+    cardImage: string;
+    title: string;
+    date: string;
+  }[];
+};
