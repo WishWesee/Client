@@ -31,6 +31,7 @@ export type TInvitationRes = {
   blocks: (BoxType | DividerType | PhotoType | TextType | TimeTableType)[];
   attendanceSurveyEnabled: boolean;
   owner: boolean;
+  loggedIn: boolean;
 };
 
 export type BoxType = {
