@@ -52,7 +52,7 @@ const InvitationWriteVoteComponent = () => {
       </S.TitleContainer>
       {invitation.scheduleVotes.map((vote, index) => (
         <S.ItemContainer
-          key={index}
+          key={vote.endDate + index}
           isSelected={currentIndex === index}
           onClick={() => setCurrentIndex(index)}
         >

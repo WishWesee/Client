@@ -19,7 +19,7 @@ const InvitationWriteVoteItem: React.FC<InvitationWriteVoteItemProps> = ({
 }) => {
   const [isTimeShow, setIsTimeShow] = useState<boolean>(false);
   const [activeStateModal, setActiveStateModal] = useState<activeState>(null);
-  const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  // const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const { invitation, setInvitation } = useInvitationStore();
 
   const formatDate =

@@ -1,7 +1,6 @@
-import ArrowRight from '@/assets/icons/화면GUI_Line/2020/Arrow_Right.svg?react';
-import * as style from '@/styles/myInvitation/MyInvitationContainerStyle';
+import ArrowRight from "@/assets/icons/화면GUI_Line/2020/Arrow_Right.svg?react";
+import * as style from "@/styles/myInvitation/MyInvitationContainerStyle";
 import { useNavigate } from "react-router-dom";
-import internal from 'stream';
 
 type NBProps = {
   Title: string;
@@ -17,21 +16,24 @@ const LetterContainer: React.FC<NBProps> = ({ Title, Date, Image, Id }) => {
     <style.LetterContainer>
       <style.LetterImgBox>
         <img
-            src={Image}
-            alt={Title}
-            style={{
-              width: '100%',
-              height: '100%',
-              borderRadius: '4px 4px 0px 0px',
-              objectFit: 'cover',
-            }}
-          />
+          src={Image}
+          alt={Title}
+          style={{
+            width: "100%",
+            height: "100%",
+            borderRadius: "4px 4px 0px 0px",
+            objectFit: "cover",
+          }}
+        />
       </style.LetterImgBox>
 
       <style.LetterTextBox>
         <style.LetterTitleBox>
           {Title}
-          <ArrowRight style={{ cursor:"pointer"}} onClick={() => navigate(`/invites/${Id}`)}/>
+          <ArrowRight
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate(`/invites/${Id}`)}
+          />
         </style.LetterTitleBox>
         <style.LetterDateBox>{Date}</style.LetterDateBox>
       </style.LetterTextBox>

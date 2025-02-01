@@ -11,7 +11,7 @@ const InvitationWriteBottomButton = ({
   text: string;
   onClick: () => void;
 }) => {
-  const { invitation, setInvitation } = useInvitationStore();
+  const { setInvitation } = useInvitationStore();
 
   const handleSurvey = () => {
     setInvitation((invitation) => {

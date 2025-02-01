@@ -1,7 +1,7 @@
-interface TimeContent {
-  time: string;
-  content: string;
-}
+// interface TimeContent {
+//   time: string;
+//   content: string;
+// }
 
 export interface Block {
   sequence: number;
