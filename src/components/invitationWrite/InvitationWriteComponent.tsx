@@ -3,6 +3,7 @@ import { useToolBarContext } from "@/contexts/toolBarContext";
 import useInvitationStore from "@/store/invitation";
 import { Block } from "@/types/invitation";
 import * as S from "@styles/invitationWrite/invitationWriteComponent";
+import { useState } from "react";
 import InvitationWriteCalendar from "./InvitationWriteCalendar";
 import InvitationWriteLocation from "./InvitationWriteLocation";
 import InvitationWriteDividerComponent from "./blocks/InvitationWriteDividerComponent";
@@ -19,7 +20,17 @@ const InvitationWriteComponent = ({
   blocks: Block[];
 }) => {
   const { setToolBarContent } = useToolBarContext();
-  const { invitation } = useInvitationStore();
+  const { invitation, setInvitation } = useInvitationStore();
+  const [value, setValue] = useState("");
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    setValue(newValue);
+
+    setInvitation((prevInvitation) => {
+      prevInvitation.title = value;
+    });
+  };
 
   // block 타입에 맞는 컴포넌트를 반환하는 함수
   const renderBlockContent = (block: any, index: number) => {
@@ -60,11 +71,13 @@ const InvitationWriteComponent = ({
     }
   };
 
-  console.log("w", blocks);
-
   return (
     <S.Container onClick={() => setToolBarContent(NomalToolBarList)}>
-      <S.TitleInput placeholder="제목을 입력하세요" />
+      <S.TitleInput
+        placeholder="제목을 입력하세요"
+        value={value}
+        onChange={handleInputChange}
+      />
       <InvitationWriteCalendar />
       {invitation.voteDeadline !== "" && <InvitationWriteVoteComponent />}
       <InvitationWriteLocation />
