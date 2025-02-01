@@ -122,6 +122,7 @@ export const NotFoldWrap = styled.div<{ $isFold: boolean }>`
       text-decoration: underline var(--Gray40);
       padding-left: 32px;
       margin-top: 8px;
+      margin-bottom: 8px;
     }
   }
 `;

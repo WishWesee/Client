@@ -24,12 +24,16 @@ export type TInvitationRes = {
   }[];
   scheduleVoteClosed: boolean;
   mapViewType: number;
+  userLocation: string;
   location: string;
   address: string;
   mapLink: string;
+  latitude: number;
+  longitude: number;
   blocks: (BoxType | DividerType | PhotoType | TextType | TimeTableType)[];
   attendanceSurveyEnabled: boolean;
   owner: boolean;
+  loggedIn: boolean;
 };
 
 export type BoxType = {

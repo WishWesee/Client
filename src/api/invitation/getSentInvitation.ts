@@ -1,9 +1,6 @@
 import { TInviteListRes } from "@/types/invite";
 import { api } from "..";
-import {
-  useSuspenseQuery,
-  UseSuspenseQueryResult,
-} from "@tanstack/react-query";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
 //연도별 내가 보낸 초대장 목록
 export const getSentInvitation = async (year: number) => {
@@ -13,8 +10,8 @@ export const getSentInvitation = async (year: number) => {
 
 export const useSentInvitationQuery = (
   year: number
-): UseSuspenseQueryResult<TInviteListRes, Error> => {
-  return useSuspenseQuery({
+): UseQueryResult<TInviteListRes, Error> => {
+  return useQuery({
     queryKey: ["sentInvitation", year],
     queryFn: () => getSentInvitation(year),
   });

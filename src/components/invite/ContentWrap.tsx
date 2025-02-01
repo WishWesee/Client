@@ -19,17 +19,10 @@ interface Props {
   invitationState: number;
   data: TInvitationRes;
   refetch: () => void;
-  isLogin: boolean;
   isDone: boolean;
 }
 
-const ContentWrap = ({
-  invitationState,
-  data,
-  refetch,
-  isLogin,
-  isDone,
-}: Props) => {
+const ContentWrap = ({ invitationState, data, refetch, isDone }: Props) => {
   const { isMobile, isTablet, isDesktop } = useWMediaQuery();
   const navigate = useNavigate();
 
@@ -77,13 +70,14 @@ const ContentWrap = ({
             </p>
           )}
           {data.scheduleVotes.length > 0 && (
-            <VoteBox data={data} refetch={refetch} isLogin={isLogin} />
+            <VoteBox data={data} refetch={refetch} isLogin={data.loggedIn} />
           )}
           <S.SectionHeader style={{ marginTop: 40 }}>
             <LocationIcon />
-            <h4>{data.location}</h4>
+            <h4>{data.userLocation || data.location}</h4>
           </S.SectionHeader>
           <a onClick={() => window.open(`${data.mapLink}`)}>{data.address}</a>
+          <div style={{ color: "red" }}>지도링크</div>
         </div>
       </S.NotFoldWrap>
       {!isFold && (
@@ -116,6 +110,7 @@ const ContentWrap = ({
                           : block.styles === "underline"
                           ? "underline"
                           : "none",
+                      whiteSpace: "pre-wrap",
                     }}
                   >
                     {block.content}
@@ -139,7 +134,7 @@ const ContentWrap = ({
             title={data.title}
             cardImage={data.cardImage}
             isAlreadySave={data.alreadySaved}
-            isLogin={isLogin}
+            isLogin={data.loggedIn}
             isShareLink={invitationState === 0}
             refetch={refetch}
           />

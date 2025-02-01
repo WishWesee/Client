@@ -53,14 +53,13 @@ const CheckContentWrap = ({ data }: Props) => {
           )}
           <S.SectionHeader style={{ marginTop: 40 }}>
             <LocationIcon />
-            <h4>{data.invitation.location}</h4>
+            <h4>{data.invitation.userLocation || data.invitation.location}</h4>
           </S.SectionHeader>
           <a
             onClick={() => window.open(`${data.invitation.mapLink}`)}
             style={{ marginBottom: "8px" }}
           >
             {data.invitation.address}
-            {data.invitation.mapLink}
           </a>
           <LocationMapComponent
             location={{

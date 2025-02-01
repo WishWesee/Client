@@ -1,12 +1,16 @@
 import axios from "axios";
 
-const Token =
-  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMzE0a2VsZWVAZ21haWwuY29tIiwiaWF0IjoxNzM4MjQzOTQzLCJleHAiOjE3MzgyNDc1NDN9.vSig5efOQ0aST_IHg8cHBq_FWzOMQ9KZUlqtniEc2lwoQskV38yQJo6DSp9aVi0jnP3ENwpM-ZK7oo02boF_fQ";
+const urlParams = new URLSearchParams(window.location.search);
+const token = urlParams.get("token");
+
+if (token) {
+  localStorage.setItem("authToken", token);
+}
+
+const storedToken = localStorage.getItem("authToken");
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 3000,
-  headers: {
-    Authorization: `Bearer ${Token}`,
-  },
+  headers: storedToken ? { Authorization: `Bearer ${storedToken}` } : {},
 });

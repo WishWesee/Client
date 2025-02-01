@@ -16,7 +16,7 @@ type Props = {
 };
 
 const ReviewWrap = ({ id, title, isOwner }: Props) => {
-  const { data, refetch } = useFeedbackQuery(id);
+  const { data, isError, refetch } = useFeedbackQuery(id);
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [reviewText, setReviewText] = useState("");
   const [image, setImage] = useState<{
@@ -74,108 +74,114 @@ const ReviewWrap = ({ id, title, isOwner }: Props) => {
     setIsDeleteModal(false);
   };
 
+  if (isError) return;
+
   return (
-    <S.Container>
-      <S.HeadWrap>
-        <S.TitleWrap>
-          <h2>후기</h2>
-          <p>
-            <ChatIcon />
-            {data.information.count}
-          </p>
-        </S.TitleWrap>
-        <p>
-          <span>{title}</span> 어떠셨나요?
-        </p>
-        <S.InputContainer>
-          <S.InputWrap $isFocused={isInputFocused}>
-            {image.imageFile && (
-              <S.ImgWrap>
-                <img src={image.imageUrl} alt="첨부한 이미지" />
-                <DeleteIcon
-                  onClick={() =>
-                    setImage({
-                      imageUrl: "",
-                      imageFile: null,
-                    })
-                  }
-                />
-              </S.ImgWrap>
-            )}
-            <S.InputTextWrap>
-              <input
-                value={reviewText}
-                placeholder="한 줄 후기를 작성해 보세요!"
-                onChange={(e) => {
-                  e.target.value = e.target.value.slice(0, 50);
-                  setReviewText(e.target.value);
-                }}
-                onFocus={() => setIsInputFocused(true)}
-                onBlur={() => setIsInputFocused(false)}
-              />
-              {reviewText.length > 0 && (
-                <DeleteIcon
-                  onClick={() => setReviewText("")}
-                  style={{ cursor: "pointer" }}
-                />
-              )}
-              <ImgIcon
-                style={{
-                  cursor: image.imageFile === null ? "pointer" : "default",
-                  opacity: image.imageFile === null ? 1 : 0.5,
-                }}
-                onClick={() => image.imageFile === null && onAddPicture()}
-              />
-              <input
-                id="fileInput"
-                type="file"
-                accept="image/*"
-                style={{ display: "none", visibility: "hidden" }}
-                ref={inputFileRef}
-                onChange={handleFileChange}
-              />
-            </S.InputTextWrap>
-          </S.InputWrap>
-          {reviewText.length > 0 && (
-            <button onClick={handleSaveReview}>확인</button>
-          )}
-        </S.InputContainer>
-      </S.HeadWrap>
-      <S.ContentWrap>
-        {data.information.feedbackResList.map((data) => {
-          return (
-            <S.ReviewContent key={data.feedbackId}>
-              {data.image && <img src={data.image} alt={data.content} />}
-              <p>{data.content}</p>
-              {isOwner && (
-                <S.RightWrap>
-                  <DeleteRedIcon
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      setDeleteId(data.feedbackId);
-                      setIsDeleteModal(true);
+    <>
+      {data && (
+        <S.Container>
+          <S.HeadWrap>
+            <S.TitleWrap>
+              <h2>후기</h2>
+              <p>
+                <ChatIcon />
+                {data.information.count}
+              </p>
+            </S.TitleWrap>
+            <p>
+              <span>{title}</span> 어떠셨나요?
+            </p>
+            <S.InputContainer>
+              <S.InputWrap $isFocused={isInputFocused}>
+                {image.imageFile && (
+                  <S.ImgWrap>
+                    <img src={image.imageUrl} alt="첨부한 이미지" />
+                    <DeleteIcon
+                      onClick={() =>
+                        setImage({
+                          imageUrl: "",
+                          imageFile: null,
+                        })
+                      }
+                    />
+                  </S.ImgWrap>
+                )}
+                <S.InputTextWrap>
+                  <input
+                    value={reviewText}
+                    placeholder="한 줄 후기를 작성해 보세요!"
+                    onChange={(e) => {
+                      e.target.value = e.target.value.slice(0, 50);
+                      setReviewText(e.target.value);
                     }}
+                    onFocus={() => setIsInputFocused(true)}
+                    onBlur={() => setIsInputFocused(false)}
                   />
-                </S.RightWrap>
+                  {reviewText.length > 0 && (
+                    <DeleteIcon
+                      onClick={() => setReviewText("")}
+                      style={{ cursor: "pointer" }}
+                    />
+                  )}
+                  <ImgIcon
+                    style={{
+                      cursor: image.imageFile === null ? "pointer" : "default",
+                      opacity: image.imageFile === null ? 1 : 0.5,
+                    }}
+                    onClick={() => image.imageFile === null && onAddPicture()}
+                  />
+                  <input
+                    id="fileInput"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none", visibility: "hidden" }}
+                    ref={inputFileRef}
+                    onChange={handleFileChange}
+                  />
+                </S.InputTextWrap>
+              </S.InputWrap>
+              {reviewText.length > 0 && (
+                <button onClick={handleSaveReview}>확인</button>
               )}
-            </S.ReviewContent>
-          );
-        })}
-      </S.ContentWrap>
-      {isDeleteModal && (
-        <TwoBtnModal
-          text="해당 후기를 삭제하시겠습니까?"
-          leftBtnText="취소"
-          rightBtnText="삭제"
-          color="red"
-          onLeftClick={() => {
-            setDeleteId(null);
-            setIsDeleteModal(false);
-          }}
-          onRightClick={handleDeleteReview}
-        />
+            </S.InputContainer>
+          </S.HeadWrap>
+          <S.ContentWrap>
+            {data.information.feedbackResList.map((data) => {
+              return (
+                <S.ReviewContent key={data.feedbackId}>
+                  {data.image && <img src={data.image} alt={data.content} />}
+                  <p>{data.content}</p>
+                  {isOwner && (
+                    <S.RightWrap>
+                      <DeleteRedIcon
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          setDeleteId(data.feedbackId);
+                          setIsDeleteModal(true);
+                        }}
+                      />
+                    </S.RightWrap>
+                  )}
+                </S.ReviewContent>
+              );
+            })}
+          </S.ContentWrap>
+          {isDeleteModal && (
+            <TwoBtnModal
+              text="해당 후기를 삭제하시겠습니까?"
+              leftBtnText="취소"
+              rightBtnText="삭제"
+              color="red"
+              onLeftClick={() => {
+                setDeleteId(null);
+                setIsDeleteModal(false);
+              }}
+              onRightClick={handleDeleteReview}
+            />
+          )}
+        </S.Container>
       )}
-    </S.Container>
+    </>
   );
 };
 
