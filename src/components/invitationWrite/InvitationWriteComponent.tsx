@@ -21,7 +21,7 @@ const InvitationWriteComponent = ({
   const { invitation } = useInvitationStore();
 
   // block 타입에 맞는 컴포넌트를 반환하는 함수
-  const renderBlockContent = (block: any) => {
+  const renderBlockContent = (block: any, index: number) => {
     switch (block.type) {
       case "divider":
         return <hr />;
@@ -37,13 +37,12 @@ const InvitationWriteComponent = ({
         return <img src={block.image} alt="첨부한 이미지" />;
       case "text":
         return (
-          <div
-            style={{ width: "100%" }}
-            onClick={() => setCurrentSequence(block.sequence)}
-          >
+          <div style={{ width: "100%" }}>
             <InvitationWriteTextComponent
               currentSequence={currentSequence}
+              setCurrentSequence={setCurrentSequence}
               block={block}
+              index={index}
             />
           </div>
         );
@@ -54,6 +53,8 @@ const InvitationWriteComponent = ({
     }
   };
 
+  console.log("w", blocks);
+
   return (
     <S.Container onClick={() => setToolBarContent(NomalToolBarList)}>
       <S.TitleInput placeholder="제목을 입력하세요" />
@@ -63,7 +64,7 @@ const InvitationWriteComponent = ({
 
       {/* Text */}
       <S.BlocksContainer>
-        {blocks.map((block, _index) => renderBlockContent(block))}
+        {blocks.map((block, index) => renderBlockContent(block, index))}
       </S.BlocksContainer>
     </S.Container>
   );

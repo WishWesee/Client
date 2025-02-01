@@ -12,19 +12,14 @@ const InvitationWritePage = () => {
   const [isButtonEnable] = useState<boolean>(false);
   const blocksRef = useRef(invitation.blocks || undefined);
   const [blocks, setBlocks] = useState(invitation.blocks || undefined);
-  const currentSequence = useRef(0);
+  const [currentSequence, setCurrentSequence] = useState(0);
 
   const setBlocksRef = (newBlocks: typeof invitation.blocks) => {
     blocksRef.current = newBlocks;
   };
 
-  const setCurrentSequence = (sequence: number) => {
-    currentSequence.current = sequence;
-  };
-
   useEffect(() => {
-    blocksRef.current = invitation.blocks;
-    setBlocks(blocksRef.current);
+    setBlocks([...invitation.blocks]);
   }, [invitation.blocks]);
 
   return (
@@ -36,11 +31,11 @@ const InvitationWritePage = () => {
           isEnable={isButtonEnable}
         />
         <InvitationWriteToolBar
-          currentSequence={currentSequence.current}
+          currentSequence={currentSequence}
           setBlocks={setBlocksRef}
         />
         <InvitationWriteComponent
-          currentSequence={currentSequence.current}
+          currentSequence={currentSequence}
           setCurrentSequence={setCurrentSequence}
           blocks={blocks}
         />

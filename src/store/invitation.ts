@@ -1,4 +1,4 @@
-import { InvitationState } from "@/types/invitation";
+import { Block, InvitationState } from "@/types/invitation";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -46,6 +46,7 @@ const initialState: InvitationState = {
   setCardImage: () => {}, // 초기 빈 함수
   setPhotoImages: () => {},
   addBlock: () => {},
+  updateBlock: () => {},
 };
 
 const useInvitationStore = create<InvitationState>()(
@@ -66,6 +67,18 @@ const useInvitationStore = create<InvitationState>()(
     addBlock: (newBlock) =>
       set((state) => {
         state.invitation.blocks.push(newBlock);
+      }),
+    updateBlock: (sequence: number, updatedProperties: Partial<Block>) =>
+      set((state) => {
+        const updatedBlocks = state.invitation.blocks.map((block) => {
+          if (block.sequence === sequence) {
+            return { ...block, ...updatedProperties };
+          }
+          return block;
+        });
+
+        state.invitation.blocks = updatedBlocks;
+        console.log(state.invitation.blocks);
       }),
   }))
 );

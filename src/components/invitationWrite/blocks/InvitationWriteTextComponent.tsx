@@ -5,20 +5,22 @@ import {
   TextToolBarList,
 } from "@/constants/invitationWrite/toolBar";
 import { useToolBarContext } from "@/contexts/toolBarContext";
+import useInvitationStore from "@/store/invitation";
 import { Block } from "@/types/invitation";
 import { getColor } from "@/utils/getColor";
-
 import * as S from "@styles/invitationWrite/blocks/invitationWriteTextComponentStyle";
 import { useEffect, useState } from "react";
 
 interface InvitationWriteTextComponentProps {
   currentSequence: number;
   block: Block;
+  setCurrentSequence: (sequence: number) => void;
+  index: number;
 }
 
 const InvitationWriteTextComponent: React.FC<
   InvitationWriteTextComponentProps
-> = ({ currentSequence, block }) => {
+> = ({ currentSequence, block, setCurrentSequence, index }) => {
   const {
     selectedTool,
     subSelectedTool,
@@ -27,10 +29,13 @@ const InvitationWriteTextComponent: React.FC<
     setToolBarContent,
     setSubToolBarContent,
   } = useToolBarContext();
+
+  const { updateBlock } = useInvitationStore();
+
   const [value, setValue] = useState("");
-  const [font, setFont] = useState("");
-  const [style, setStyle] = useState("");
-  const [color, setColor] = useState("");
+  const [font, setFont] = useState(block.font || "");
+  const [style, setStyle] = useState(block.styles || "");
+  const [color, setColor] = useState(block.color || "");
 
   useEffect(() => {
     if (selectedTool === toolBarContent[0]) {
@@ -42,51 +47,63 @@ const InvitationWriteTextComponent: React.FC<
     }
   }, [selectedTool]);
 
-  // subTool상태에 따른 폰트 시스템 변경
   useEffect(() => {
     if (subSelectedTool) {
+      const updatedProperties: Partial<Block> = {};
+
       switch (subSelectedTool.type) {
         case "Godic":
-          setFont("--RegularContext");
-          block.font = "--RegularContext";
+          updatedProperties.font = "--RegularContext";
+          if (currentSequence === index) setFont("--RegularContext");
           break;
         case "Serif":
-          setFont("--SerifContextRegular");
-          block.font = "--SerifContextRegular";
+          updatedProperties.font = "--SerifContextRegular";
+          if (currentSequence === index) setFont("--SerifContextRegular");
           break;
         case "Bold":
-          setStyle("bold");
-          block.styles = "bold";
+          updatedProperties.styles = "bold";
+          if (currentSequence === index) setStyle("bold");
           break;
         case "Italic":
-          setStyle("italic");
-          block.styles = "italic";
+          updatedProperties.styles = "italic";
+          if (currentSequence === index) setStyle("italic");
           break;
         case "TextLine":
-          setStyle("strikethru");
-          block.styles = "strikethru";
+          updatedProperties.styles = "strikethru";
+          if (currentSequence === index) setStyle("strikethru");
           break;
         case "UnderLine":
-          setStyle("underline");
-          block.styles = "underline";
+          updatedProperties.styles = "underline";
+          if (currentSequence === index) setStyle("underline");
           break;
         default:
           break;
       }
+
+      // 색 변경
       if (subToolBarContent === SubColorStyleBarList) {
-        setColor(getColor(subSelectedTool.type));
-        block.color = getColor(subSelectedTool.type);
+        const newColor = getColor(subSelectedTool.type);
+        updatedProperties.color = newColor;
+        if (currentSequence === index) setColor(newColor);
+      }
+
+      if (Object.keys(updatedProperties).length > 0) {
+        updateBlock(currentSequence, updatedProperties);
       }
     }
-  }, [subSelectedTool]);
+  }, [subSelectedTool, subToolBarContent, block.sequence, updateBlock]);
 
   const isFocus =
     currentSequence === block.sequence && toolBarContent === TextToolBarList;
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(event.target.value);
+    const newValue = event.target.value;
+    setValue(newValue);
+
     event.target.style.height = "auto";
     event.target.style.height = `${event.target.scrollHeight}px`;
+
+    updateBlock(block.sequence, { content: newValue });
   };
 
   const handleFocus = () => {
@@ -101,6 +118,7 @@ const InvitationWriteTextComponent: React.FC<
       onClick={(e) => {
         e.stopPropagation();
         handleFocus();
+        setCurrentSequence(block.sequence);
       }}
     >
       <S.InputContainer $isSequence={isFocus}>

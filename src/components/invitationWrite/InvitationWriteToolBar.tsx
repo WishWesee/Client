@@ -45,31 +45,43 @@ const InvitationWriteToolBar = ({
   };
 
   const moveBlock = (direction: "forward" | "backward") => {
-    const newArr = [...invitation.blocks];
+    setInvitation((prevInvitation) => {
+      const newArr = [...prevInvitation.blocks]; // 배열 복사
 
-    if (direction === "forward" && currentSequence > 0) {
-      // 앞쪽 요소와 swap
-      [newArr[currentSequence], newArr[currentSequence - 1]] = [
-        newArr[currentSequence - 1],
-        newArr[currentSequence],
-      ];
-    } else if (
-      direction === "backward" &&
-      currentSequence < newArr.length - 1
-    ) {
-      // 뒤쪽 요소와 swap
-      [newArr[currentSequence], newArr[currentSequence + 1]] = [
-        newArr[currentSequence + 1],
-        newArr[currentSequence],
-      ];
-    }
-    invitation.blocks = newArr;
+      if (direction === "forward" && currentSequence > 0) {
+        const [movedBlock] = newArr.splice(currentSequence, 1);
+        newArr.splice(currentSequence - 1, 0, movedBlock);
+      } else if (
+        direction === "backward" &&
+        currentSequence < newArr.length - 1
+      ) {
+        const [movedBlock] = newArr.splice(currentSequence, 1);
+        newArr.splice(currentSequence + 1, 0, movedBlock);
+      }
+
+      // sequence 값 재설정
+      newArr.forEach((block, index) => {
+        block.sequence = index;
+      });
+
+      return {
+        ...prevInvitation,
+        blocks: newArr,
+      };
+    });
+
+    setTimeout(() => {
+      setBlocks(invitation.blocks);
+    }, 0);
   };
 
   const handleDeleteBlock = () => {
     setInvitation((invitation) => {
-      invitation.scheduleVotes.splice(currentSequence, 1);
+      invitation.blocks.splice(currentSequence, 1);
     });
+    setTimeout(() => {
+      setBlocks([...useInvitationStore.getState().invitation.blocks]);
+    }, 0);
   };
   const handleToolButton = (index: number) => {
     setSelectedTool(index);
