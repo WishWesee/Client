@@ -10,7 +10,9 @@ export interface Block {
   color?: string;
   font?: string;
   styles?: string;
-  content?: string | TimeContent[];
+  content?: string;
+  image?: string;
+  time?: string;
 }
 
 interface ScheduleVote {
@@ -32,6 +34,8 @@ interface Invitation {
   location: string;
   address: string;
   mapLink: string;
+  latitude: number;
+  longitude: number;
   mapViewType: number;
   voteDeadline: string;
   attendanceSurveyEnabled: boolean;

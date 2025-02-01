@@ -16,6 +16,8 @@ const initialState: InvitationState = {
     location: "",
     address: "",
     mapLink: "",
+    latitude: 0,
+    longitude: 0,
     mapViewType: 0,
     voteDeadline: "",
     attendanceSurveyEnabled: true,

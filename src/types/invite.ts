@@ -121,6 +121,8 @@ export type TInvitationReq = {
     location: string;
     address: string;
     mapLink: string;
+    latitude: number;
+    longitude: number;
     mapViewType: number;
     voteDeadline: string;
     attendanceSurveyEnabled: boolean;
