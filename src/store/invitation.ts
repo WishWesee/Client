@@ -33,12 +33,12 @@ const initialState: InvitationState = {
       },
     ],
     scheduleVotes: [
-      {
-        startDate: "",
-        startTime: "",
-        endDate: "",
-        endTime: "",
-      },
+      // {
+      //   startDate: "",
+      //   startTime: "",
+      //   endDate: "",
+      //   endTime: "",
+      // },
     ],
   },
   cardImage: "string",
