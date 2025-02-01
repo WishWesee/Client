@@ -1,4 +1,5 @@
 import {
+  DeviderToolBarList,
   NomalToolBarList,
   SubTextToolBarList,
   TextToolBarList,
@@ -35,7 +36,8 @@ const InvitationWriteToolBar = ({
 
   const isSubToolBar = selectedTool && toolBarContent === TextToolBarList;
 
-  const isArrowBar = toolBarContent === TextToolBarList;
+  const isArrowBar =
+    toolBarContent === TextToolBarList || toolBarContent === DeviderToolBarList;
 
   const handleSubTool = (index: number) => {
     setSubSelectedTool(index);

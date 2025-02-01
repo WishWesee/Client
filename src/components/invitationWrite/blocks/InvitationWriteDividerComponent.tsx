@@ -1,4 +1,4 @@
-import { TextToolBarList } from "@/constants/invitationWrite/toolBar";
+import { DeviderToolBarList } from "@/constants/invitationWrite/toolBar";
 import { useToolBarContext } from "@/contexts/toolBarContext";
 import { Block } from "@/types/invitation";
 import * as S from "@styles/invitationWrite/blocks/invitationWriteDividerComponentStyle";
@@ -15,12 +15,12 @@ const InvitationWriteTextComponent: React.FC<
   const { toolBarContent, setToolBarContent } = useToolBarContext();
 
   const isFocus =
-    currentSequence === block.sequence && toolBarContent === TextToolBarList;
+    currentSequence === block.sequence && toolBarContent === DeviderToolBarList;
 
   const handleFocus = () => {
-    if (toolBarContent !== TextToolBarList)
+    if (toolBarContent !== DeviderToolBarList)
       setTimeout(() => {
-        setToolBarContent(TextToolBarList);
+        setToolBarContent(DeviderToolBarList);
       }, 0);
   };
 

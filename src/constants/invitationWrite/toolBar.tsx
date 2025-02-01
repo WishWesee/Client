@@ -130,6 +130,14 @@ export const TextToolBarList: toolBarIconListType[] = [
   },
 ];
 
+export const DeviderToolBarList: toolBarIconListType[] = [
+  {
+    type: "devider",
+    defaultIcon: Line,
+    activeIcon: ActiveLine,
+  },
+];
+
 // SubToolBarList
 export const SubTextToolBarList: toolBarIconListType[] = [
   {
