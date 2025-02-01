@@ -28,6 +28,7 @@ interface Invitation {
   startTime: string;
   endDate: string;
   endTime: string;
+  userLocation: string;
   location: string;
   address: string;
   mapLink: string;

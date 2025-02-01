@@ -12,6 +12,7 @@ const initialState: InvitationState = {
     startTime: "",
     endDate: "",
     endTime: "",
+    userLocation: "",
     location: "",
     address: "",
     mapLink: "",
