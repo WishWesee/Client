@@ -17,8 +17,6 @@ import { deleteReceivedInvite } from "@/api/invitation/deleteReceivedInvite";
 import TwoBtnModal from "@/components/modal/TwoBtnModal";
 
 const InvitationDetailPage = () => {
-  const isLogin = true; //로그인되어있는 경우
-
   const { isMobile } = useWMediaQuery();
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,7 +38,10 @@ const InvitationDetailPage = () => {
       }, 1300);
       return () => clearTimeout(timer);
     } else {
-      setLoadingDelay(false);
+      const timer = setTimeout(() => {
+        setLoadingDelay(false);
+      }, 500);
+      return () => clearTimeout(timer);
     }
   }, [isDone]);
 
@@ -70,7 +71,7 @@ const InvitationDetailPage = () => {
 
   const { data, refetch, isLoading, isError } =
     useInvitationQuery(invitationId);
-  const invitationState = isLogin
+  const invitationState = data?.loggedIn
     ? Number(data?.owner) || Number(data?.alreadySaved) * 2
     : 0;
   //링크 열람: 0, 내가 보낸 초대장: 1, 내가 받은 초대장 2
@@ -142,7 +143,6 @@ const InvitationDetailPage = () => {
               invitationState={invitationState}
               data={data}
               refetch={refetch}
-              isLogin={isLogin}
               isDone={isDone}
             />
             {!isDone && (
@@ -150,15 +150,15 @@ const InvitationDetailPage = () => {
                 {data.attendanceSurveyEnabled && (
                   <ComingWrap
                     id={data.invitationId}
-                    isLogin={isLogin}
                     isReview={data.canWriteFeedback}
+                    isLogin={data.loggedIn}
                   />
                 )}
                 {isMobile && invitationState === 0 && (
                   <SaveWrap
                     id={data.invitationId}
-                    isLogin={isLogin}
                     refetch={refetch}
+                    isLogin={data.loggedIn}
                   />
                 )}
                 {isMobile && (
@@ -167,7 +167,7 @@ const InvitationDetailPage = () => {
                     title={data.title}
                     cardImage={data.cardImage}
                     isAlreadySave={data.alreadySaved}
-                    isLogin={isLogin}
+                    isLogin={data.loggedIn}
                     isShareLink={invitationState === 0}
                     refetch={refetch}
                   />
