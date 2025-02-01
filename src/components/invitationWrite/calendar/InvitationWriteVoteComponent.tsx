@@ -11,7 +11,6 @@ const InvitationWriteVoteComponent = () => {
   const [isMultiple, setIsMultiple] = useState(false);
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
-  console.log(invitation);
   const handleNewVote = () => {
     setInvitation((prevInvitation) => {
       prevInvitation.scheduleVotes[prevInvitation.scheduleVotes.length] = {
@@ -31,6 +30,14 @@ const InvitationWriteVoteComponent = () => {
     }
   };
 
+  const handleSetMultiple = () => {
+    setIsMultiple(!isMultiple);
+
+    setInvitation((invitation) => {
+      invitation.scheduleVoteMultiple = isMultiple;
+    });
+  };
+
   return (
     <S.Container>
       <S.TitleContainer>
@@ -39,13 +46,13 @@ const InvitationWriteVoteComponent = () => {
           <S.Text>복수 선택</S.Text>
           <SlideButton
             currentState={isMultiple}
-            handleState={() => setIsMultiple(!isMultiple)}
+            handleState={handleSetMultiple}
           />
         </S.SlideButtonContainer>
       </S.TitleContainer>
       {invitation.scheduleVotes.map((vote, index) => (
         <S.ItemContainer
-          key={index}
+          key={vote.endDate + index}
           isSelected={currentIndex === index}
           onClick={() => setCurrentIndex(index)}
         >

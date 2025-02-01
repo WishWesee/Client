@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<{ $borderColor: string }>`
   display: flex;
   flex-direction: column;
   padding: 12px;
@@ -11,7 +11,7 @@ export const Container = styled.div`
   width: 100%;
 
   border-radius: 4px;
-  border: 2px solid var(--Blue10, #d7e9ff);
+  border: 2px solid ${({ $borderColor }) => $borderColor};
   background: var(--White, #fcfcfd);
 `;
 

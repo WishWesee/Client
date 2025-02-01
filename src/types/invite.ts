@@ -1,3 +1,5 @@
+import { Block } from "./invitation";
+
 export type TInvitationRes = {
   invitationId: number;
   alreadySaved: boolean;
@@ -131,7 +133,8 @@ export type TInvitationReq = {
     scheduleVoteMultiple: boolean;
     scheduleVoteClosed: boolean;
     attendanceSurveyClosed: boolean;
-    blocks: (BoxType | DividerType | PhotoType | TextType | TimeTableType)[];
+    // blocks: (BoxType | DividerType | PhotoType | TextType | TimeTableType)[];
+    blocks: Block[];
     scheduleVotes: {
       startDate: string;
       startTime: string;

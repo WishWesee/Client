@@ -35,11 +35,11 @@ const CalendarComponent: React.FC<CalendarComponentProps> = ({
       <S.StyledCalendar
         value={date}
         onChange={handleOnChange}
-        formatDay={(locale, date) => date.getDate().toString()} // 날짜 포맷을 숫자로만 표시
+        formatDay={(_, date) => date.getDate().toString()} // 날짜 포맷을 숫자로만 표시
         calendarType="gregory" // 일요일부터 시작
         showNeighboringMonth={false} // 전달, 다음달 날짜 숨기기
         minDetail="year" // 10년 단위 년도 숨기기
-        formatShortWeekday={(locale, date) => {
+        formatShortWeekday={(_, date) => {
           const weekdays = ["S", "M", "T", "W", "T", "F", "S"];
           return weekdays[date.getDay()];
         }}

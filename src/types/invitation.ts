@@ -1,14 +1,18 @@
-interface TimeContent {
-  time: string;
-  content: string;
-}
+// interface TimeContent {
+//   time: string;
+//   content: string;
+// }
 
-interface Block {
+export interface Block {
   sequence: number;
   type: string;
   title?: string;
   color?: string;
-  content?: string | TimeContent[];
+  font?: string;
+  styles?: string;
+  content?: string;
+  image?: string;
+  time?: string;
 }
 
 interface ScheduleVote {
@@ -26,9 +30,12 @@ interface Invitation {
   startTime: string;
   endDate: string;
   endTime: string;
+  userLocation: string;
   location: string;
   address: string;
   mapLink: string;
+  latitude: number;
+  longitude: number;
   mapViewType: number;
   voteDeadline: string;
   attendanceSurveyEnabled: boolean;
@@ -46,4 +53,6 @@ export interface InvitationState {
   setInvitation: (update: (draft: Invitation) => void) => void;
   setCardImage: (image: string) => void;
   setPhotoImages: (images: string[]) => void;
+  addBlock: (newBlock: Block) => void;
+  updateBlock: (sequence: number, updatedProperties: Partial<Block>) => void;
 }

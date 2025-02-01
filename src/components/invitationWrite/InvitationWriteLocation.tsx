@@ -5,6 +5,7 @@ import * as S from "@styles/invitationWrite/invitationWriteLocation";
 import { LocationToolBarList } from "@/constants/invitationWrite/toolBar";
 import { useToolBarContext } from "@/contexts/toolBarContext";
 import { useGetSearch } from "@/hooks/write/search";
+import useInvitationStore from "@/store/invitation";
 import { SearchLocation } from "@/types/invitationWrite/location";
 import { useEffect, useState } from "react";
 import TwoBtnModal from "../modal/TwoBtnModal";
@@ -20,6 +21,7 @@ const InvitationWriteLocation = () => {
   const [isShowSearchModal, setIsShowSearchModal] = useState<boolean>(false);
 
   const { selectedTool, setToolBarContent } = useToolBarContext();
+  const { setInvitation } = useInvitationStore();
   const { data, refetch } = useGetSearch(searchInputValue);
 
   const cancelInput = () => {
@@ -39,6 +41,26 @@ const InvitationWriteLocation = () => {
     }
   }, [selectedTool]);
 
+  const handleUserLocation = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+
+    setInvitation((prevInvitation) => {
+      prevInvitation.userLocation = e.target.value;
+    });
+  };
+
+  const handleLocation = (location: SearchLocation) => {
+    setLocation(location);
+
+    setInvitation((prevInvitation) => {
+      prevInvitation.address = location.address;
+      prevInvitation.location = location.location;
+      prevInvitation.mapLink = location.mapLink;
+      prevInvitation.latitude = location.latitude;
+      prevInvitation.longitude = location.longitude;
+    });
+  };
+
   return (
     <S.Container
       onClick={(e) => {
@@ -55,7 +77,7 @@ const InvitationWriteLocation = () => {
           type="search"
           placeholder="직접 입력"
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={handleUserLocation}
           onFocus={() => setIsFocused("input")}
           onBlur={() => setIsFocused(null)}
         />
@@ -72,6 +94,7 @@ const InvitationWriteLocation = () => {
             <LocationMapComponent
               location={location}
               onDelete={() => setIsShowModal(true)}
+              borderColor={"var(--Blue10)"}
             />
           </>
         ) : (
@@ -104,7 +127,7 @@ const InvitationWriteLocation = () => {
         )}
 
         {searchInputValue !== "" && data !== null && location === null && (
-          <LocationModal locaions={data} setLocation={setLocation} />
+          <LocationModal locaions={data} setLocation={handleLocation} />
         )}
 
         {isShowSearchModal && (

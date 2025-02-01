@@ -1,30 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useChoiceStore } from "@/store/useChoiceStore";
-import AddIcon from "@/assets/icons/화면GUI_Line/2020/Add.svg?react";
 import ImgIcon from "@/assets/icons/화면GUI_Full/2424_Activate/Img.svg?react";
-import HorizontalSB from "@/components/choiceCard/HorizontalSB";
-import ReactNB from "@/components/top/Top_reactNB";
-import Rectangle from "@/components/choiceCard/Rectangle";
-import Wrap from "@/components/choiceCard/Wrap";
-import NextButton from "@/components/button/Btn_Bottom_Next";
+import AddIcon from "@/assets/icons/화면GUI_Line/2020/Add.svg?react";
 import Birthday1 from "@/assets/images/ChoiceCard/Birthday1.svg";
 import Birthday2 from "@/assets/images/ChoiceCard/Birthday2.svg";
 import LastOfYear1 from "@/assets/images/ChoiceCard/LastOfYear1.svg";
 import LastOfYear2 from "@/assets/images/ChoiceCard/LastOfYear2.svg";
 import Travel1 from "@/assets/images/ChoiceCard/travel1.svg";
+import NextButton from "@/components/button/Btn_Bottom_Next";
+import HorizontalSB from "@/components/choiceCard/HorizontalSB";
+import Rectangle from "@/components/choiceCard/Rectangle";
+import Wrap from "@/components/choiceCard/Wrap";
+import ReactNB from "@/components/top/Top_reactNB";
+import { useChoiceStore } from "@/store/useChoiceStore";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
-  Top,
-  WrapTexts,
+  Button,
+  ButtonNext,
   Modal,
   SB,
-  ButtonNext,
-  Button,
+  Top,
+  WrapTexts,
 } from "@/constants/choiceCard/Wrap";
+import useWMediaQuery from "@/hooks/useWMediaQuery";
+import useInvitationStore from "@/store/invitation";
 import * as style from "@/styles/choiceCard/ChoiceCardStyle";
 import * as modalStyle from "@/styles/choiceCard/ModalStyle";
-import useWMediaQuery from "@/hooks/useWMediaQuery";
 
 const ChoiceCard: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -34,6 +35,7 @@ const ChoiceCard: React.FC = () => {
   const navigate = useNavigate();
 
   const { /**selectedImage, */ setSelectedImage } = useChoiceStore(); //이미지 src 전역상태 설정
+  const { setCardImage } = useInvitationStore();
 
   const { isDesktop, isTablet } = useWMediaQuery();
 
@@ -46,6 +48,7 @@ const ChoiceCard: React.FC = () => {
   const handleRectangleToggle = (index: number, imageSrc: string) => {
     setActiveRectangle(index);
     setSelectedImage(imageSrc);
+    setCardImage(imageSrc);
   };
 
   const renderModal = () => {
@@ -65,6 +68,7 @@ const ChoiceCard: React.FC = () => {
       reader.onload = () => {
         if (reader.result) {
           setSelectedImage(reader.result as string); // Base64 URL로 이미지 저장
+          setCardImage(reader.result as string);
           navigate("/contentcut", { state: { image: reader.result } });
         }
       };
@@ -154,7 +158,11 @@ const ChoiceCard: React.FC = () => {
             ))}
           </style.Img_Content_Card>
           <style.Bottom>
-            <NextButton text={Button.text} color={Button.color} />
+            <NextButton
+              text={Button.text}
+              color={Button.color}
+              onClick={() => navigate("/write")}
+            />
           </style.Bottom>
         </style.Wrap_Card>
       </style.Content>

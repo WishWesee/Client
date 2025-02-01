@@ -1,14 +1,14 @@
-import * as S from "@styles/invite/ContentWrapStyle";
+import useWMediaQuery from "@/hooks/useWMediaQuery";
 import { TInvitationReq } from "@/types/invite";
-import PageFoldBtn from "./PageFoldBtn";
 import { formatVoteDateTime } from "@/utils/formatVoteDateTime";
 import CalendarIcon from "@assets/icons/화면GUI_Full/2424_Activate/Calendar.svg?react";
 import LocationIcon from "@assets/icons/화면GUI_Full/2424_Activate/Location.svg?react";
-import useWMediaQuery from "@/hooks/useWMediaQuery";
+import * as S from "@styles/invite/ContentWrapStyle";
 import { useState } from "react";
-import ContentTextBox from "./ContentTextBox";
-import ContentTimeTable from "./ContentTimeTable";
+import LocationMapComponent from "../invitationWrite/location/LocationMapComponent";
 import CheckVoteBox from "./CheckVoteBox";
+import ContentTextBox from "./ContentTextBox";
+import PageFoldBtn from "./PageFoldBtn";
 
 interface Props {
   data: TInvitationReq;
@@ -55,10 +55,22 @@ const CheckContentWrap = ({ data }: Props) => {
             <LocationIcon />
             <h4>{data.invitation.userLocation || data.invitation.location}</h4>
           </S.SectionHeader>
-          <a onClick={() => window.open(`${data.invitation.mapLink}`)}>
+          <a
+            onClick={() => window.open(`${data.invitation.mapLink}`)}
+            style={{ marginBottom: "8px" }}
+          >
             {data.invitation.address}
           </a>
-          <div style={{ color: "red" }}>지도링크</div>
+          <LocationMapComponent
+            location={{
+              location: data.invitation.location,
+              address: data.invitation.address,
+              mapLink: data.invitation.mapLink,
+              latitude: data.invitation.latitude,
+              longitude: data.invitation.longitude,
+            }}
+            borderColor={"var(--Gray5)"}
+          />
         </div>
       </S.NotFoldWrap>
       {!isFold && (
@@ -70,12 +82,12 @@ const CheckContentWrap = ({ data }: Props) => {
                 {block.type === "box" && (
                   <ContentTextBox
                     boxType={0}
-                    title={block.title}
-                    content={block.content}
+                    title={block.title!}
+                    content={block.content!}
                   />
                 )}
                 {block.type === "photo" && (
-                  <img src={block.image} alt="첨부한 이미지" />
+                  <img src={block.image!} alt="첨부한 이미지" />
                 )}
                 {block.type === "text" && (
                   <div
@@ -96,9 +108,9 @@ const CheckContentWrap = ({ data }: Props) => {
                     {block.content}
                   </div>
                 )}
-                {block.type === "timeTable" && (
+                {/* {block.type === "timeTable" && (
                   <ContentTimeTable content={block.content} />
-                )}
+                )} */}
               </S.FlodItem>
             );
           })}
