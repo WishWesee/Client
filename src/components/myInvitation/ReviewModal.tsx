@@ -1,20 +1,20 @@
 import React from 'react';
 import DeleteIcon from '@/assets/icons/화면GUI_Line/2020/Delete.svg?react';
 import * as style from '@/styles/myInvitation/ReviewModalStyle';
-import TestImage from './TestImage2.svg?react';
 import { ReviewModalText } from '@/constants/myInvitation/MyInvitation';
 import ButtonBottomNext from '../button/Btn_Bottom_Next';
 
 type ReviewModalProps = {
+  targetWord: string;
   isModalOn: boolean;
+  imageSrc: string;
   onClose: () => void;
 };
 
-const ReviewModal: React.FC<ReviewModalProps> = ({ isModalOn, onClose }) => {
+const ReviewModal: React.FC<ReviewModalProps> = ({ targetWord, isModalOn, imageSrc, onClose }) => {
   
   if (!isModalOn) return null;
 
-  const targetWord = '불라불라';
   const lines = ReviewModalText.SubText.split('\n');
 
   return (
@@ -26,7 +26,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ isModalOn, onClose }) => {
           <DeleteIcon onClick={onClose} style={{ cursor: 'pointer' }}/>
         </style.DeleteContainer>
 
-        <TestImage />
+        <img src={imageSrc} style={{width:"310px", height:"238.5px"}}/>
 
         <style.TextContainer>
           {lines.map((line, index) => {

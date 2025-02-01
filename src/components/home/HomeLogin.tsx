@@ -40,7 +40,7 @@ const HomeLogin = () => {
             <ButtonBottomNext
               text={"초대장 만들기"}
               color={"blue"}
-              onClick={() => navigate("/write")}
+              onClick={() => navigate("/choicecard")}
             />
           </S.MailTopWrap>
         </S.MailBoxWrap>

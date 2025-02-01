@@ -7,6 +7,7 @@ import { DeleteModal } from "@/constants/login/loginScreen";
 import { Logout } from "@/api/login/logOut";
 import SaveBox from "@assets/icons/화면GUI_Full/3232/SaveBox.svg?react";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 type HeaderProps = {
   profileBool: boolean;
@@ -20,6 +21,7 @@ const TopHeader: React.FC<HeaderProps> = ({ profileBool }) => {
   const [myInfo, setMyInfo] = useState<MyInfoType | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false); // 프로필 모달 상태
   const [isTwoBtnModalOpen, setIsTwoBtnModalOpen] = useState(false); // ✅ 탈퇴 모달 상태
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadInvitations = async () => {
@@ -56,11 +58,11 @@ const TopHeader: React.FC<HeaderProps> = ({ profileBool }) => {
 
   return (
     <style.TopHeader>
-      <HeaderLogo className="item" />
+      <HeaderLogo className="item" style={{cursor: "pointer"}} onClick={() => navigate("/")} />
 
       <style.HeaderButtonWithModal>
         <style.HeaderButtonContainer>
-          <SaveBox className="item" />
+          <SaveBox className="item" style={{ cursor: "pointer" }} onClick={() => navigate("/invites")}/>
           {profileBool && myInfo ? (
             <div style={{ position: "relative" }}>
               {/* 프로필 이미지 */}

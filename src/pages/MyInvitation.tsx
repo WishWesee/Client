@@ -4,10 +4,13 @@ import ReviewModal from "@/components/myInvitation/ReviewModal";
 import SlideBar from "@/components/myInvitation/SlideBar";
 import { WrapTexts, MenuTitle } from "@/constants/myInvitation/MyInvitation";
 import { fetchMyInvitations } from "@/api/myinvitation/myinvitationData"; 
+import { reviewCheck } from "@/api/myinvitation/reviewCheck"; 
 import * as style from "@/styles/myInvitation/MyInvitationPageStyle";
 
 const MyInvitation: React.FC = () => {
-  const [isModalOn, setIsModalOn] = useState(true);
+  const [isModalOn, setIsModalOn] = useState(false);
+  const [modalContent, setModalContent] = useState<{ title: string; image: string } | null>(null);
+
   const [draftCount, setDraftCount] = useState<string | null>(null);
   const [draftingInvitation, setDraftingInvitation] = useState([]);
   const [sentInvitation, setSentInvitation] = useState([]);
@@ -28,16 +31,38 @@ const MyInvitation: React.FC = () => {
       }
     };
 
+    const checkReview = async () => {
+      try {
+        const response = await reviewCheck();
+        if (response.length > 0) {
+          const title = response.title;
+          const cardImage = response.cardImage;
+          setModalContent({ title, image: cardImage });
+          setIsModalOn(true);
+        }
+      } catch (error) {
+        console.error("Error fetching review data:", error);
+      }
+    };
+
     loadInvitations();
+    checkReview();
   }, []);
 
   return (
     <>
-      <ReviewModal isModalOn={isModalOn} onClose={() => setIsModalOn(false)} />
+      {isModalOn && modalContent && (
+        <ReviewModal 
+          targetWord={modalContent.title} 
+          imageSrc={modalContent.image} 
+          isModalOn={isModalOn} 
+          onClose={() => setIsModalOn(false)} 
+        />
+      )}
       <style.Container>
         <Wrap
           Title={WrapTexts.Title}
-          WrapBool={true}
+          WrapBool={sentInvitation.length === 0 && receivedInvitation.length === 0}
           SubText={
             sentInvitation.length === 0 && receivedInvitation.length === 0
               ? WrapTexts.NoSubText
