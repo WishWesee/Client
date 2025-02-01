@@ -19,20 +19,22 @@ type Props = {
 };
 
 const ComingWrap = ({ id, isLogin, isReview }: Props) => {
-  const { data, refetch } = useAttendanceQuery(id);
+  const { data, isError, refetch } = useAttendanceQuery(id);
 
   const [personName, setPersonName] = useState("");
   const [isCheckPersonName, setIsCheckPersonName] = useState(isLogin);
   const [isAttending, setIsAttending] = useState<boolean | null>(null); //투표자의 참석 여부
-  const [attendanceClosed, setAttendanceClosed] = useState(
-    data.information.attendanceSurveyClosed
-  ); //참석 조사 마감 여부
+  const [attendanceClosed, setAttendanceClosed] = useState(false); //참석 조사 마감 여부
   const [modalVote, setModalVote] = useState<boolean | null>(null); //선택한 모달
   const [modalData, setModalData] = useState<TAttendanceVotersRes | null>(null); //모달 데이터
 
   useEffect(() => {
-    if (isLogin) {
-      setIsAttending(data.information.isAttending);
+    if (data) {
+      setAttendanceClosed(data.information.attendanceSurveyClosed);
+
+      if (isLogin) {
+        setIsAttending(data.information.isAttending);
+      }
     }
   }, [data, isLogin]);
 
@@ -158,75 +160,81 @@ const ComingWrap = ({ id, isLogin, isReview }: Props) => {
     );
   };
 
+  if (isError) return;
+
   return (
-    <S.Container $isReview={isReview}>
-      <h3>함께할 수 있는지 알려주세요!</h3>
-      {!isLogin && !attendanceClosed && (
-        <div style={{ width: 348 }}>
-          <InputWrap
-            labelText="투표자"
-            placeholder="이름을 입력하세요"
-            value={personName}
-            onChange={(e) => {
-              setPersonName(e.target.value);
-            }}
-            isReadOnly={isCheckPersonName}
-            isViewDeleteButton={!isCheckPersonName}
-            isViewCheckButton={isCheckPersonName}
-            handleDeleteClick={() => setPersonName("")}
-            handleCheckClick={handleGuestAttendance}
-          />
-        </div>
+    <>
+      {data && (
+        <S.Container $isReview={isReview}>
+          <h3>함께할 수 있는지 알려주세요!</h3>
+          {!isLogin && !attendanceClosed && (
+            <div style={{ width: 348 }}>
+              <InputWrap
+                labelText="투표자"
+                placeholder="이름을 입력하세요"
+                value={personName}
+                onChange={(e) => {
+                  setPersonName(e.target.value);
+                }}
+                isReadOnly={isCheckPersonName}
+                isViewDeleteButton={!isCheckPersonName}
+                isViewCheckButton={isCheckPersonName}
+                handleDeleteClick={() => setPersonName("")}
+                handleCheckClick={handleGuestAttendance}
+              />
+            </div>
+          )}
+          <S.BtnWrap>
+            <AttendanceButton
+              icon={HappyIcon}
+              text="참석 가능해요!"
+              count={data.information.attendingCount}
+              isEnd={attendanceClosed}
+              isActive={isAttending === true}
+              onClick={() =>
+                attendanceClosed ? handleVoter(true) : handleAttendance(true)
+              }
+              disabled={
+                !isCheckPersonName ||
+                (attendanceClosed && !data.information.isSender)
+              }
+            />
+            <AttendanceButton
+              icon={SadIcon}
+              text="다음에 함께..."
+              count={data.information.notAttendingCount}
+              isEnd={attendanceClosed}
+              isActive={isAttending === false}
+              onClick={() =>
+                attendanceClosed ? handleVoter(false) : handleAttendance(false)
+              }
+              disabled={
+                !isCheckPersonName ||
+                (attendanceClosed && !data.information.isSender)
+              }
+            />
+            {modalVote !== null && modalData && (
+              <VotePersonModal
+                icon={modalVote ? HappyIcon : SadIcon}
+                leftText={modalVote ? "참석 가능해요!" : "다음에 함께..."}
+                rightText={modalData.voterCount}
+                nameTexts={modalData.voterNames}
+                onClick={() => setModalVote(null)}
+              />
+            )}
+          </S.BtnWrap>
+          {data.information.isSender && (
+            <S.DeadlineWrap>
+              <h3>참석 여부 마감</h3>
+              <SlideButton
+                handleState={handleAttendanceClose}
+                currentState={attendanceClosed}
+              />
+            </S.DeadlineWrap>
+          )}
+        </S.Container>
       )}
-      <S.BtnWrap>
-        <AttendanceButton
-          icon={HappyIcon}
-          text="참석 가능해요!"
-          count={data.information.attendingCount}
-          isEnd={attendanceClosed}
-          isActive={isAttending === true}
-          onClick={() =>
-            attendanceClosed ? handleVoter(true) : handleAttendance(true)
-          }
-          disabled={
-            !isCheckPersonName ||
-            (attendanceClosed && !data.information.isSender)
-          }
-        />
-        <AttendanceButton
-          icon={SadIcon}
-          text="다음에 함께..."
-          count={data.information.notAttendingCount}
-          isEnd={attendanceClosed}
-          isActive={isAttending === false}
-          onClick={() =>
-            attendanceClosed ? handleVoter(false) : handleAttendance(false)
-          }
-          disabled={
-            !isCheckPersonName ||
-            (attendanceClosed && !data.information.isSender)
-          }
-        />
-        {modalVote !== null && modalData && (
-          <VotePersonModal
-            icon={modalVote ? HappyIcon : SadIcon}
-            leftText={modalVote ? "참석 가능해요!" : "다음에 함께..."}
-            rightText={modalData.voterCount}
-            nameTexts={modalData.voterNames}
-            onClick={() => setModalVote(null)}
-          />
-        )}
-      </S.BtnWrap>
-      {data.information.isSender && (
-        <S.DeadlineWrap>
-          <h3>참석 여부 마감</h3>
-          <SlideButton
-            handleState={handleAttendanceClose}
-            currentState={attendanceClosed}
-          />
-        </S.DeadlineWrap>
-      )}
-    </S.Container>
+    </>
   );
 };
 
