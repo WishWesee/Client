@@ -7,6 +7,7 @@ import { ToolBarProvider } from "@/contexts/toolBarContext";
 import useInvitationStore from "@/store/invitation";
 import * as S from "@styles/invitationWrite/invitationWritePage";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const InvitationWritePage = () => {
   const { invitation, cardImage, photoImages } = useInvitationStore();
@@ -17,6 +18,7 @@ const InvitationWritePage = () => {
   const [currentSequence, setCurrentSequence] = useState(0);
   const [isCheckComponent, setIsCheckComponent] = useState(false);
   // const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const setBlocksRef = (newBlocks: typeof invitation.blocks) => {
     blocksRef.current = newBlocks;
@@ -35,6 +37,7 @@ const InvitationWritePage = () => {
               backText={"카드 선택"}
               buttonType={"저장"}
               isEnable={isButtonEnable}
+              onLeftBtnClick={() => navigate("/choicecard")}
             />
             <InvitationWriteToolBar
               currentSequence={currentSequence}
