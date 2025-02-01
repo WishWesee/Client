@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import LetterContainer from '@/components/myInvitation/LetterContainer';
 import ArrowRight from '@/assets/icons/화면GUI_Line/2828/Arrow_Right.tsx';
 import * as style from '@/styles/myInvitation/MenuContainerStyle';
@@ -20,7 +21,7 @@ type NBProps = {
 
 //API 연동할때는 초대장 받은게 없으면 ~하는 로직으로 바꿀것.
 const SlideBar: React.FC<NBProps> = ({ MenuTitle, MenuSub, ShowDetailBool, Data }) => {
-
+  const navigate = useNavigate();
   const [NoInvitationText, setNoInvitationText] = useState("저장된 초대장이 없어요");
 
   useEffect(() => {
@@ -35,13 +36,20 @@ const SlideBar: React.FC<NBProps> = ({ MenuTitle, MenuSub, ShowDetailBool, Data 
     }
   }, [Data, MenuTitle]);
 
+  const handleNavigate = () => {
+    if (MenuTitle === "내가 받은 초대장") {
+      navigate("/invites/received");
+    } else if (MenuTitle === "내가 보낸 초대장") {
+      navigate("/invites/sent");
+    }
+  };
 
   return (
     <>
         {ShowDetailBool ?
          <style.MenuContainerWithArrow>
             <style.MenuTitleBox>{MenuTitle}</style.MenuTitleBox>
-            {Data.length == 0 ? <ArrowRight stroke='#88898A'/> : <ArrowRight/>}
+            {Data.length == 0 ? <ArrowRight stroke='#88898A'/> : <ArrowRight onClick={handleNavigate}/>}
         </style.MenuContainerWithArrow>
         
         : 
@@ -69,6 +77,7 @@ const SlideBar: React.FC<NBProps> = ({ MenuTitle, MenuSub, ShowDetailBool, Data 
                 Title={invitation.title}
                 Date={invitation.date.split('T')[0]}
                 Image={invitation.cardImage}
+                Id={invitation.invitationId}
               />
             ))}
           </>

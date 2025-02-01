@@ -19,3 +19,7 @@ export const LogIn = {
     registerMessage: "아직 계정이 없으신가요?",
     register: "가입하기"
 }
+
+export const DeleteModal = { 
+    delete: "탈퇴 시, 모든 초대장들이 사라집니다.\n받은 초대장의 후기와 투표 내역은 유지됩니다."
+}

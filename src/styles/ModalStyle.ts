@@ -30,6 +30,12 @@ export const Modal = styled.div`
   }
 `;
 
+export const Title = styled.div`
+  font: var(--BoldProperty-rNBRight);
+  color: var(--Black);
+  margin: 0 0 15px 0;
+`;
+
 export const BtnWrap = styled.div`
   display: flex;
   gap: 12px;
