@@ -5,6 +5,7 @@ import { Block } from "@/types/invitation";
 import * as S from "@styles/invitationWrite/invitationWriteComponent";
 import InvitationWriteCalendar from "./InvitationWriteCalendar";
 import InvitationWriteLocation from "./InvitationWriteLocation";
+import InvitationWriteDividerComponent from "./blocks/InvitationWriteDividerComponent";
 import InvitationWriteTextComponent from "./blocks/InvitationWriteTextComponent";
 import InvitationWriteVoteComponent from "./calendar/InvitationWriteVoteComponent";
 
@@ -24,7 +25,13 @@ const InvitationWriteComponent = ({
   const renderBlockContent = (block: any, index: number) => {
     switch (block.type) {
       case "divider":
-        return <hr />;
+        return (
+          <InvitationWriteDividerComponent
+            currentSequence={currentSequence}
+            setCurrentSequence={setCurrentSequence}
+            block={block}
+          />
+        );
       case "box":
       // return (
       //   <ContentTextBox

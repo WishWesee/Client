@@ -71,7 +71,7 @@ const InvitationWriteToolBar = ({
     });
 
     setTimeout(() => {
-      setBlocks(invitation.blocks);
+      setBlocks([...useInvitationStore.getState().invitation.blocks]);
     }, 0);
   };
 
@@ -103,13 +103,14 @@ const InvitationWriteToolBar = ({
           }, 0);
           break;
         case "Line":
-        // return (
-        //   <ContentTextBox
-        //     boxType={0}
-        //     title={block.title}
-        //     content={block.content}
-        //   />
-        // );
+          addBlock({
+            sequence: invitation.blocks.length,
+            type: "divider",
+          });
+          setTimeout(() => {
+            setBlocks([...useInvitationStore.getState().invitation.blocks]);
+          }, 0);
+          break;
         // case "Image":
         //   return <img src={block.image} alt="첨부한 이미지" />;
         // case "Box":
