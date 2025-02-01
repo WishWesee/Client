@@ -28,7 +28,7 @@ export const InputText = styled.textarea`
   resize: none;
   padding: 12px 4px;
   box-sizing: border-box;
-  background-color: var(--White);
+  background-color: transparent;
 
   &:focus {
     outline: none;

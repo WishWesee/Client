@@ -1,10 +1,12 @@
 import {
+  SubColorStyleBarList,
   SubTextStyleBarList,
   SubTextToolBarList,
   TextToolBarList,
 } from "@/constants/invitationWrite/toolBar";
 import { useToolBarContext } from "@/contexts/toolBarContext";
 import { Block } from "@/types/invitation";
+import { getColor } from "@/utils/getColor";
 
 import * as S from "@styles/invitationWrite/blocks/invitationWriteTextComponentStyle";
 import { useEffect, useState } from "react";
@@ -21,18 +23,22 @@ const InvitationWriteTextComponent: React.FC<
     selectedTool,
     subSelectedTool,
     toolBarContent,
+    subToolBarContent,
     setToolBarContent,
     setSubToolBarContent,
   } = useToolBarContext();
   const [value, setValue] = useState("");
   const [font, setFont] = useState("");
   const [style, setStyle] = useState("");
+  const [color, setColor] = useState("");
 
   useEffect(() => {
     if (selectedTool === toolBarContent[0]) {
       setSubToolBarContent(SubTextToolBarList);
-    } else {
+    } else if (selectedTool === toolBarContent[1]) {
       setSubToolBarContent(SubTextStyleBarList);
+    } else {
+      setSubToolBarContent(SubColorStyleBarList);
     }
   }, [selectedTool]);
 
@@ -67,7 +73,10 @@ const InvitationWriteTextComponent: React.FC<
         default:
           break;
       }
-      console.log(block.styles);
+      if (subToolBarContent === SubColorStyleBarList) {
+        setColor(getColor(subSelectedTool.type));
+        block.color = getColor(subSelectedTool.type);
+      }
     }
   }, [subSelectedTool]);
 
@@ -101,7 +110,7 @@ const InvitationWriteTextComponent: React.FC<
           onChange={handleInputChange}
           style={{
             font: `var(${font})`,
-            color: block.color,
+            color: color,
             fontWeight: style === "bold" ? 600 : "normal",
             transform: style === "italic" ? "skewX(-10deg)" : "none",
             textDecoration:

@@ -44,7 +44,8 @@ const initialState: InvitationState = {
   photoImages: ["string"],
   setInvitation: () => {}, // 초기 빈 함수
   setCardImage: () => {}, // 초기 빈 함수
-  setPhotoImages: () => {}, // 초기 빈 함수
+  setPhotoImages: () => {},
+  addBlock: () => {},
 };
 
 const useInvitationStore = create<InvitationState>()(
@@ -61,6 +62,10 @@ const useInvitationStore = create<InvitationState>()(
     setPhotoImages: (images) =>
       set((state) => {
         state.photoImages = images;
+      }),
+    addBlock: (newBlock) =>
+      set((state) => {
+        state.invitation.blocks.push(newBlock);
       }),
   }))
 );

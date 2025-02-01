@@ -36,6 +36,7 @@ export const ToolButton = styled.button`
   background-color: transparent;
   border: none;
   padding: 0;
+  box-sizing: border-box;
   cursor: pointer;
 `;
 
@@ -50,7 +51,7 @@ export const ToolButtonText = styled.p<{ $isActive: boolean }>`
 
 export const SubToolContainer = styled.div`
   display: flex;
-  gap: 24px;
+  gap: 16px;
   width: 100%;
   height: 48px;
   padding: 0 20px 0 64px;
@@ -59,4 +60,15 @@ export const SubToolContainer = styled.div`
   justify-content: start;
   align-items: center;
   background-color: var(--Gray5, #f4f4f4);
+`;
+
+export const ArrowContainer = styled.div`
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  gap: 12px;
+
+  > * {
+    cursor: pointer;
+  }
 `;

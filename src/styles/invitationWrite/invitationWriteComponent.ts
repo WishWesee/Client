@@ -33,4 +33,6 @@ export const BlocksContainer = styled.div`
   justify-content: center;
   text-align: center;
   color: black;
+  flex-direction: column;
+  gap: 80px;
 `;

@@ -48,4 +48,5 @@ export interface InvitationState {
   setInvitation: (update: (draft: Invitation) => void) => void;
   setCardImage: (image: string) => void;
   setPhotoImages: (images: string[]) => void;
+  addBlock: (newBlock: Block) => void;
 }

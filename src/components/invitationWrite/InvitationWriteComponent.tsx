@@ -1,17 +1,24 @@
 import { NomalToolBarList } from "@/constants/invitationWrite/toolBar";
 import { useToolBarContext } from "@/contexts/toolBarContext";
 import useInvitationStore from "@/store/invitation";
+import { Block } from "@/types/invitation";
 import * as S from "@styles/invitationWrite/invitationWriteComponent";
-import { useState } from "react";
 import InvitationWriteCalendar from "./InvitationWriteCalendar";
 import InvitationWriteLocation from "./InvitationWriteLocation";
 import InvitationWriteTextComponent from "./blocks/InvitationWriteTextComponent";
 import InvitationWriteVoteComponent from "./calendar/InvitationWriteVoteComponent";
 
-const InvitationWriteComponent = () => {
+const InvitationWriteComponent = ({
+  currentSequence,
+  setCurrentSequence,
+  blocks,
+}: {
+  currentSequence: number;
+  setCurrentSequence: (sequence: number) => void;
+  blocks: Block[];
+}) => {
   const { setToolBarContent } = useToolBarContext();
   const { invitation } = useInvitationStore();
-  const [currentSequence, setCurrentSequence] = useState(0);
 
   // block 타입에 맞는 컴포넌트를 반환하는 함수
   const renderBlockContent = (block: any) => {
@@ -56,7 +63,7 @@ const InvitationWriteComponent = () => {
 
       {/* Text */}
       <S.BlocksContainer>
-        {invitation.blocks.map((block, _index) => renderBlockContent(block))}
+        {blocks.map((block, _index) => renderBlockContent(block))}
       </S.BlocksContainer>
     </S.Container>
   );
