@@ -10,6 +10,7 @@ import HorizontalSB from "@/components/choiceCard/HorizontalSB";
 import Rectangle from "@/components/choiceCard/Rectangle";
 import Wrap from "@/components/choiceCard/Wrap";
 import ReactNB from "@/components/top/Top_reactNB";
+import AddImageCautionModal from "@/components/choiceCard/Modal";
 import { useChoiceStore } from "@/store/useChoiceStore";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -32,6 +33,7 @@ const ChoiceCard: React.FC = () => {
   const [activeRectangle, setActiveRectangle] = useState<number>(0);
   const [activeModal, setActiveModal] = useState(false);
   const [myImages, setMyImages] = useState<string[]>([]);
+  const [isCautionModalOpen, setIsCautionModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const { /**selectedImage, */ setSelectedImage } = useChoiceStore(); //이미지 src 전역상태 설정
@@ -115,7 +117,7 @@ const ChoiceCard: React.FC = () => {
           </modalStyle.Modal>
         </modalStyle.ModalBackground>
       )}
-
+      {isCautionModalOpen && <AddImageCautionModal onClose={() => setIsCautionModalOpen(false)}/>}
       {/* 화면 크기에 따라 Front prop에 "다음" 또는 기존 값을 전달 */}
       <ReactNB
         Back={Top.Btn_rNB_Back}
@@ -128,17 +130,23 @@ const ChoiceCard: React.FC = () => {
         <Wrap Title={WrapTexts.Title} SubText={WrapTexts.SubText} />
         <style.Wrap_Card>
           <style.HorizontalSB_Content>
-            <style.Btn_hSB_New as="label">
-              <AddIcon />
-              <ImgIcon />
-              <input
-                type="file"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={handleFileChange}
-              />
-            </style.Btn_hSB_New>
-            {sbItems.map((item, index) => (
+          <style.Btn_hSB_New as="label" onClick={(e) => {
+            const authToken = localStorage.getItem("authToken"); //나중에는 쿠키접근으로 바꾸기
+            if (!authToken) {
+              e.preventDefault(); // input 클릭 못하게.
+              setIsCautionModalOpen(true);
+            }
+          }}>
+            <AddIcon />
+            <ImgIcon />
+            <input
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+          </style.Btn_hSB_New>
+          {sbItems.map((item, index) => (
               <HorizontalSB
                 key={index}
                 Title={item.title}
