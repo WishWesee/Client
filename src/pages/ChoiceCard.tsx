@@ -121,6 +121,7 @@ const ChoiceCard: React.FC = () => {
         Back={Top.Btn_rNB_Back}
         Front={frontProp}
         onBackClick={() => navigate("/")}
+        onFrontClick={() => navigate("/write")}
       />
 
       <style.Content>
