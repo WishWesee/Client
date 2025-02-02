@@ -27,7 +27,7 @@ const SaveWrap = ({ id, isLogin, refetch }: Props) => {
     if (isLogin) {
       handleSaveReceived();
     } else {
-      setNavigatePage(`invites/${id}`);
+      setNavigatePage(`/invites/${id}`);
       navigate("/login");
     }
   };

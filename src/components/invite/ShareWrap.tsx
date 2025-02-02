@@ -70,7 +70,7 @@ const ShareWrap = ({
     if (isLogin) {
       handleSaveReceived();
     } else {
-      setNavigatePage(`invites/${id}`);
+      setNavigatePage(`/invites/${id}`);
       navigate("/login");
     }
   };
