@@ -50,7 +50,12 @@ const TopHeader: React.FC<HeaderProps> = ({ profileBool }) => {
     }
   };
 
-  const handleLogout = async () => {
+  const handleLogout = () => { 
+    localStorage.removeItem("authToken");
+    window.location.href = "/";
+    }
+    /**
+    async () => {
     try {
       await Logout();
       window.location.href = "/"; // ✅ 로그아웃 성공 후 메인 페이지로 이동
@@ -58,7 +63,8 @@ const TopHeader: React.FC<HeaderProps> = ({ profileBool }) => {
       console.error("로그아웃 실패:", error);
     }
   };
-
+  */
+ 
   return (
     <style.TopHeader>
       <HeaderLogo
@@ -78,7 +84,6 @@ const TopHeader: React.FC<HeaderProps> = ({ profileBool }) => {
           />
           {profileBool && myInfo ? (
             <div style={{ position: "relative" }}>
-              {/* 프로필 이미지 */}
               <img
                 style={{
                   width: "28px",
@@ -93,7 +98,6 @@ const TopHeader: React.FC<HeaderProps> = ({ profileBool }) => {
           ) : null}
         </style.HeaderButtonContainer>
 
-        {/* 프로필 모달 */}
         {isModalOpen && (
           <style.Modal>
             <div style={{ cursor: "pointer" }} onClick={handleLogout}>
@@ -101,14 +105,13 @@ const TopHeader: React.FC<HeaderProps> = ({ profileBool }) => {
             </div>
             <div
               style={{ color: "red", cursor: "pointer" }}
-              onClick={() => setIsTwoBtnModalOpen(true)} // ✅ 탈퇴 모달 열기
+              onClick={() => setIsTwoBtnModalOpen(true)} 
             >
               탈퇴하기
             </div>
           </style.Modal>
         )}
 
-        {/* ✅ TwoBtnModal (탈퇴 확인 모달) */}
         {isTwoBtnModalOpen && (
           <TwoBtnModal
             title="탈퇴하시겠습니까?"
