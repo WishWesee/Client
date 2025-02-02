@@ -1,12 +1,5 @@
 import axios from "axios";
 
-const urlParams = new URLSearchParams(window.location.search);
-const token = urlParams.get("token");
-
-if (token) {
-  localStorage.setItem("authToken", token);
-}
-
 const storedToken = localStorage.getItem("authToken");
 
 export const api = axios.create({

@@ -4,7 +4,7 @@ import TwoBtnModal from "@components/top/DeleteAccountModal"; // ✅ 추가된 �
 import { FetchMyInfo } from "@/api/login/profile";
 import { DeleteAccount } from "@/api/login/deleteAccount";
 import { DeleteModal } from "@/constants/login/loginScreen";
-import { Logout } from "@/api/login/logOut";
+//import { Logout } from "@/api/login/logOut";
 import SaveBox from "@assets/icons/화면GUI_Full/3232/SaveBox.svg?react";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -50,11 +50,11 @@ const TopHeader: React.FC<HeaderProps> = ({ profileBool }) => {
     }
   };
 
-  const handleLogout = () => { 
+  const handleLogout = () => {
     localStorage.removeItem("authToken");
     window.location.href = "/";
-    }
-    /**
+  };
+  /**
     async () => {
     try {
       await Logout();
@@ -64,7 +64,7 @@ const TopHeader: React.FC<HeaderProps> = ({ profileBool }) => {
     }
   };
   */
- 
+
   return (
     <style.TopHeader>
       <HeaderLogo
@@ -105,7 +105,7 @@ const TopHeader: React.FC<HeaderProps> = ({ profileBool }) => {
             </div>
             <div
               style={{ color: "red", cursor: "pointer" }}
-              onClick={() => setIsTwoBtnModalOpen(true)} 
+              onClick={() => setIsTwoBtnModalOpen(true)}
             >
               탈퇴하기
             </div>

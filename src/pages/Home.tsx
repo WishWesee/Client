@@ -5,6 +5,7 @@ import { useAuthStore } from "@/store/useAuthStore";
 
 const Home = () => {
   const { isLogin } = useAuthStore();
+  sessionStorage.removeItem("navigate-page");
 
   return (
     <>

@@ -10,12 +10,14 @@ import LoginScreen from "./pages/LoginScreen";
 import MyInviation from "./pages/MyInvitation";
 import ReceivedInvitationListPage from "./pages/ReceivedInvitationListPage";
 import SentInvitationListPage from "./pages/SentInvitationListPage";
+import Redirect from "./pages/Redirect";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
+          <Route path="/redirect" element={<Redirect />} />
           <Route path="/" element={<Home />} />
           <Route path="/write" element={<InvitationWritePage />} />
           <Route path="/login" element={<LoginScreen />} />

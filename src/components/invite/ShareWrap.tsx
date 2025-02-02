@@ -7,6 +7,7 @@ import SaveBoxIcon from "@assets/icons/화면GUI_Full/3232/SaveBox.svg?react";
 import ShareKakaoBtn from "../shareSNS/ShareKakaoBtn";
 import { useNavigate } from "react-router-dom";
 import { postSaveReceived } from "@/api/invitation/postSaveReceived";
+import useNavigateStore from "@/store/useNavigateStore";
 
 type Props = {
   id: number;
@@ -27,6 +28,7 @@ const ShareWrap = ({
   refetch,
 }: Props) => {
   const navigate = useNavigate();
+  const { setNavigatePage } = useNavigateStore();
 
   const { isMobile } = useWMediaQuery();
 
@@ -64,6 +66,15 @@ const ShareWrap = ({
     }
   };
 
+  const handleSaveClick = () => {
+    if (isLogin) {
+      handleSaveReceived();
+    } else {
+      setNavigatePage(`invites/${id}`);
+      navigate("/login");
+    }
+  };
+
   const ShareBtn = ({
     text,
     icon: Icon,
@@ -86,9 +97,7 @@ const ShareWrap = ({
     <S.Container $isShareLink={isShareLink}>
       {isMobile && <h3>친구들을 초대해보세요!</h3>}
       {!isMobile && isShareLink && (
-        <S.Button
-          onClick={() => (isLogin ? handleSaveReceived() : navigate("/login"))}
-        >
+        <S.Button onClick={handleSaveClick}>
           <SaveBoxIcon />
         </S.Button>
       )}
