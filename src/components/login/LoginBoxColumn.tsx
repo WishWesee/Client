@@ -16,7 +16,7 @@ const LoginBoxColumn: React.FC<ColumnProps> = ({ features }) => (
     <Style.ColumnContainer>
         {features.map((feature, index) => (
             feature.title.includes('Rectangle') ? 
-            <FeatureBoxEmpty title={feature.title}/> : 
+            <FeatureBoxEmpty key={index} title={feature.title}/> : 
             <FeatureBoxFull
             key={index}
             title={feature.title}
