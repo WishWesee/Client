@@ -50,8 +50,8 @@ const ShareKakao = ({
           {
             title: "초대장 만들기",
             link: {
-              mobileWebUrl: "https://wishwesee.netlify.app",
-              webUrl: "https://wishwesee.netlify.app",
+              mobileWebUrl: "https://chochocho.wishwesee.n-e.kr",
+              webUrl: "https://chochocho.wishwesee.n-e.kr",
             },
           },
         ],

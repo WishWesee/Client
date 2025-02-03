@@ -117,7 +117,9 @@ const ChoiceCard: React.FC = () => {
           </modalStyle.Modal>
         </modalStyle.ModalBackground>
       )}
-      {isCautionModalOpen && <AddImageCautionModal onClose={() => setIsCautionModalOpen(false)}/>}
+      {isCautionModalOpen && (
+        <AddImageCautionModal onClose={() => setIsCautionModalOpen(false)} />
+      )}
       {/* 화면 크기에 따라 Front prop에 "다음" 또는 기존 값을 전달 */}
       <ReactNB
         Back={Top.Btn_rNB_Back}
@@ -130,23 +132,26 @@ const ChoiceCard: React.FC = () => {
         <Wrap Title={WrapTexts.Title} SubText={WrapTexts.SubText} />
         <style.Wrap_Card>
           <style.HorizontalSB_Content>
-          <style.Btn_hSB_New as="label" onClick={(e) => {
-            const authToken = localStorage.getItem("authToken"); //나중에는 쿠키접근으로 바꾸기
-            if (!authToken) {
-              e.preventDefault(); // input 클릭 못하게.
-              setIsCautionModalOpen(true);
-            }
-          }}>
-            <AddIcon />
-            <ImgIcon />
-            <input
-              type="file"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={handleFileChange}
-            />
-          </style.Btn_hSB_New>
-          {sbItems.map((item, index) => (
+            <style.Btn_hSB_New
+              as="label"
+              onClick={(e) => {
+                const authToken = localStorage.getItem("Authorization"); //나중에는 쿠키접근으로 바꾸기
+                if (!authToken) {
+                  e.preventDefault(); // input 클릭 못하게.
+                  setIsCautionModalOpen(true);
+                }
+              }}
+            >
+              <AddIcon />
+              <ImgIcon />
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+              />
+            </style.Btn_hSB_New>
+            {sbItems.map((item, index) => (
               <HorizontalSB
                 key={index}
                 Title={item.title}
