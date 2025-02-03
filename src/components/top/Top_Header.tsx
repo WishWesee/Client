@@ -51,7 +51,7 @@ const TopHeader: React.FC<HeaderProps> = ({ profileBool }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
+    localStorage.removeItem("Authorization");
     window.location.href = "/";
   };
   /**
