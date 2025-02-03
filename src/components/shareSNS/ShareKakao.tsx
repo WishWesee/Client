@@ -50,8 +50,8 @@ const ShareKakao = ({
           {
             title: "초대장 만들기",
             link: {
-              mobileWebUrl: "https://front.wishwesee.n-e.kr",
-              webUrl: "https://front.wishwesee.n-e.kr",
+              mobileWebUrl: "https://chochocho.wishwesee.n-e.kr",
+              webUrl: "https://chochocho.wishwesee.n-e.kr",
             },
           },
         ],
