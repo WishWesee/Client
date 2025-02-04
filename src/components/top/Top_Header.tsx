@@ -44,7 +44,6 @@ const TopHeader: React.FC<HeaderProps> = ({ profileBool }) => {
   const handleDeleteAccount = async () => {
     try {
       await DeleteAccount();
-      window.location.href = "/";
     } catch (error) {
       console.error("회원 탈퇴 실패:", error);
     }
@@ -53,7 +52,6 @@ const TopHeader: React.FC<HeaderProps> = ({ profileBool }) => {
   const handleLogout =  async () => {
     try {
       await Logout();
-      window.location.href = "/"; // ✅ 로그아웃 성공 후 메인 페이지로 이동
     } catch (error) {
       console.error("로그아웃 실패:", error);
     }
@@ -77,7 +75,7 @@ const TopHeader: React.FC<HeaderProps> = ({ profileBool }) => {
             }
           />
           {profileBool && myInfo ? (
-            <div style={{ position: "relative" }}>
+            <div style={{ paddingTop: "3px" }}>
               <img
                 style={{
                   width: "28px",
