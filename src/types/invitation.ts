@@ -23,7 +23,7 @@ interface ScheduleVote {
 }
 
 interface Invitation {
-  invitationId: number;
+  invitationId: number | null;
   title: string;
   tempSaved: boolean;
   startDate: string;
@@ -48,11 +48,16 @@ interface Invitation {
 
 export interface InvitationState {
   invitation: Invitation;
-  cardImage: string;
-  photoImages: string[];
+  cardImage: File | null;
+  photoImages: File[];
   setInvitation: (update: (draft: Invitation) => void) => void;
-  setCardImage: (image: string) => void;
-  setPhotoImages: (images: string[]) => void;
+  setCardImage: (image: File) => void;
+  setPhotoImages: (images: File[]) => void;
   addBlock: (newBlock: Block) => void;
   updateBlock: (sequence: number, updatedProperties: Partial<Block>) => void;
+}
+
+export interface InvitationResponse {
+  invitationId: number;
+  message: string;
 }

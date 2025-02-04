@@ -114,7 +114,7 @@ export type TFeedbackRes = {
 
 export type TInvitationReq = {
   invitation: {
-    invitationId?: number;
+    invitationId?: number | null;
     title: string;
     tempSaved: boolean;
     startDate: string;
@@ -142,8 +142,8 @@ export type TInvitationReq = {
       endTime: string;
     }[];
   };
-  cardImage: string;
-  photoImages: string[];
+  cardImage: File | null;
+  photoImages: File[];
 };
 
 export type TInviteListRes = {

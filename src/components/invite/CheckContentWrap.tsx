@@ -28,7 +28,9 @@ const CheckContentWrap = ({ data }: Props) => {
         <h1>{data.invitation.title}</h1>
       </S.HeaderWrap>
       <S.NotFoldWrap $isFold={isFold}>
-        {!isMobile && <img src={data.cardImage} alt="카드 이미지" />}
+        {!isMobile && data.cardImage && (
+          <img src={URL.createObjectURL(data.cardImage)} alt="카드 이미지" />
+        )}
         <div>
           <S.SectionHeader>
             <CalendarIcon />

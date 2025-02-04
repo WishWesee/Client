@@ -7,10 +7,10 @@ import LastOfYear2 from "@/assets/images/ChoiceCard/LastOfYear2.svg";
 import Travel1 from "@/assets/images/ChoiceCard/travel1.svg";
 import NextButton from "@/components/button/Btn_Bottom_Next";
 import HorizontalSB from "@/components/choiceCard/HorizontalSB";
+import AddImageCautionModal from "@/components/choiceCard/Modal";
 import Rectangle from "@/components/choiceCard/Rectangle";
 import Wrap from "@/components/choiceCard/Wrap";
 import ReactNB from "@/components/top/Top_reactNB";
-import AddImageCautionModal from "@/components/choiceCard/Modal";
 import { useChoiceStore } from "@/store/useChoiceStore";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -32,11 +32,11 @@ const ChoiceCard: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [activeRectangle, setActiveRectangle] = useState<number>(0);
   const [activeModal, setActiveModal] = useState(false);
-  const [myImages, setMyImages] = useState<string[]>([]);
+  const [myImages, setMyImages] = useState<File[]>([]); // File 배열로 변경
   const [isCautionModalOpen, setIsCautionModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const { /**selectedImage, */ setSelectedImage } = useChoiceStore(); //이미지 src 전역상태 설정
+  const { setSelectedImage } = useChoiceStore(); // 전역 상태 업데이트
   const { setCardImage } = useInvitationStore();
 
   const { isDesktop, isTablet } = useWMediaQuery();
@@ -47,10 +47,25 @@ const ChoiceCard: React.FC = () => {
     setActiveIndex(index); //선택 HorizontalSB index
   };
 
-  const handleRectangleToggle = (index: number, imageSrc: string) => {
-    setActiveRectangle(index);
-    setSelectedImage(imageSrc);
-    setCardImage(imageSrc);
+  const handleRectangleToggle = async (
+    index: number,
+    imageUrl: string | File
+  ) => {
+    try {
+      if (typeof imageUrl === "string") {
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        const file = new File([blob], "image.svg", { type: "image/svg+xml" });
+        setSelectedImage(file);
+        setCardImage(file);
+      } else {
+        setSelectedImage(imageUrl);
+        setCardImage(imageUrl);
+      }
+      setActiveRectangle(index);
+    } catch (error) {
+      console.error("파일 변환 오류:", error);
+    }
   };
 
   const renderModal = () => {
@@ -69,13 +84,13 @@ const ChoiceCard: React.FC = () => {
 
       reader.onload = () => {
         if (reader.result) {
-          setSelectedImage(reader.result as string); // Base64 URL로 이미지 저장
-          setCardImage(reader.result as string);
+          setSelectedImage(file); // File 객체를 전역 상태에 저장
+          setCardImage(file); // Base64 URL로 이미지 저장
           navigate("/contentcut", { state: { image: reader.result } });
         }
       };
 
-      reader.readAsDataURL(file); 
+      reader.readAsDataURL(file);
     }
   };
 
@@ -87,7 +102,7 @@ const ChoiceCard: React.FC = () => {
     { title: SB.Trav },
     { title: SB.Year },
   ];
-   //모듈화
+  //모듈화
   const cards = [
     ...myImages.map((image) => ({ content: image, category: SB.MY })),
     { content: Birthday1, category: SB.Birth },
@@ -134,12 +149,14 @@ const ChoiceCard: React.FC = () => {
               as="label"
               onClick={(e) => {
                 const getAuthTokenFromCookie = () => {
-                  return document.cookie
-                    .split("; ")
-                    .find((row) => row.startsWith("Authorization=")) 
-                    ?.split("=")[1] || null;
+                  return (
+                    document.cookie
+                      .split("; ")
+                      .find((row) => row.startsWith("Authorization="))
+                      ?.split("=")[1] || null
+                  );
                 };
-      
+
                 const authToken = getAuthTokenFromCookie(); //나중에 api부분에서 export해서 불러오자
                 if (!authToken) {
                   e.preventDefault(); // input 클릭 막아
@@ -166,15 +183,22 @@ const ChoiceCard: React.FC = () => {
             ))}
           </style.HorizontalSB_Content>
           <style.Img_Content_Card>
-            {filteredCards.map((item, index) => (
-              <Rectangle
-                key={index}
-                toggled={activeRectangle === index}
-                onClick={() => handleRectangleToggle(index, item.content)}
-              >
-                <style.ImgCard src={item.content} alt={`card-${index}`} />
-              </Rectangle>
-            ))}
+            {filteredCards.map((item, index) => {
+              const imageSrc =
+                item.content instanceof File
+                  ? URL.createObjectURL(item.content)
+                  : (item.content as string);
+
+              return (
+                <Rectangle
+                  key={index}
+                  toggled={activeRectangle === index}
+                  onClick={() => handleRectangleToggle(index, item.content)}
+                >
+                  <style.ImgCard src={imageSrc} alt={`card-${index}`} />
+                </Rectangle>
+              );
+            })}
           </style.Img_Content_Card>
           <style.Bottom>
             <NextButton
