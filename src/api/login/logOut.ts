@@ -8,7 +8,7 @@ export const Logout = async (): Promise<void> => {
       const [name] = cookie.split("=");
       document.cookie = `${name.trim()}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
     });
-
+    
     console.log("로그아웃 성공, 쿠키 삭제 완료");
 
     window.location.href = "/";

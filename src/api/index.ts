@@ -1,5 +1,5 @@
 import axios from "axios";
-
+//Authorization 토큰 가져오기
 const getAuthTokenFromCookie = () => {
   const cookies = document.cookie.split("; ");
   const authCookie = cookies.find((cookie) => cookie.startsWith("Authorization="));
@@ -10,27 +10,28 @@ const getAuthTokenFromCookie = () => {
   }
   return null;
 };
-
+//Refresh 토큰 가져오기
 const getRefreshTokenFromCookie = () => {
   const cookies = document.cookie.split("; ");
   const authCookie = cookies.find((cookie) => cookie.startsWith("Refresh_Token="));
   
   if (authCookie) {
     const tokenValue = authCookie.split("=")[1];
-    return tokenValue.startsWith("Bearer_") ? tokenValue.slice(7) : null;
+    return tokenValue.startsWith("Bearer_") ? tokenValue.slice(7) : null; //저장형태 Bearer_~~~ 형태라서
   }
   return null;
 };
-
+//쿠키전체리프레시(fire타임 어떻게할지는 리프레시 기능 다되면.)
 const refreshAuthToken = async () => {
   try {
     const response = await axios.post("/auth/refresh", { 
-      refreshToken: getRefreshTokenFromCookie() 
+      refreshToken: getRefreshTokenFromCookie()  
     });
 
-    if (response.data?.token) {
-      document.cookie = `Authorization=Bearer_${response.data.token}; path=/`;
-      return response.data.token;
+    if (response.data?.accessToken) {
+      document.cookie = `Authorization=Bearer_${response.data.accessToken}; path=/`; //auth토큰 다시세팅
+      document.cookie = `Refresh_Token=Bearer_${response.data.refreshToken}; path=/`; //refresh토큰 다시세팅
+      return response.data.accessToken; //여기 access는 Bearer_~~~ 형태 아님
     }
 
     return null;
@@ -46,7 +47,7 @@ export const api = axios.create({
   baseURL: "https://wishwesee.n-e.kr",
   timeout: 3000,
 });
-
+//요청할때 가로채서 헤더넣기, auth토큰 없으면 리프레시
 api.interceptors.request.use(async (config) => {
   let token = getAuthTokenFromCookie();
   if (!token) {
