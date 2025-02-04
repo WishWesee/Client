@@ -13,15 +13,25 @@ import LocationMapComponent from "./location/LocationMapComponent";
 import LocationModal from "./location/LocationModal";
 
 const InvitationWriteLocation = () => {
+  const { invitation, setInvitation } = useInvitationStore();
   const [isFocused, setIsFocused] = useState<"input" | "search" | null>(null);
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>(invitation.userLocation);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
-  const [location, setLocation] = useState<SearchLocation | null>(null);
+
+  const locationInit = invitation.location
+    ? {
+        location: invitation.location,
+        address: invitation.address,
+        mapLink: invitation.mapLink,
+        latitude: invitation.latitude,
+        longitude: invitation.longitude,
+      }
+    : null;
+  const [location, setLocation] = useState<SearchLocation | null>(locationInit);
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [isShowSearchModal, setIsShowSearchModal] = useState<boolean>(false);
 
   const { selectedTool, setToolBarContent } = useToolBarContext();
-  const { setInvitation } = useInvitationStore();
   const { data, refetch } = useGetSearch(searchInputValue);
 
   const cancelInput = () => {

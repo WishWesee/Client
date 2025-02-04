@@ -8,7 +8,7 @@ import InvitationWriteVoteItem from "./InvitationWriteVoteItem";
 
 const InvitationWriteVoteComponent = () => {
   const { invitation, setInvitation } = useInvitationStore();
-  const [isMultiple, setIsMultiple] = useState(false);
+  const [isMultiple, setIsMultiple] = useState(invitation.scheduleVoteMultiple);
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
   const handleNewVote = () => {
@@ -31,11 +31,10 @@ const InvitationWriteVoteComponent = () => {
   };
 
   const handleSetMultiple = () => {
-    setIsMultiple(!isMultiple);
-
     setInvitation((invitation) => {
-      invitation.scheduleVoteMultiple = isMultiple;
+      invitation.scheduleVoteMultiple = !isMultiple;
     });
+    setIsMultiple(!isMultiple);
   };
 
   return (

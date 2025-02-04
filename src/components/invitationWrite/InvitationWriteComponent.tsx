@@ -21,7 +21,7 @@ const InvitationWriteComponent = ({
 }) => {
   const { setToolBarContent } = useToolBarContext();
   const { invitation, setInvitation } = useInvitationStore();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(invitation.title);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -31,6 +31,8 @@ const InvitationWriteComponent = ({
       prevInvitation.title = value;
     });
   };
+
+  console.log(invitation.title);
 
   // block 타입에 맞는 컴포넌트를 반환하는 함수
   const renderBlockContent = (block: any, index: number) => {
