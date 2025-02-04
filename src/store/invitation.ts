@@ -6,7 +6,7 @@ import { immer } from "zustand/middleware/immer";
 // 초기 상태 정의
 const initialState: InvitationState = {
   invitation: {
-    invitationId: 0,
+    invitationId: null,
     title: "",
     tempSaved: false,
     startDate: "",

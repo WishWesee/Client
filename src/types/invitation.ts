@@ -23,7 +23,7 @@ interface ScheduleVote {
 }
 
 interface Invitation {
-  invitationId?: number;
+  invitationId: number | null;
   title: string;
   tempSaved: boolean;
   startDate: string;

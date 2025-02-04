@@ -114,7 +114,7 @@ export type TFeedbackRes = {
 
 export type TInvitationReq = {
   invitation: {
-    invitationId?: number;
+    invitationId?: number | null;
     title: string;
     tempSaved: boolean;
     startDate: string;
