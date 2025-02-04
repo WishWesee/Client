@@ -142,8 +142,8 @@ export type TInvitationReq = {
       endTime: string;
     }[];
   };
-  cardImage: string;
-  photoImages: string[];
+  cardImage: File | null;
+  photoImages: File[];
 };
 
 export type TInviteListRes = {

@@ -38,6 +38,7 @@ const InvitationWriteComponent = ({
       case "divider":
         return (
           <InvitationWriteDividerComponent
+            key={index}
             currentSequence={currentSequence}
             setCurrentSequence={setCurrentSequence}
             block={block}
@@ -52,11 +53,12 @@ const InvitationWriteComponent = ({
       //   />
       // );
       case "photo":
-        return <img src={block.image} alt="첨부한 이미지" />;
+        return <img key={index} src={block.image} alt="첨부한 이미지" />;
       case "text":
         return (
           <div style={{ width: "100%" }}>
             <InvitationWriteTextComponent
+              key={index}
               currentSequence={currentSequence}
               setCurrentSequence={setCurrentSequence}
               block={block}

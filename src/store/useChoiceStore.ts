@@ -1,11 +1,11 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 type ChoiceStore = {
-  selectedImage: string | null;
-  setSelectedImage: (image: string | null) => void;
-}
+  selectedImage: File | null;
+  setSelectedImage: (image: File | null) => void;
+};
 
 export const useChoiceStore = create<ChoiceStore>((set) => ({
   selectedImage: null,
-  setSelectedImage: (image) => set({ selectedImage: image }), 
+  setSelectedImage: (image) => set({ selectedImage: image }),
 }));

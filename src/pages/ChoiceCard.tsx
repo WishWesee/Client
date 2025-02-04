@@ -31,10 +31,10 @@ const ChoiceCard: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [activeRectangle, setActiveRectangle] = useState<number>(0);
   const [activeModal, setActiveModal] = useState(false);
-  const [myImages, setMyImages] = useState<string[]>([]);
+  const [myImages, setMyImages] = useState<File[]>([]); // File 배열로 변경
   const navigate = useNavigate();
 
-  const { /**selectedImage, */ setSelectedImage } = useChoiceStore(); //이미지 src 전역상태 설정
+  const { selectedImage, setSelectedImage } = useChoiceStore(); // 전역 상태 업데이트
   const { setCardImage } = useInvitationStore();
 
   const { isDesktop, isTablet } = useWMediaQuery();
@@ -42,13 +42,28 @@ const ChoiceCard: React.FC = () => {
   const frontProp = isDesktop || isTablet ? "다음" : Top.NullFront;
 
   const handleSBToggle = (index: number) => {
-    setActiveIndex(index); // 선택한 HorizontalSB의 index를 저장
+    setActiveIndex(index);
   };
 
-  const handleRectangleToggle = (index: number, imageSrc: string) => {
-    setActiveRectangle(index);
-    setSelectedImage(imageSrc);
-    setCardImage(imageSrc);
+  const handleRectangleToggle = async (
+    index: number,
+    imageUrl: string | File
+  ) => {
+    try {
+      if (typeof imageUrl === "string") {
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        const file = new File([blob], "image.svg", { type: "image/svg+xml" });
+        setSelectedImage(file);
+        setCardImage(file);
+      } else {
+        setSelectedImage(imageUrl);
+        setCardImage(imageUrl);
+      }
+      setActiveRectangle(index);
+    } catch (error) {
+      console.error("파일 변환 오류:", error);
+    }
   };
 
   const renderModal = () => {
@@ -67,13 +82,13 @@ const ChoiceCard: React.FC = () => {
 
       reader.onload = () => {
         if (reader.result) {
-          setSelectedImage(reader.result as string); // Base64 URL로 이미지 저장
-          setCardImage(reader.result as string);
+          setSelectedImage(file); // File 객체를 전역 상태에 저장
+          setCardImage(file); // Base64 URL로 이미지 저장
           navigate("/contentcut", { state: { image: reader.result } });
         }
       };
 
-      reader.readAsDataURL(file); // 이미지 파일 읽기
+      reader.readAsDataURL(file);
     }
   };
 
@@ -98,7 +113,7 @@ const ChoiceCard: React.FC = () => {
 
   const filteredCards =
     activeIndex === 0
-      ? cards // 'All'이면 전체를 보여줌
+      ? cards
       : cards.filter((card) => card.category === sbItems[activeIndex].title);
 
   return (
@@ -116,7 +131,6 @@ const ChoiceCard: React.FC = () => {
         </modalStyle.ModalBackground>
       )}
 
-      {/* 화면 크기에 따라 Front prop에 "다음" 또는 기존 값을 전달 */}
       <ReactNB
         Back={Top.Btn_rNB_Back}
         Front={frontProp}
@@ -148,15 +162,22 @@ const ChoiceCard: React.FC = () => {
             ))}
           </style.HorizontalSB_Content>
           <style.Img_Content_Card>
-            {filteredCards.map((item, index) => (
-              <Rectangle
-                key={index}
-                toggled={activeRectangle === index}
-                onClick={() => handleRectangleToggle(index, item.content)}
-              >
-                <style.ImgCard src={item.content} alt={`card-${index}`} />
-              </Rectangle>
-            ))}
+            {filteredCards.map((item, index) => {
+              const imageSrc =
+                item.content instanceof File
+                  ? URL.createObjectURL(item.content)
+                  : (item.content as string);
+
+              return (
+                <Rectangle
+                  key={index}
+                  toggled={activeRectangle === index}
+                  onClick={() => handleRectangleToggle(index, item.content)}
+                >
+                  <style.ImgCard src={imageSrc} alt={`card-${index}`} />
+                </Rectangle>
+              );
+            })}
           </style.Img_Content_Card>
           <style.Bottom>
             <NextButton
