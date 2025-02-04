@@ -45,7 +45,7 @@ const KakaoWrap = ({ data }: Props) => {
                 title={data.title}
                 text={content ? content : "초대장이 도착했어요!"}
                 imageUrl={data.cardImage}
-                link={`https://wishwesee.netlify.app/invites/${data.invitationId}`}
+                link={`https://chochocho.wishwesee.n-e.kr/invites/${data.invitationId}`}
                 buttonComponent={
                   <ButtonBottomNext text="보내기" color="blue" />
                 }
@@ -74,7 +74,7 @@ const KakaoWrap = ({ data }: Props) => {
             title={data.title}
             text={content ? content : "초대장이 도착했어요!"}
             imageUrl={data.cardImage}
-            link={`https://wishwesee.netlify.app/invites/${data.invitationId}`}
+            link={`https://chochocho.wishwesee.n-e.kr/invites/${data.invitationId}`}
             buttonComponent={<ButtonBottomNext text="보내기" color="blue" />}
           />
         )}

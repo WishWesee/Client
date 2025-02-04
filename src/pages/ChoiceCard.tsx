@@ -7,6 +7,7 @@ import LastOfYear2 from "@/assets/images/ChoiceCard/LastOfYear2.svg";
 import Travel1 from "@/assets/images/ChoiceCard/travel1.svg";
 import NextButton from "@/components/button/Btn_Bottom_Next";
 import HorizontalSB from "@/components/choiceCard/HorizontalSB";
+import AddImageCautionModal from "@/components/choiceCard/Modal";
 import Rectangle from "@/components/choiceCard/Rectangle";
 import Wrap from "@/components/choiceCard/Wrap";
 import ReactNB from "@/components/top/Top_reactNB";
@@ -32,9 +33,10 @@ const ChoiceCard: React.FC = () => {
   const [activeRectangle, setActiveRectangle] = useState<number>(0);
   const [activeModal, setActiveModal] = useState(false);
   const [myImages, setMyImages] = useState<File[]>([]); // File 배열로 변경
+  const [isCautionModalOpen, setIsCautionModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const { selectedImage, setSelectedImage } = useChoiceStore(); // 전역 상태 업데이트
+  const { setSelectedImage } = useChoiceStore(); // 전역 상태 업데이트
   const { setCardImage } = useInvitationStore();
 
   const { isDesktop, isTablet } = useWMediaQuery();
@@ -42,7 +44,7 @@ const ChoiceCard: React.FC = () => {
   const frontProp = isDesktop || isTablet ? "다음" : Top.NullFront;
 
   const handleSBToggle = (index: number) => {
-    setActiveIndex(index);
+    setActiveIndex(index); //선택 HorizontalSB index
   };
 
   const handleRectangleToggle = async (
@@ -92,7 +94,7 @@ const ChoiceCard: React.FC = () => {
     }
   };
 
-  // HorizontalSB 항목 데이터
+  //모듈화
   const sbItems = [
     { title: SB.All },
     { title: SB.MY },
@@ -100,8 +102,7 @@ const ChoiceCard: React.FC = () => {
     { title: SB.Trav },
     { title: SB.Year },
   ];
-
-  // cards 데이터
+  //모듈화
   const cards = [
     ...myImages.map((image) => ({ content: image, category: SB.MY })),
     { content: Birthday1, category: SB.Birth },
@@ -113,7 +114,7 @@ const ChoiceCard: React.FC = () => {
 
   const filteredCards =
     activeIndex === 0
-      ? cards
+      ? cards //All이면 전체를 보여줌
       : cards.filter((card) => card.category === sbItems[activeIndex].title);
 
   return (
@@ -130,7 +131,9 @@ const ChoiceCard: React.FC = () => {
           </modalStyle.Modal>
         </modalStyle.ModalBackground>
       )}
-
+      {isCautionModalOpen && (
+        <AddImageCautionModal onClose={() => setIsCautionModalOpen(false)} />
+      )}
       <ReactNB
         Back={Top.Btn_rNB_Back}
         Front={frontProp}
@@ -142,7 +145,25 @@ const ChoiceCard: React.FC = () => {
         <Wrap Title={WrapTexts.Title} SubText={WrapTexts.SubText} />
         <style.Wrap_Card>
           <style.HorizontalSB_Content>
-            <style.Btn_hSB_New as="label">
+            <style.Btn_hSB_New
+              as="label"
+              onClick={(e) => {
+                const getAuthTokenFromCookie = () => {
+                  return (
+                    document.cookie
+                      .split("; ")
+                      .find((row) => row.startsWith("Authorization="))
+                      ?.split("=")[1] || null
+                  );
+                };
+
+                const authToken = getAuthTokenFromCookie(); //나중에 api부분에서 export해서 불러오자
+                if (!authToken) {
+                  e.preventDefault(); // input 클릭 막아
+                  setIsCautionModalOpen(true);
+                }
+              }}
+            >
               <AddIcon />
               <ImgIcon />
               <input

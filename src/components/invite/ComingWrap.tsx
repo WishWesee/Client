@@ -228,7 +228,7 @@ const ComingWrap = ({ id, isLogin, isReview }: Props) => {
               <h3>참석 여부 마감</h3>
               <SlideButton
                 handleState={handleAttendanceClose}
-                currentState={attendanceClosed}
+                currentState={!attendanceClosed}
               />
             </S.DeadlineWrap>
           )}

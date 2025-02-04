@@ -7,6 +7,7 @@ import SaveBoxIcon from "@assets/icons/화면GUI_Full/3232/SaveBox.svg?react";
 import ShareKakaoBtn from "../shareSNS/ShareKakaoBtn";
 import { useNavigate } from "react-router-dom";
 import { postSaveReceived } from "@/api/invitation/postSaveReceived";
+import useNavigateStore from "@/store/useNavigateStore";
 
 type Props = {
   id: number;
@@ -27,12 +28,13 @@ const ShareWrap = ({
   refetch,
 }: Props) => {
   const navigate = useNavigate();
+  const { setNavigatePage } = useNavigateStore();
 
   const { isMobile } = useWMediaQuery();
 
   //초대 링크 복사 함수
   const ClipBoard = () => {
-    const url = `https://wishwesee.netlify.app/invites/${id}`;
+    const url = `https://chochocho.wishwesee.n-e.kr/invites/${id}`;
 
     navigator.clipboard.writeText(url).then(() => {
       alert("초대 링크가 복사되었습니다");
@@ -64,6 +66,15 @@ const ShareWrap = ({
     }
   };
 
+  const handleSaveClick = () => {
+    if (isLogin) {
+      handleSaveReceived();
+    } else {
+      setNavigatePage(`/invites/${id}`);
+      navigate("/login");
+    }
+  };
+
   const ShareBtn = ({
     text,
     icon: Icon,
@@ -86,9 +97,7 @@ const ShareWrap = ({
     <S.Container $isShareLink={isShareLink}>
       {isMobile && <h3>친구들을 초대해보세요!</h3>}
       {!isMobile && isShareLink && (
-        <S.Button
-          onClick={() => (isLogin ? handleSaveReceived() : navigate("/login"))}
-        >
+        <S.Button onClick={handleSaveClick}>
           <SaveBoxIcon />
         </S.Button>
       )}
@@ -97,7 +106,7 @@ const ShareWrap = ({
           title={title}
           text="초대장이 도착했어요!"
           imageUrl={cardImage}
-          link={`https://wishwesee.netlify.app/invites/${id}`}
+          link={`https://chochocho.wishwesee.n-e.kr/invites/${id}`}
           buttonComponent={<ShareBtn text="카카오톡" icon={KakaoTalkIcon} />}
         />
         <ShareBtn text="링크 복사" icon={LinkIcon} onClick={ClipBoard} />
