@@ -52,7 +52,7 @@ export interface InvitationState {
   photoImages: File[];
   setInvitation: (update: (draft: Invitation) => void) => void;
   setCardImage: (image: File) => void;
-  setPhotoImages: (images: File[]) => void;
+  addImage: (images: File) => void;
   addBlock: (newBlock: Block) => void;
   updateBlock: (sequence: number, updatedProperties: Partial<Block>) => void;
 }

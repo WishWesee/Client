@@ -7,6 +7,7 @@ import { useState } from "react";
 import InvitationWriteCalendar from "./InvitationWriteCalendar";
 import InvitationWriteLocation from "./InvitationWriteLocation";
 import InvitationWriteDividerComponent from "./blocks/InvitationWriteDividerComponent";
+import InvitationWritePhotoComponent from "./blocks/InvitationWritePhotoComponent";
 import InvitationWriteTextComponent from "./blocks/InvitationWriteTextComponent";
 import InvitationWriteVoteComponent from "./calendar/InvitationWriteVoteComponent";
 
@@ -14,14 +15,19 @@ const InvitationWriteComponent = ({
   currentSequence,
   setCurrentSequence,
   blocks,
+  images,
 }: {
   currentSequence: number;
   setCurrentSequence: (sequence: number) => void;
   blocks: Block[];
+  images: File[];
 }) => {
   const { setToolBarContent } = useToolBarContext();
   const { invitation, setInvitation } = useInvitationStore();
   const [value, setValue] = useState(invitation.title);
+
+  const newImages = [...images];
+  console.log(newImages);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -31,8 +37,6 @@ const InvitationWriteComponent = ({
       prevInvitation.title = value;
     });
   };
-
-  console.log(invitation.title);
 
   // block 타입에 맞는 컴포넌트를 반환하는 함수
   const renderBlockContent = (block: any, index: number) => {
@@ -55,7 +59,20 @@ const InvitationWriteComponent = ({
       //   />
       // );
       case "photo":
-        return <img key={index} src={block.image} alt="첨부한 이미지" />;
+        const image = newImages.shift();
+
+        return (
+          image instanceof File && (
+            <InvitationWritePhotoComponent
+              key={index}
+              src={URL.createObjectURL(image)}
+              setCurrentSequence={setCurrentSequence}
+              block={block}
+              currentSequence={currentSequence}
+            />
+          )
+        );
+
       case "text":
         return (
           <div style={{ width: "100%" }}>

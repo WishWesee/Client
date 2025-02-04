@@ -18,7 +18,7 @@ export const ToolContainer = styled.div`
   height: 48px;
   padding: 0 20px;
   box-sizing: border-box;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
   background-color: var(--Blue5);
   gap: 24px;
@@ -27,6 +27,12 @@ export const ToolContainer = styled.div`
   & > *:first-child {
     margin-right: -12px; /* 원하는 값으로 조정 */
   }
+`;
+
+export const ToolButtonContainer = styled.div`
+  display: flex;
+  gap: 12px;
+  align-items: center;
 `;
 
 export const ToolButton = styled.button`
@@ -65,7 +71,6 @@ export const SubToolContainer = styled.div`
 export const ArrowContainer = styled.div`
   display: flex;
   justify-content: end;
-  width: 100%;
   gap: 12px;
 
   > * {

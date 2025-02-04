@@ -63,7 +63,7 @@ export const NomalToolBarList: toolBarIconListType[] = [
     activeIcon: ActiveLine,
   },
   {
-    type: "Image",
+    type: "photo",
     defaultIcon: Image,
     activeIcon: ActiveImage,
     title: "사진",
@@ -135,6 +135,15 @@ export const DeviderToolBarList: toolBarIconListType[] = [
     type: "devider",
     defaultIcon: Line,
     activeIcon: ActiveLine,
+  },
+];
+
+export const PhotoToolBarList: toolBarIconListType[] = [
+  {
+    type: "photo",
+    defaultIcon: Image,
+    activeIcon: ActiveImage,
+    title: "사진",
   },
 ];
 

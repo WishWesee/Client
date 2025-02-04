@@ -15,6 +15,9 @@ const InvitationWritePage = () => {
   const [isButtonEnable] = useState<boolean>(false);
   const blocksRef = useRef(invitation.blocks || undefined);
   const [blocks, setBlocks] = useState(invitation.blocks || undefined);
+  const imagesRef = useRef(photoImages || undefined);
+  const [images, setImages] = useState(photoImages || undefined);
+
   const [currentSequence, setCurrentSequence] = useState(0);
   const [isCheckComponent, setIsCheckComponent] = useState(false);
   // const [isSubmit, setIsSubmit] = useState<boolean>(false);
@@ -24,9 +27,17 @@ const InvitationWritePage = () => {
     blocksRef.current = newBlocks;
   };
 
+  const setImagesRef = (newImages: typeof photoImages) => {
+    imagesRef.current = newImages;
+  };
+
   useEffect(() => {
     setBlocks([...invitation.blocks]);
   }, [invitation.blocks]);
+
+  useEffect(() => {
+    setImages([...photoImages]);
+  }, [photoImages]);
 
   return (
     <ToolBarProvider>
@@ -42,11 +53,13 @@ const InvitationWritePage = () => {
             <InvitationWriteToolBar
               currentSequence={currentSequence}
               setBlocks={setBlocksRef}
+              setImages={setImagesRef}
             />
             <InvitationWriteComponent
               currentSequence={currentSequence}
               setCurrentSequence={setCurrentSequence}
               blocks={blocks}
+              images={images}
             />
             <InvitationWriteBottomButton
               isSubmit={true}

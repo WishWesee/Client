@@ -48,7 +48,7 @@ const initialState: InvitationState = {
   photoImages: [],
   setInvitation: () => {}, // 초기 빈 함수
   setCardImage: () => {}, // 초기 빈 함수
-  setPhotoImages: () => {},
+  addImage: () => {},
   addBlock: () => {},
   updateBlock: () => {},
 };
@@ -66,9 +66,9 @@ const useInvitationStore = create<InvitationState>()(
         const { setSelectedImage } = useChoiceStore.getState(); // useChoiceStore의 상태 업데이트
         setSelectedImage(image); // 전역 상태에서 선택된 이미지를 설정
       }),
-    setPhotoImages: (images: File[]) =>
+    addImage: (image: File) =>
       set((state) => {
-        state.photoImages = images; // images를 File[] 타입으로 처리
+        state.photoImages.push(image);
       }),
     addBlock: (newBlock: Block) =>
       set((state) => {
