@@ -44,7 +44,7 @@ const ChoiceCard: React.FC = () => {
   const frontProp = isDesktop || isTablet ? "다음" : Top.NullFront;
 
   const handleSBToggle = (index: number) => {
-    setActiveIndex(index); // 선택한 HorizontalSB의 index를 저장
+    setActiveIndex(index); //선택 HorizontalSB index
   };
 
   const handleRectangleToggle = (index: number, imageSrc: string) => {
@@ -75,11 +75,11 @@ const ChoiceCard: React.FC = () => {
         }
       };
 
-      reader.readAsDataURL(file); // 이미지 파일 읽기
+      reader.readAsDataURL(file); 
     }
   };
 
-  // HorizontalSB 항목 데이터
+  //모듈화
   const sbItems = [
     { title: SB.All },
     { title: SB.MY },
@@ -87,8 +87,7 @@ const ChoiceCard: React.FC = () => {
     { title: SB.Trav },
     { title: SB.Year },
   ];
-
-  // cards 데이터
+   //모듈화
   const cards = [
     ...myImages.map((image) => ({ content: image, category: SB.MY })),
     { content: Birthday1, category: SB.Birth },
@@ -100,7 +99,7 @@ const ChoiceCard: React.FC = () => {
 
   const filteredCards =
     activeIndex === 0
-      ? cards // 'All'이면 전체를 보여줌
+      ? cards //All이면 전체를 보여줌
       : cards.filter((card) => card.category === sbItems[activeIndex].title);
 
   return (
@@ -120,7 +119,6 @@ const ChoiceCard: React.FC = () => {
       {isCautionModalOpen && (
         <AddImageCautionModal onClose={() => setIsCautionModalOpen(false)} />
       )}
-      {/* 화면 크기에 따라 Front prop에 "다음" 또는 기존 값을 전달 */}
       <ReactNB
         Back={Top.Btn_rNB_Back}
         Front={frontProp}
@@ -135,9 +133,16 @@ const ChoiceCard: React.FC = () => {
             <style.Btn_hSB_New
               as="label"
               onClick={(e) => {
-                const authToken = localStorage.getItem("Authorization"); //나중에는 쿠키접근으로 바꾸기
+                const getAuthTokenFromCookie = () => {
+                  return document.cookie
+                    .split("; ")
+                    .find((row) => row.startsWith("Authorization=")) 
+                    ?.split("=")[1] || null;
+                };
+      
+                const authToken = getAuthTokenFromCookie(); //나중에 api부분에서 export해서 불러오자
                 if (!authToken) {
-                  e.preventDefault(); // input 클릭 못하게.
+                  e.preventDefault(); // input 클릭 막아
                   setIsCautionModalOpen(true);
                 }
               }}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Wrap from "@/components/choiceCard/Wrap";
 import ReviewModal from "@/components/myInvitation/ReviewModal";
 import SlideBar from "@/components/myInvitation/SlideBar";
+import useWMediaQuery from "@/hooks/useWMediaQuery"; 
 import { WrapTexts, MenuTitle } from "@/constants/myInvitation/MyInvitation";
 import { fetchMyInvitations } from "@/api/myinvitation/myinvitationData"; 
 import { reviewCheck } from "@/api/myinvitation/reviewCheck"; 
@@ -10,11 +11,11 @@ import * as style from "@/styles/myInvitation/MyInvitationPageStyle";
 const MyInvitation: React.FC = () => {
   const [isModalOn, setIsModalOn] = useState(false);
   const [modalContent, setModalContent] = useState<{ title: string; image: string } | null>(null);
-
   const [draftCount, setDraftCount] = useState<string | null>(null);
   const [draftingInvitation, setDraftingInvitation] = useState([]);
   const [sentInvitation, setSentInvitation] = useState([]);
   const [receivedInvitation, setReceivedInvitation] = useState([]);
+  const { isMobile } = useWMediaQuery();
 
   useEffect(() => {
     const loadInvitations = async () => {
@@ -65,8 +66,10 @@ const MyInvitation: React.FC = () => {
           WrapBool={sentInvitation.length === 0 && receivedInvitation.length === 0}
           SubText={
             sentInvitation.length === 0 && receivedInvitation.length === 0
-              ? WrapTexts.NoSubText
-              : WrapTexts.SubText
+            ? isMobile
+              ? WrapTexts.NoSubTextMobile // 모바일일 때 다른 텍스트 사용
+              : WrapTexts.NoSubText
+            : WrapTexts.SubText 
           }
         />
         <style.SlideBarContainer>
