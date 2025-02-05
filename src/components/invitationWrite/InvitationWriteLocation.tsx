@@ -71,6 +71,20 @@ const InvitationWriteLocation = () => {
     });
   };
 
+  const handleDeleteLocation = () => {
+    setLocation(null);
+    setSearchInputValue("");
+    setInputValue("");
+    setIsShowModal(false);
+    setInvitation((prevInvitation) => {
+      prevInvitation.location = "";
+      prevInvitation.latitude = 0;
+      prevInvitation.longitude = 0;
+      prevInvitation.mapLink = "";
+      prevInvitation.userLocation = "";
+    });
+  };
+
   return (
     <S.Container
       onClick={(e) => {
@@ -164,11 +178,7 @@ const InvitationWriteLocation = () => {
             rightBtnText={"삭제"}
             color={"red"}
             onLeftClick={() => setIsShowModal(false)}
-            onRightClick={() => {
-              setLocation(null);
-              setSearchInputValue("");
-              setIsShowModal(false);
-            }}
+            onRightClick={() => handleDeleteLocation()}
           />
         )}
       </S.InputContainer>
