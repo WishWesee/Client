@@ -94,6 +94,14 @@ const InvitationWriteTextComponent: React.FC<
       if (Object.keys(updatedProperties).length > 0) {
         updateBlock(block.sequence, updatedProperties);
       }
+    } else {
+      const updatedProperties: Partial<Block> = {};
+      updatedProperties.font = "--RegularContext";
+      updatedProperties.styles = "";
+      if (currentSequence === index) {
+        setFont("--RegularContext");
+        setStyle("");
+      }
     }
   }, [subSelectedTool, subToolBarContent, block.sequence, updateBlock]);
 
