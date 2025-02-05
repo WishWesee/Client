@@ -10,20 +10,12 @@ interface InvitationWriteTextComponentProps {
   currentSequence: number;
   block: Block;
   setCurrentSequence: (sequence: number) => void;
-  index: number;
 }
 
 const InvitationWriteTimeTableComponent: React.FC<
   InvitationWriteTextComponentProps
-> = ({ currentSequence, block, setCurrentSequence, index }) => {
-  const {
-    selectedTool,
-    subSelectedTool,
-    toolBarContent,
-    subToolBarContent,
-    setToolBarContent,
-    setSubToolBarContent,
-  } = useToolBarContext();
+> = ({ currentSequence, block, setCurrentSequence }) => {
+  const { toolBarContent, setToolBarContent } = useToolBarContext();
 
   const { updateBlock } = useInvitationStore();
 

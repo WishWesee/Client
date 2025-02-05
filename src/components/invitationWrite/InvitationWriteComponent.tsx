@@ -94,7 +94,6 @@ const InvitationWriteComponent = ({
             currentSequence={currentSequence}
             setCurrentSequence={setCurrentSequence}
             block={block}
-            index={index}
           />
         );
       default:
