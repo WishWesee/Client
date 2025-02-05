@@ -6,22 +6,29 @@ import * as S from "@styles/invitationWrite/invitationWriteComponent";
 import { useState } from "react";
 import InvitationWriteCalendar from "./InvitationWriteCalendar";
 import InvitationWriteLocation from "./InvitationWriteLocation";
+import InvitationWriteBoxComponent from "./blocks/InvitationWriteBoxComponent";
 import InvitationWriteDividerComponent from "./blocks/InvitationWriteDividerComponent";
+import InvitationWritePhotoComponent from "./blocks/InvitationWritePhotoComponent";
 import InvitationWriteTextComponent from "./blocks/InvitationWriteTextComponent";
+import InvitationWriteTimeTableComponent from "./blocks/InvitationWriteTimeTableComponent";
 import InvitationWriteVoteComponent from "./calendar/InvitationWriteVoteComponent";
 
 const InvitationWriteComponent = ({
   currentSequence,
   setCurrentSequence,
   blocks,
+  images,
 }: {
   currentSequence: number;
   setCurrentSequence: (sequence: number) => void;
   blocks: Block[];
+  images: File[];
 }) => {
   const { setToolBarContent } = useToolBarContext();
   const { invitation, setInvitation } = useInvitationStore();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(invitation.title);
+
+  const newImages = [...images];
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -45,15 +52,29 @@ const InvitationWriteComponent = ({
           />
         );
       case "box":
-      // return (
-      //   <ContentTextBox
-      //     boxType={0}
-      //     title={block.title}
-      //     content={block.content}
-      //   />
-      // );
+        return (
+          <InvitationWriteBoxComponent
+            index={index}
+            setCurrentSequence={setCurrentSequence}
+            currentSequence={currentSequence}
+            block={block}
+          />
+        );
       case "photo":
-        return <img key={index} src={block.image} alt="첨부한 이미지" />;
+        const image = newImages.shift();
+
+        return (
+          image instanceof File && (
+            <InvitationWritePhotoComponent
+              key={index}
+              src={URL.createObjectURL(image)}
+              setCurrentSequence={setCurrentSequence}
+              block={block}
+              currentSequence={currentSequence}
+            />
+          )
+        );
+
       case "text":
         return (
           <div style={{ width: "100%" }}>
@@ -67,7 +88,14 @@ const InvitationWriteComponent = ({
           </div>
         );
       case "timeTable":
-      // return <ContentTimeTable content={block.content} />;
+        return (
+          <InvitationWriteTimeTableComponent
+            key={index}
+            currentSequence={currentSequence}
+            setCurrentSequence={setCurrentSequence}
+            block={block}
+          />
+        );
       default:
         return null;
     }

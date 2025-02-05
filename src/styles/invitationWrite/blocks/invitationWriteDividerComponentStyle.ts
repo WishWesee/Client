@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  width: 100%;
+  width: auto;
 `;
 
 export const InputContainer = styled.div<{ $isSequence: boolean }>`
@@ -31,5 +31,12 @@ export const InputContainer = styled.div<{ $isSequence: boolean }>`
     ${isDesktop} {
       margin: 10px 160px;
     }
+  }
+
+  > img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    object-fit: contain;
   }
 `;

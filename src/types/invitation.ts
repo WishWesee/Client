@@ -1,7 +1,7 @@
-// interface TimeContent {
-//   time: string;
-//   content: string;
-// }
+export interface TimeTable {
+  time: string;
+  content: string;
+}
 
 export interface Block {
   sequence: number;
@@ -10,9 +10,10 @@ export interface Block {
   color?: string;
   font?: string;
   styles?: string;
-  content?: string;
+  content?: string | TimeTable[];
   image?: string;
   time?: string;
+  colorCode?: number;
 }
 
 interface ScheduleVote {
@@ -52,9 +53,15 @@ export interface InvitationState {
   photoImages: File[];
   setInvitation: (update: (draft: Invitation) => void) => void;
   setCardImage: (image: File) => void;
-  setPhotoImages: (images: File[]) => void;
+  addImage: (images: File) => void;
   addBlock: (newBlock: Block) => void;
   updateBlock: (sequence: number, updatedProperties: Partial<Block>) => void;
+  updateTimeTable: (sequence: number, index: number, newTime: string) => void;
+  updateTimeTableContent: (
+    sequence: number,
+    index: number,
+    newContent: string
+  ) => void;
 }
 
 export interface InvitationResponse {

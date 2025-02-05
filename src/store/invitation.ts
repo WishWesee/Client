@@ -48,9 +48,11 @@ const initialState: InvitationState = {
   photoImages: [],
   setInvitation: () => {}, // 초기 빈 함수
   setCardImage: () => {}, // 초기 빈 함수
-  setPhotoImages: () => {},
+  addImage: () => {},
   addBlock: () => {},
   updateBlock: () => {},
+  updateTimeTable: () => {},
+  updateTimeTableContent: () => {},
 };
 
 const useInvitationStore = create<InvitationState>()(
@@ -66,9 +68,9 @@ const useInvitationStore = create<InvitationState>()(
         const { setSelectedImage } = useChoiceStore.getState(); // useChoiceStore의 상태 업데이트
         setSelectedImage(image); // 전역 상태에서 선택된 이미지를 설정
       }),
-    setPhotoImages: (images: File[]) =>
+    addImage: (image: File) =>
       set((state) => {
-        state.photoImages = images; // images를 File[] 타입으로 처리
+        state.photoImages.push(image);
       }),
     addBlock: (newBlock: Block) =>
       set((state) => {
@@ -84,7 +86,41 @@ const useInvitationStore = create<InvitationState>()(
         });
 
         state.invitation.blocks = updatedBlocks;
-        console.log(state.invitation.blocks);
+      }),
+    updateTimeTable: (sequence: number, index: number, newTime: string) =>
+      set((state) => {
+        state.invitation.blocks = state.invitation.blocks.map((block) =>
+          block.sequence === sequence
+            ? {
+                ...block,
+                content: Array.isArray(block.content)
+                  ? block.content.map((item, i) =>
+                      i === index ? { ...item, time: newTime } : item
+                    )
+                  : block.content,
+              }
+            : block
+        );
+      }),
+    updateTimeTableContent: (
+      sequence: number,
+      index: number,
+      newContent: string
+    ) =>
+      set((state) => {
+        state.invitation.blocks = state.invitation.blocks.map((block) => {
+          if (block.sequence === sequence) {
+            return {
+              ...block,
+              content: Array.isArray(block.content)
+                ? block.content.map((item, i) =>
+                    i === index ? { ...item, content: newContent } : item
+                  )
+                : block.content,
+            };
+          }
+          return block;
+        });
       }),
   }))
 );

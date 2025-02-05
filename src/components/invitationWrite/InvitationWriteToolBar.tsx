@@ -1,8 +1,11 @@
 import {
+  BoxToolBarList,
   DeviderToolBarList,
   NomalToolBarList,
+  PhotoToolBarList,
   SubTextToolBarList,
   TextToolBarList,
+  TimeTableToolBarList,
 } from "@/constants/invitationWrite/toolBar";
 import { useToolBarContext } from "@/contexts/toolBarContext";
 import useInvitationStore from "@/store/invitation";
@@ -17,9 +20,11 @@ import { useRef } from "react";
 const InvitationWriteToolBar = ({
   currentSequence,
   setBlocks,
+  setImages,
 }: {
   currentSequence: number;
   setBlocks: (newBlocks: Block[]) => void;
+  setImages: (newImages: File[]) => void;
 }) => {
   const {
     selectedTool,
@@ -31,13 +36,20 @@ const InvitationWriteToolBar = ({
     subToolBarContent,
   } = useToolBarContext();
 
-  const { invitation, setInvitation, addBlock } = useInvitationStore();
+  const { invitation, setInvitation, addBlock, addImage } =
+    useInvitationStore();
   const selectedToolRef = useRef(selectedTool || undefined);
 
-  const isSubToolBar = selectedTool && toolBarContent === TextToolBarList;
+  const isSubToolBar =
+    selectedTool &&
+    (toolBarContent === TextToolBarList || toolBarContent === BoxToolBarList);
 
   const isArrowBar =
-    toolBarContent === TextToolBarList || toolBarContent === DeviderToolBarList;
+    toolBarContent === TextToolBarList ||
+    toolBarContent === DeviderToolBarList ||
+    toolBarContent === PhotoToolBarList ||
+    toolBarContent === BoxToolBarList ||
+    toolBarContent === TimeTableToolBarList;
 
   const handleSubTool = (index: number) => {
     setSubSelectedTool(index);
@@ -46,6 +58,7 @@ const InvitationWriteToolBar = ({
     }
   };
 
+  // 블럭 이동
   const moveBlock = (direction: "forward" | "backward") => {
     setInvitation((prevInvitation) => {
       const newArr = [...prevInvitation.blocks]; // 배열 복사
@@ -77,14 +90,33 @@ const InvitationWriteToolBar = ({
     }, 0);
   };
 
+  // 블럭 삭제
   const handleDeleteBlock = () => {
-    setInvitation((invitation) => {
-      invitation.blocks.splice(currentSequence, 1);
+    setInvitation((prevInvitation) => {
+      const updatedBlocks = prevInvitation.blocks.filter(
+        (block) => block.sequence !== currentSequence
+      );
+
+      // sequence 값 재정렬
+      const reindexedBlocks = updatedBlocks.map((block, index) => ({
+        ...block,
+        sequence: index,
+      }));
+
+      prevInvitation.blocks = reindexedBlocks.map((block) => ({
+        ...block,
+        content: Array.isArray(block.content)
+          ? block.content.map((item) => ({ ...item }))
+          : block.content,
+      }));
     });
+
     setTimeout(() => {
       setBlocks([...useInvitationStore.getState().invitation.blocks]);
     }, 0);
   };
+
+  // 기본 툴바 버튼 클릭시
   const handleToolButton = (index: number) => {
     setSelectedTool(index);
     selectedToolRef.current = toolBarContent[index];
@@ -113,22 +145,55 @@ const InvitationWriteToolBar = ({
             setBlocks([...useInvitationStore.getState().invitation.blocks]);
           }, 0);
           break;
-        // case "Image":
-        //   return <img src={block.image} alt="첨부한 이미지" />;
-        // case "Box":
-        //   return (
-        //     <div
-        //       style={{ width: "100%" }}
-        //       onClick={() => setCurrentSequence(block.sequence)}
-        //     >
-        //       <InvitationWriteTextComponent
-        //         currentSequence={currentSequence}
-        //         block={block}
-        //       />
-        //     </div>
-        //   );
+        case "photo":
+          const triggerFileUpload = () => {
+            const input = document.createElement("input");
+            input.type = "file";
+            input.accept = "image/*";
+
+            // 파일이 선택되었을 때 실행되는 이벤트 핸들러
+            input.onchange = (event) => {
+              const file = (event.target as HTMLInputElement).files?.[0];
+              if (file) {
+                addImage(file); // 기존 파일 배열에 새 파일 추가
+                addBlock({
+                  sequence: invitation.blocks.length,
+                  type: "photo",
+                });
+                setTimeout(() => {
+                  setImages([...useInvitationStore.getState().photoImages]);
+                }, 0);
+              }
+            };
+            // 파일 선택 창을 열도록 클릭 트리거
+            input.click();
+          };
+          // 파일 업로드 실행
+          triggerFileUpload();
+          break;
+
+        case "Box":
+          addBlock({
+            sequence: invitation.blocks.length,
+            type: "box",
+            title: "",
+            colorCode: 0,
+            content: "",
+          });
+          setTimeout(() => {
+            setBlocks([...useInvitationStore.getState().invitation.blocks]);
+          }, 0);
+          break;
         case "TimeTable":
-        // return <ContentTimeTable content={block.content} />;
+          addBlock({
+            sequence: invitation.blocks.length,
+            type: "timeTable",
+            content: [],
+          });
+          setTimeout(() => {
+            setBlocks([...useInvitationStore.getState().invitation.blocks]);
+          }, 0);
+          break;
         default:
           return null;
       }
@@ -139,20 +204,25 @@ const InvitationWriteToolBar = ({
     <S.Container>
       <S.ToolContainer>
         {/* "<" 구현 */}
-        {toolBarContent !== NomalToolBarList && (
-          <Arrow onClick={() => setToolBarContent(NomalToolBarList)} />
-        )}
-        {toolBarContent.map((item, index) => (
-          <S.ToolButton key={index} onClick={() => handleToolButton(index)}>
-            {selectedTool === item ? <item.activeIcon /> : <item.defaultIcon />}
-            {item.title && (
-              <S.ToolButtonText $isActive={selectedTool === item}>
-                {item.title}
-              </S.ToolButtonText>
-            )}
-          </S.ToolButton>
-        ))}
-
+        <S.ToolButtonContainer>
+          {toolBarContent !== NomalToolBarList && (
+            <Arrow onClick={() => setToolBarContent(NomalToolBarList)} />
+          )}
+          {toolBarContent.map((item, index) => (
+            <S.ToolButton key={index} onClick={() => handleToolButton(index)}>
+              {selectedTool === item ? (
+                <item.activeIcon />
+              ) : (
+                <item.defaultIcon />
+              )}
+              {item.title && (
+                <S.ToolButtonText $isActive={selectedTool === item}>
+                  {item.title}
+                </S.ToolButtonText>
+              )}
+            </S.ToolButton>
+          ))}
+        </S.ToolButtonContainer>
         {/* 블럭 이동 구현 */}
         {isArrowBar && (
           <S.ArrowContainer>

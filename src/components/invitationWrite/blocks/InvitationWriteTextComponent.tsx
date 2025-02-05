@@ -32,10 +32,14 @@ const InvitationWriteTextComponent: React.FC<
 
   const { updateBlock } = useInvitationStore();
 
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(block.content || "");
   const [font, setFont] = useState(block.font || "");
   const [style, setStyle] = useState(block.styles || "");
   const [color, setColor] = useState(block.color || "");
+
+  useEffect(() => {
+    if (block.content) setValue(block.content);
+  }, [block]);
 
   useEffect(() => {
     if (selectedTool === toolBarContent[0]) {
@@ -88,7 +92,7 @@ const InvitationWriteTextComponent: React.FC<
       }
 
       if (Object.keys(updatedProperties).length > 0) {
-        updateBlock(currentSequence, updatedProperties);
+        updateBlock(block.sequence, updatedProperties);
       }
     }
   }, [subSelectedTool, subToolBarContent, block.sequence, updateBlock]);
@@ -124,7 +128,7 @@ const InvitationWriteTextComponent: React.FC<
       <S.InputContainer $isSequence={isFocus}>
         <S.InputText
           placeholder="내용을 입력하세요"
-          value={value}
+          value={typeof value === "string" ? value : ""}
           onChange={handleInputChange}
           style={{
             font: `var(${font})`,
@@ -139,7 +143,7 @@ const InvitationWriteTextComponent: React.FC<
                 : "none",
           }}
         >
-          <span>{value}</span>
+          <span>{typeof value === "string" ? value : ""}</span>
         </S.InputText>
       </S.InputContainer>
     </S.Container>
