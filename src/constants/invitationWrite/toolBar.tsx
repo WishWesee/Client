@@ -277,17 +277,17 @@ export const SubBoxStyleBarList: toolBarIconListType[] = [
     activeIcon: ActiveBox2,
   },
   {
-    type: "3",
+    type: "4",
     defaultIcon: Box3,
     activeIcon: ActiveBox3,
   },
   {
-    type: "4",
+    type: "5",
     defaultIcon: Box4,
     activeIcon: ActiveBox4,
   },
   {
-    type: "5",
+    type: "3",
     defaultIcon: Box5,
     activeIcon: ActiveBox5,
   },
