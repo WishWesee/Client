@@ -34,7 +34,7 @@ const InvitationWriteToolBar = ({
     subToolBarContent,
   } = useToolBarContext();
 
-  const { invitation, setInvitation, addBlock, addImage, photoImages } =
+  const { invitation, setInvitation, addBlock, addImage } =
     useInvitationStore();
   const selectedToolRef = useRef(selectedTool || undefined);
 
@@ -86,9 +86,23 @@ const InvitationWriteToolBar = ({
 
   // 블럭 삭제
   const handleDeleteBlock = () => {
-    setInvitation((invitation) => {
-      invitation.blocks.splice(currentSequence, 1);
+    console.log("삭제 전:", invitation.blocks);
+
+    setInvitation((prevInvitation) => {
+      const updatedBlocks = prevInvitation.blocks.filter(
+        (block) => block.sequence !== currentSequence
+      );
+
+      // sequence 값 재정렬
+      const reindexedBlocks = updatedBlocks.map((block, index) => ({
+        ...block,
+        sequence: index,
+      }));
+
+      console.log("삭제 후:", reindexedBlocks);
+      prevInvitation.blocks = structuredClone(reindexedBlocks);
     });
+
     setTimeout(() => {
       setBlocks([...useInvitationStore.getState().invitation.blocks]);
     }, 0);

@@ -27,7 +27,6 @@ const InvitationWriteComponent = ({
   const [value, setValue] = useState(invitation.title);
 
   const newImages = [...images];
-  console.log(newImages);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;

@@ -33,6 +33,7 @@ const InvitationWritePage = () => {
 
   useEffect(() => {
     setBlocks([...invitation.blocks]);
+    console.log("----------------- Block Updated ----------------");
   }, [invitation.blocks]);
 
   useEffect(() => {

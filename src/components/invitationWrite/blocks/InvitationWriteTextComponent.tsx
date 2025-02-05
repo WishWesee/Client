@@ -32,10 +32,14 @@ const InvitationWriteTextComponent: React.FC<
 
   const { updateBlock } = useInvitationStore();
 
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(block.content || "");
   const [font, setFont] = useState(block.font || "");
   const [style, setStyle] = useState(block.styles || "");
   const [color, setColor] = useState(block.color || "");
+
+  useEffect(() => {
+    if (block.content) setValue(block.content);
+  }, [block]);
 
   useEffect(() => {
     if (selectedTool === toolBarContent[0]) {

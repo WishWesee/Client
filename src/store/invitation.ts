@@ -84,7 +84,6 @@ const useInvitationStore = create<InvitationState>()(
         });
 
         state.invitation.blocks = updatedBlocks;
-        console.log(state.invitation.blocks);
       }),
   }))
 );
