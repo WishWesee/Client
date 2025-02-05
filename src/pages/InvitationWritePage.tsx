@@ -3,7 +3,9 @@ import InvitationWriteBottomButton from "@/components/invitationWrite/Invitation
 import InvitationWriteComponent from "@/components/invitationWrite/InvitationWriteComponent";
 import InvitationWriteHeader from "@/components/invitationWrite/InvitationWriteHeader";
 import InvitationWriteToolBar from "@/components/invitationWrite/InvitationWriteToolBar";
+import CheckModal from "@/components/modal/CheckModal";
 import { ToolBarProvider } from "@/contexts/toolBarContext";
+import { usePostInvitationSave } from "@/hooks/write/usePostInvitation";
 import useInvitationStore from "@/store/invitation";
 import * as S from "@styles/invitationWrite/invitationWritePage";
 import { useEffect, useRef, useState } from "react";
@@ -19,8 +21,9 @@ const InvitationWritePage = () => {
 
   const [currentSequence, setCurrentSequence] = useState(0);
   const [isCheckComponent, setIsCheckComponent] = useState(false);
-  // const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const [isShowModal, setIsShowModal] = useState(false);
   const navigate = useNavigate();
+  const { mutate: handlePostInvitationSave } = usePostInvitationSave();
 
   const isSubmit =
     (invitation.location !== "" || invitation.userLocation !== "") &&
@@ -43,7 +46,34 @@ const InvitationWritePage = () => {
     setImages([...photoImages]);
   }, [photoImages]);
 
-  const handleSave = () => {};
+  const handleSave = () => {
+    const formData = new FormData();
+    formData.append(
+      "invitation",
+      new Blob([JSON.stringify(invitation)], { type: "application/json" })
+    );
+    if (cardImage) {
+      formData.append("cardImage", cardImage);
+    }
+
+    if (photoImages && photoImages.length > 0) {
+      Array.from(photoImages).forEach((file) => {
+        formData.append("photoImages", file);
+      });
+    }
+
+    handlePostInvitationSave(formData, {
+      onSuccess: (response) => {
+        //저장 후 결과로 받은 id값
+        const id = response.invitationId;
+        console.log("save", id);
+        setIsShowModal(true);
+      },
+      onError: (error) => {
+        console.error("등록 실패:", error);
+      },
+    });
+  };
 
   return (
     <ToolBarProvider>
@@ -84,6 +114,7 @@ const InvitationWritePage = () => {
             isCheck={false}
           />
         )}
+        {isShowModal && <CheckModal exitModal={() => setIsShowModal(false)} />}
       </S.Container>
     </ToolBarProvider>
   );
