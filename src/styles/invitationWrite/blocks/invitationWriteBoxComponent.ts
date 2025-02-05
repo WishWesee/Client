@@ -26,9 +26,9 @@ export const TextBoxWrap = styled.div`
   }
 `;
 
-export const TitleInput = styled.textarea`
+export const TitleInput = styled.input`
   display: flex;
-  height: 16px;
+  height: fit-content;
   color: var(--Black, #151516);
   text-align: center;
   width: 100%;
