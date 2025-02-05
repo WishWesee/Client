@@ -58,6 +58,16 @@ export const ContentInput = styled.textarea`
   box-sizing: border-box;
   background-color: transparent;
 
+  color: var(--Grey40, #88898a);
+  text-align: center;
+
+  /* Regular/R_16_24 */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+
   &:focus {
     outline: none;
     /* border-radius: 4px;
