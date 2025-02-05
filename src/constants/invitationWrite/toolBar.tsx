@@ -171,6 +171,15 @@ export const BoxToolBarList: toolBarIconListType[] = [
   },
 ];
 
+export const TimeTableToolBarList: toolBarIconListType[] = [
+  {
+    type: "timeTable",
+    defaultIcon: TimeTable,
+    activeIcon: ActiveTimeTable,
+    title: "타임테이블",
+  },
+];
+
 // SubToolBarList
 export const SubTextToolBarList: toolBarIconListType[] = [
   {

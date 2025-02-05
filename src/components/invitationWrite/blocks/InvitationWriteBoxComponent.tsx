@@ -105,7 +105,7 @@ const InvitationWriteBoxComponent = ({
         <hr />
         <S.ContentInput
           placeholder="내용을 입력하세요"
-          value={value}
+          value={typeof value === "string" ? value : undefined}
           onChange={handleInputChange}
         />
       </S.TextBoxWrap>

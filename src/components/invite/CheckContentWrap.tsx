@@ -8,6 +8,7 @@ import { useState } from "react";
 import LocationMapComponent from "../invitationWrite/location/LocationMapComponent";
 import CheckVoteBox from "./CheckVoteBox";
 import ContentTextBox from "./ContentTextBox";
+import ContentTimeTable from "./ContentTimeTable";
 import PageFoldBtn from "./PageFoldBtn";
 
 interface Props {
@@ -85,7 +86,9 @@ const CheckContentWrap = ({ data }: Props) => {
                   <ContentTextBox
                     boxType={0}
                     title={block.title!}
-                    content={block.content!}
+                    content={
+                      typeof block.content! === "string" ? block.content : ""
+                    }
                   />
                 )}
                 {block.type === "photo" && (
@@ -107,12 +110,14 @@ const CheckContentWrap = ({ data }: Props) => {
                           : "none",
                     }}
                   >
-                    {block.content}
+                    {typeof block.content! === "string" ? block.content : ""}
                   </div>
                 )}
-                {/* {block.type === "timeTable" && (
-                  <ContentTimeTable content={block.content} />
-                )} */}
+                {block.type === "timeTable" && (
+                  <ContentTimeTable
+                    content={Array.isArray(block.content) ? block.content : []}
+                  />
+                )}
               </S.FlodItem>
             );
           })}

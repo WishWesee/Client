@@ -10,6 +10,7 @@ import InvitationWriteBoxComponent from "./blocks/InvitationWriteBoxComponent";
 import InvitationWriteDividerComponent from "./blocks/InvitationWriteDividerComponent";
 import InvitationWritePhotoComponent from "./blocks/InvitationWritePhotoComponent";
 import InvitationWriteTextComponent from "./blocks/InvitationWriteTextComponent";
+import InvitationWriteTimeTableComponent from "./blocks/InvitationWriteTimeTableComponent";
 import InvitationWriteVoteComponent from "./calendar/InvitationWriteVoteComponent";
 
 const InvitationWriteComponent = ({
@@ -87,7 +88,15 @@ const InvitationWriteComponent = ({
           </div>
         );
       case "timeTable":
-      // return <ContentTimeTable content={block.content} />;
+        return (
+          <InvitationWriteTimeTableComponent
+            key={index}
+            currentSequence={currentSequence}
+            setCurrentSequence={setCurrentSequence}
+            block={block}
+            index={index}
+          />
+        );
       default:
         return null;
     }

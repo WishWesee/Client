@@ -128,7 +128,7 @@ const InvitationWriteTextComponent: React.FC<
       <S.InputContainer $isSequence={isFocus}>
         <S.InputText
           placeholder="내용을 입력하세요"
-          value={value}
+          value={typeof value === "string" ? value : ""}
           onChange={handleInputChange}
           style={{
             font: `var(${font})`,
@@ -143,7 +143,7 @@ const InvitationWriteTextComponent: React.FC<
                 : "none",
           }}
         >
-          <span>{value}</span>
+          <span>{typeof value === "string" ? value : ""}</span>
         </S.InputText>
       </S.InputContainer>
     </S.Container>

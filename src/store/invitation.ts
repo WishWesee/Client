@@ -51,6 +51,8 @@ const initialState: InvitationState = {
   addImage: () => {},
   addBlock: () => {},
   updateBlock: () => {},
+  updateTimeTable: () => {},
+  updateTimeTableContent: () => {},
 };
 
 const useInvitationStore = create<InvitationState>()(
@@ -84,6 +86,41 @@ const useInvitationStore = create<InvitationState>()(
         });
 
         state.invitation.blocks = updatedBlocks;
+      }),
+    updateTimeTable: (sequence: number, index: number, newTime: string) =>
+      set((state) => {
+        state.invitation.blocks = state.invitation.blocks.map((block) =>
+          block.sequence === sequence
+            ? {
+                ...block,
+                content: Array.isArray(block.content)
+                  ? block.content.map((item, i) =>
+                      i === index ? { ...item, time: newTime } : item
+                    )
+                  : block.content,
+              }
+            : block
+        );
+      }),
+    updateTimeTableContent: (
+      sequence: number,
+      index: number,
+      newContent: string
+    ) =>
+      set((state) => {
+        state.invitation.blocks = state.invitation.blocks.map((block) => {
+          if (block.sequence === sequence) {
+            return {
+              ...block,
+              content: Array.isArray(block.content)
+                ? block.content.map((item, i) =>
+                    i === index ? { ...item, content: newContent } : item
+                  )
+                : block.content,
+            };
+          }
+          return block;
+        });
       }),
   }))
 );

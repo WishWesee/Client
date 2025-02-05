@@ -5,6 +5,7 @@ import {
   PhotoToolBarList,
   SubTextToolBarList,
   TextToolBarList,
+  TimeTableToolBarList,
 } from "@/constants/invitationWrite/toolBar";
 import { useToolBarContext } from "@/contexts/toolBarContext";
 import useInvitationStore from "@/store/invitation";
@@ -47,7 +48,8 @@ const InvitationWriteToolBar = ({
     toolBarContent === TextToolBarList ||
     toolBarContent === DeviderToolBarList ||
     toolBarContent === PhotoToolBarList ||
-    toolBarContent === BoxToolBarList;
+    toolBarContent === BoxToolBarList ||
+    toolBarContent === TimeTableToolBarList;
 
   const handleSubTool = (index: number) => {
     setSubSelectedTool(index);
@@ -101,7 +103,12 @@ const InvitationWriteToolBar = ({
         sequence: index,
       }));
 
-      prevInvitation.blocks = structuredClone(reindexedBlocks);
+      prevInvitation.blocks = reindexedBlocks.map((block) => ({
+        ...block,
+        content: Array.isArray(block.content)
+          ? block.content.map((item) => ({ ...item }))
+          : block.content,
+      }));
     });
 
     setTimeout(() => {
@@ -178,7 +185,15 @@ const InvitationWriteToolBar = ({
           }, 0);
           break;
         case "TimeTable":
-        // return <ContentTimeTable content={block.content} />;
+          addBlock({
+            sequence: invitation.blocks.length,
+            type: "timeTable",
+            content: [],
+          });
+          setTimeout(() => {
+            setBlocks([...useInvitationStore.getState().invitation.blocks]);
+          }, 0);
+          break;
         default:
           return null;
       }
