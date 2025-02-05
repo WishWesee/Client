@@ -13,6 +13,7 @@ export interface Block {
   content?: string;
   image?: string;
   time?: string;
+  colorCode?: number;
 }
 
 interface ScheduleVote {

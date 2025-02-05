@@ -6,6 +6,7 @@ import * as S from "@styles/invitationWrite/invitationWriteComponent";
 import { useState } from "react";
 import InvitationWriteCalendar from "./InvitationWriteCalendar";
 import InvitationWriteLocation from "./InvitationWriteLocation";
+import InvitationWriteBoxComponent from "./blocks/InvitationWriteBoxComponent";
 import InvitationWriteDividerComponent from "./blocks/InvitationWriteDividerComponent";
 import InvitationWritePhotoComponent from "./blocks/InvitationWritePhotoComponent";
 import InvitationWriteTextComponent from "./blocks/InvitationWriteTextComponent";
@@ -50,13 +51,14 @@ const InvitationWriteComponent = ({
           />
         );
       case "box":
-      // return (
-      //   <ContentTextBox
-      //     boxType={0}
-      //     title={block.title}
-      //     content={block.content}
-      //   />
-      // );
+        return (
+          <InvitationWriteBoxComponent
+            index={index}
+            setCurrentSequence={setCurrentSequence}
+            currentSequence={currentSequence}
+            block={block}
+          />
+        );
       case "photo":
         const image = newImages.shift();
 

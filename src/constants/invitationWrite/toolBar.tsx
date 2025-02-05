@@ -16,6 +16,14 @@ import ActiveText from "@assets/icons/화면GUI_Full/2424_Activate/Text.svg?reac
 import ActiveTimeTable from "@assets/icons/화면GUI_Full/2424_Activate/Timetable.svg?react";
 import ActiveU from "@assets/icons/화면GUI_Full/2424_Activate/U.svg?react";
 import ActiveVote from "@assets/icons/화면GUI_Full/2424_Activate/Vote.svg?react";
+import ActiveBox0 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveBox0.svg?react";
+import ActiveBox1 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveBox1.svg?react";
+import ActiveBox2 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveBox2.svg?react";
+import ActiveBox3 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveBox3.svg?react";
+import ActiveBox4 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveBox4.svg?react";
+import ActiveBox5 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveBox5.svg?react";
+import ActiveBox6 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveBox6.svg?react";
+
 import ActiveColor2 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveColor2.svg?react";
 import ActiveColor3 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveColor3.svg?react";
 import ActiveColor4 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveColor4.svg?react";
@@ -45,6 +53,13 @@ import Color5 from "@assets/icons/화면GUI_Full/2424_Default/color/Btn_pTB_Item
 import Color6 from "@assets/icons/화면GUI_Full/2424_Default/color/Btn_pTB_Item_Color 06.svg?react";
 import Color7 from "@assets/icons/화면GUI_Full/2424_Default/color/Btn_pTB_Item_Color 07.svg?react";
 import Color8 from "@assets/icons/화면GUI_Full/2424_Default/color/Btn_pTB_Item_Color 08.svg?react";
+import Box0 from "@assets/icons/화면GUI_Full/2424_Default/color/box0.svg?react";
+import Box1 from "@assets/icons/화면GUI_Full/2424_Default/color/box1.svg?react";
+import Box2 from "@assets/icons/화면GUI_Full/2424_Default/color/box2.svg?react";
+import Box3 from "@assets/icons/화면GUI_Full/2424_Default/color/box3.svg?react";
+import Box4 from "@assets/icons/화면GUI_Full/2424_Default/color/box4.svg?react";
+import Box5 from "@assets/icons/화면GUI_Full/2424_Default/color/box5.svg?react";
+import Box6 from "@assets/icons/화면GUI_Full/2424_Default/color/box6.svg?react";
 import Godic from "@assets/icons/화면GUI_Full/2424_Default/godic.svg?react";
 import Serif from "@assets/icons/화면GUI_Full/2424_Default/serif.svg?react";
 import ArrowBottom from "@assets/icons/화면GUI_Full/3232/Arrow_Bottom.svg?react";
@@ -147,6 +162,15 @@ export const PhotoToolBarList: toolBarIconListType[] = [
   },
 ];
 
+export const BoxToolBarList: toolBarIconListType[] = [
+  {
+    type: "box",
+    defaultIcon: Box,
+    activeIcon: ActiveBox,
+    title: "박스",
+  },
+];
+
 // SubToolBarList
 export const SubTextToolBarList: toolBarIconListType[] = [
   {
@@ -224,6 +248,44 @@ export const SubColorStyleBarList: toolBarIconListType[] = [
     type: "color8",
     defaultIcon: Color8,
     activeIcon: ActiveColor8,
+  },
+];
+
+export const SubBoxStyleBarList: toolBarIconListType[] = [
+  {
+    type: "0",
+    defaultIcon: Box0,
+    activeIcon: ActiveBox0,
+  },
+  {
+    type: "1",
+    defaultIcon: Box1,
+    activeIcon: ActiveBox1,
+  },
+  {
+    type: "2",
+    defaultIcon: Box2,
+    activeIcon: ActiveBox2,
+  },
+  {
+    type: "3",
+    defaultIcon: Box3,
+    activeIcon: ActiveBox3,
+  },
+  {
+    type: "4",
+    defaultIcon: Box4,
+    activeIcon: ActiveBox4,
+  },
+  {
+    type: "5",
+    defaultIcon: Box5,
+    activeIcon: ActiveBox5,
+  },
+  {
+    type: "6",
+    defaultIcon: Box6,
+    activeIcon: ActiveBox6,
   },
 ];
 

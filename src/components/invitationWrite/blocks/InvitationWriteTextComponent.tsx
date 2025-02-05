@@ -92,7 +92,7 @@ const InvitationWriteTextComponent: React.FC<
       }
 
       if (Object.keys(updatedProperties).length > 0) {
-        updateBlock(currentSequence, updatedProperties);
+        updateBlock(block.sequence, updatedProperties);
       }
     }
   }, [subSelectedTool, subToolBarContent, block.sequence, updateBlock]);

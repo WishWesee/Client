@@ -1,4 +1,5 @@
 import {
+  BoxToolBarList,
   DeviderToolBarList,
   NomalToolBarList,
   PhotoToolBarList,
@@ -38,12 +39,15 @@ const InvitationWriteToolBar = ({
     useInvitationStore();
   const selectedToolRef = useRef(selectedTool || undefined);
 
-  const isSubToolBar = selectedTool && toolBarContent === TextToolBarList;
+  const isSubToolBar =
+    selectedTool &&
+    (toolBarContent === TextToolBarList || toolBarContent === BoxToolBarList);
 
   const isArrowBar =
     toolBarContent === TextToolBarList ||
     toolBarContent === DeviderToolBarList ||
-    toolBarContent === PhotoToolBarList;
+    toolBarContent === PhotoToolBarList ||
+    toolBarContent === BoxToolBarList;
 
   const handleSubTool = (index: number) => {
     setSubSelectedTool(index);
@@ -86,8 +90,6 @@ const InvitationWriteToolBar = ({
 
   // 블럭 삭제
   const handleDeleteBlock = () => {
-    console.log("삭제 전:", invitation.blocks);
-
     setInvitation((prevInvitation) => {
       const updatedBlocks = prevInvitation.blocks.filter(
         (block) => block.sequence !== currentSequence
@@ -99,7 +101,6 @@ const InvitationWriteToolBar = ({
         sequence: index,
       }));
 
-      console.log("삭제 후:", reindexedBlocks);
       prevInvitation.blocks = structuredClone(reindexedBlocks);
     });
 
@@ -164,18 +165,18 @@ const InvitationWriteToolBar = ({
           triggerFileUpload();
           break;
 
-        // case "Box":
-        //   return (
-        //     <div
-        //       style={{ width: "100%" }}
-        //       onClick={() => setCurrentSequence(block.sequence)}
-        //     >
-        //       <InvitationWriteTextComponent
-        //         currentSequence={currentSequence}
-        //         block={block}
-        //       />
-        //     </div>
-        //   );
+        case "Box":
+          addBlock({
+            sequence: invitation.blocks.length,
+            type: "box",
+            title: "",
+            colorCode: 0,
+            content: "",
+          });
+          setTimeout(() => {
+            setBlocks([...useInvitationStore.getState().invitation.blocks]);
+          }, 0);
+          break;
         case "TimeTable":
         // return <ContentTimeTable content={block.content} />;
         default:
