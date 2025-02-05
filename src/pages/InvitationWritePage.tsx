@@ -24,7 +24,7 @@ const InvitationWritePage = () => {
 
   const isSubmit =
     (invitation.location !== "" || invitation.userLocation !== "") &&
-    invitation.startDate !== "";
+    (invitation.startDate !== "" || invitation.voteDeadline !== "");
 
   const setBlocksRef = (newBlocks: typeof invitation.blocks) => {
     blocksRef.current = newBlocks;
@@ -43,6 +43,8 @@ const InvitationWritePage = () => {
     setImages([...photoImages]);
   }, [photoImages]);
 
+  const handleSave = () => {};
+
   return (
     <ToolBarProvider>
       <S.Container>
@@ -53,6 +55,7 @@ const InvitationWritePage = () => {
               buttonType={"저장"}
               isEnable={isSubmit}
               onLeftBtnClick={() => navigate("/choicecard")}
+              onRightBtnClick={() => handleSave()}
             />
             <InvitationWriteToolBar
               currentSequence={currentSequence}
@@ -66,7 +69,7 @@ const InvitationWritePage = () => {
               images={images}
             />
             <InvitationWriteBottomButton
-              isSubmit={true}
+              isSubmit={isSubmit}
               text={"다음"}
               onClick={() => setIsCheckComponent(true)}
             />

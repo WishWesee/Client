@@ -33,7 +33,7 @@ const InvitationWriteBottomButton = ({
           handleState={handleSurvey}
         />
       </S.LabelContainer>
-      <S.OkButton $isEnable={isSubmit} onClick={onClick}>
+      <S.OkButton $isEnable={isSubmit} onClick={onClick} disabled={!isSubmit}>
         {text}
       </S.OkButton>
     </S.Container>
