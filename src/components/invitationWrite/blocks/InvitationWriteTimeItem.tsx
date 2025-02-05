@@ -23,10 +23,10 @@ const InvitationWriteTimeItem: React.FC<InvitationWriteVoteItemProps> = ({
   const [value, setValue] = useState(item.content ? item.content : "");
 
   const formatTime =
-    Array.isArray(invitation.blocks[currentSequence].content) &&
-    invitation.blocks[currentSequence].content[index]?.time !== ""
+    Array.isArray(invitation.blocks[currentSequence]?.content) &&
+    invitation.blocks[currentSequence]?.content?.[index]?.time
       ? formatTimeToCustomFormat(
-          invitation.blocks[currentSequence].content[index]?.time || ""
+          invitation.blocks[currentSequence]?.content?.[index]?.time || ""
         )
       : "시간 선택";
 
@@ -34,7 +34,9 @@ const InvitationWriteTimeItem: React.FC<InvitationWriteVoteItemProps> = ({
     const newValue = event.target.value;
     setValue(newValue);
 
-    updateTimeTableContent(currentSequence, index, value);
+    if (invitation.blocks[currentSequence]?.content) {
+      updateTimeTableContent(currentSequence, index, newValue);
+    }
   };
 
   return (

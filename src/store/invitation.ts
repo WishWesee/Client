@@ -109,14 +109,12 @@ const useInvitationStore = create<InvitationState>()(
     ) =>
       set((state) => {
         state.invitation.blocks = state.invitation.blocks.map((block) => {
-          if (block.sequence === sequence) {
+          if (block.sequence === sequence && Array.isArray(block.content)) {
             return {
               ...block,
-              content: Array.isArray(block.content)
-                ? block.content.map((item, i) =>
-                    i === index ? { ...item, content: newContent } : item
-                  )
-                : block.content,
+              content: block.content.map((item, i) =>
+                i === index ? { ...item, content: newContent } : item
+              ),
             };
           }
           return block;

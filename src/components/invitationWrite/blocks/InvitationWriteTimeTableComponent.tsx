@@ -49,6 +49,7 @@ const InvitationWriteTimeTableComponent: React.FC<
       >
         <label>타임테이블</label>
         {Array.isArray(block.content) &&
+          block.content &&
           block.content.map((item, index) => (
             <InvitationWriteTimeItem
               index={index}
