@@ -27,6 +27,7 @@ const InvitationWriteComponent = ({
   const { setToolBarContent } = useToolBarContext();
   const { invitation, setInvitation } = useInvitationStore();
   const [value, setValue] = useState(invitation.title);
+  const [placeholder, setPlaceholder] = useState("제목을 입력하세요");
 
   const newImages = [...images];
 
@@ -104,8 +105,9 @@ const InvitationWriteComponent = ({
   return (
     <S.Container onClick={() => setToolBarContent(NomalToolBarList)}>
       <S.TitleInput
-        placeholder="제목을 입력하세요"
+        placeholder={placeholder}
         value={value}
+        onFocus={() => setPlaceholder("")} // 클릭하면 사라짐
         onChange={handleInputChange}
       />
       <InvitationWriteCalendar />
