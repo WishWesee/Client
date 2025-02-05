@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 const InvitationWritePage = () => {
   const { invitation, cardImage, photoImages } = useInvitationStore();
 
-  const [isButtonEnable] = useState<boolean>(false);
   const blocksRef = useRef(invitation.blocks || undefined);
   const [blocks, setBlocks] = useState(invitation.blocks || undefined);
   const imagesRef = useRef(photoImages || undefined);
@@ -22,6 +21,10 @@ const InvitationWritePage = () => {
   const [isCheckComponent, setIsCheckComponent] = useState(false);
   // const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  const isSubmit =
+    (invitation.location !== "" || invitation.userLocation !== "") &&
+    invitation.startDate !== "";
 
   const setBlocksRef = (newBlocks: typeof invitation.blocks) => {
     blocksRef.current = newBlocks;
@@ -48,7 +51,7 @@ const InvitationWritePage = () => {
             <InvitationWriteHeader
               backText={"카드 선택"}
               buttonType={"저장"}
-              isEnable={isButtonEnable}
+              isEnable={isSubmit}
               onLeftBtnClick={() => navigate("/choicecard")}
             />
             <InvitationWriteToolBar
