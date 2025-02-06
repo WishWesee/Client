@@ -62,33 +62,33 @@ const InvitationWriteToolBar = ({
   };
 
   // 블럭 이동
-  const moveBlock = (direction: "forward" | "backward") => {
-    setInvitation((prevInvitation) => {
-      const newArr = [...prevInvitation.blocks]; // 배열 복사
+  // const moveBlock = (direction: "forward" | "backward") => {
+  //   setInvitation((prevInvitation) => {
+  //     const newArr = [...prevInvitation.blocks]; // 배열 복사
 
-      if (direction === "forward" && currentSequence > 0) {
-        const [movedBlock] = newArr.splice(currentSequence, 1);
-        newArr.splice(currentSequence - 1, 0, movedBlock);
-      } else if (
-        direction === "backward" &&
-        currentSequence < newArr.length - 1
-      ) {
-        const [movedBlock] = newArr.splice(currentSequence, 1);
-        newArr.splice(currentSequence + 1, 0, movedBlock);
-      }
+  //     if (direction === "forward" && currentSequence > 0) {
+  //       const [movedBlock] = newArr.splice(currentSequence, 1);
+  //       newArr.splice(currentSequence - 1, 0, movedBlock);
+  //     } else if (
+  //       direction === "backward" &&
+  //       currentSequence < newArr.length - 1
+  //     ) {
+  //       const [movedBlock] = newArr.splice(currentSequence, 1);
+  //       newArr.splice(currentSequence + 1, 0, movedBlock);
+  //     }
 
-      // sequence 값 재설정
-      newArr.forEach((block, index) => {
-        block.sequence = index;
-      });
+  //     // sequence 값 재설정
+  //     newArr.forEach((block, index) => {
+  //       block.sequence = index;
+  //     });
 
-      prevInvitation.blocks = newArr;
-    });
+  //     prevInvitation.blocks = newArr;
+  //   });
 
-    setTimeout(() => {
-      setBlocks([...useInvitationStore.getState().invitation.blocks]);
-    }, 0);
-  };
+  //   setTimeout(() => {
+  //     setBlocks([...useInvitationStore.getState().invitation.blocks]);
+  //   }, 0);
+  // };
 
   // 블럭 삭제
   const handleDeleteBlock = () => {
