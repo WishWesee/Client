@@ -5,7 +5,10 @@ import InvitationWriteHeader from "@/components/invitationWrite/InvitationWriteH
 import InvitationWriteToolBar from "@/components/invitationWrite/InvitationWriteToolBar";
 import CheckModal from "@/components/modal/CheckModal";
 import { ToolBarProvider } from "@/contexts/toolBarContext";
-import { usePostInvitationSave } from "@/hooks/write/usePostInvitation";
+import {
+  usePostInvitation,
+  usePostInvitationSave,
+} from "@/hooks/write/usePostInvitation";
 import useInvitationStore from "@/store/invitation";
 import * as S from "@styles/invitationWrite/invitationWritePage";
 import { useEffect, useRef, useState } from "react";
@@ -25,6 +28,8 @@ const InvitationWritePage = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const navigate = useNavigate();
   const { mutate: handlePostInvitationSave } = usePostInvitationSave();
+  const { mutate: postInvitation } = usePostInvitation();
+  const { resetInvitation } = useInvitationStore();
 
   const isSubmit =
     (invitation.location !== "" || invitation.userLocation !== "") &&
@@ -39,6 +44,10 @@ const InvitationWritePage = () => {
   };
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  useEffect(() => {
     setBlocks([...invitation.blocks]);
     console.log(blocks);
   }, [invitation.blocks]);
@@ -47,6 +56,7 @@ const InvitationWritePage = () => {
     setImages([...photoImages]);
   }, [photoImages]);
 
+  // 임시 저장
   const handleSave = () => {
     const formData = new FormData();
     formData.append(
@@ -56,13 +66,11 @@ const InvitationWritePage = () => {
     if (cardImage) {
       formData.append("cardImage", cardImage);
     }
-
     if (photoImages && photoImages.length > 0) {
       Array.from(photoImages).forEach((file) => {
         formData.append("photoImages", file);
       });
     }
-
     handlePostInvitationSave(formData, {
       onSuccess: (response) => {
         //저장 후 결과로 받은 id값
@@ -79,19 +87,59 @@ const InvitationWritePage = () => {
       },
     });
   };
+
+  //완성된 초대장 저장
+  const handleSaveInvite = () => {
+    const formData = new FormData();
+    formData.append(
+      "invitation",
+      new Blob([JSON.stringify(invitation)], { type: "application/json" })
+    );
+    if (cardImage) {
+      formData.append("cardImage", cardImage);
+    }
+
+    if (photoImages && photoImages.length > 0) {
+      Array.from(photoImages).forEach((file) => {
+        formData.append("photoImages", file);
+      });
+    }
+
+    postInvitation(formData, {
+      onSuccess: (response) => {
+        //저장 후 결과로 받은 id값
+        const id = response.invitationId;
+        navigate(`/invites/${id}`, {
+          state: { isDone: true },
+        });
+        resetInvitation();
+      },
+      onError: (error) => {
+        console.error("등록 실패:", error);
+      },
+    });
+  };
+
   console.log(invitation);
   return (
     <ToolBarProvider>
       <S.Container $isCheckComponent={isCheckComponent}>
+        <InvitationWriteHeader
+          backText={isCheckComponent ? "이전" : "카드 선택"}
+          buttonType={"저장"}
+          isEnable={isSubmit}
+          onLeftBtnClick={
+            isCheckComponent
+              ? () => {
+                  setIsCheckComponent(false);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              : () => navigate("/choicecard")
+          }
+          onRightBtnClick={() => handleSave()}
+        />
         {!isCheckComponent ? (
           <>
-            <InvitationWriteHeader
-              backText={"카드 선택"}
-              buttonType={"저장"}
-              isEnable={isSubmit}
-              onLeftBtnClick={() => navigate("/choicecard")}
-              onRightBtnClick={() => handleSave()}
-            />
             <InvitationWriteToolBar
               currentSequence={currentSequence}
               setBlocks={setBlocksRef}
@@ -103,14 +151,6 @@ const InvitationWritePage = () => {
               blocks={blocks}
               images={images}
             />
-            <InvitationWriteBottomButton
-              isSubmit={isSubmit}
-              text={"다음"}
-              onClick={() => {
-                setIsCheckComponent(true);
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-            />
           </>
         ) : (
           <CheckComponent
@@ -119,14 +159,21 @@ const InvitationWritePage = () => {
               cardImage: cardImage,
               photoImages: photoImages,
             }}
-            isCheck={false}
-            onLeftBtnClick={() => {
-              setIsCheckComponent(false);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            onRightBtnClick={handleSave}
           />
         )}
+        <InvitationWriteBottomButton
+          isSubmit={isSubmit}
+          text={isCheckComponent ? "완료" : "다음"}
+          onClick={
+            !isCheckComponent
+              ? () => {
+                  setIsCheckComponent(true);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              : handleSaveInvite
+          }
+        />
+
         {isShowModal && <CheckModal exitModal={() => setIsShowModal(false)} />}
       </S.Container>
     </ToolBarProvider>
