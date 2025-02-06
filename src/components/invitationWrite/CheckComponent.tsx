@@ -101,7 +101,7 @@ const CheckComponent = ({
               src={
                 data.cardImage instanceof File
                   ? URL.createObjectURL(data.cardImage)
-                  : (data.cardImage as unknown as string) // SVG 경로 그대로 사용
+                  : (data.cardImage as unknown as string)
               }
               alt="카드 이미지"
               $scrollY={scrollY}

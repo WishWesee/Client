@@ -19,6 +19,7 @@ const CheckContentWrap = ({ data }: Props) => {
   const { isMobile, isTablet, isDesktop } = useWMediaQuery();
 
   const [isFold, setIsFold] = useState(false); //글이 접힌 상태인지 여부
+  let imageIndex = 0;
 
   return (
     <S.CardWrap>
@@ -84,6 +85,9 @@ const CheckContentWrap = ({ data }: Props) => {
       {!isFold && (
         <S.FoldWrap>
           {data.invitation.blocks.map((block) => {
+            if (block.type === "photo") {
+              imageIndex++;
+            }
             return (
               <S.FlodItem key={block.sequence}>
                 {block.type === "divider" && <hr />}
@@ -97,7 +101,10 @@ const CheckContentWrap = ({ data }: Props) => {
                   />
                 )}
                 {block.type === "photo" && (
-                  <img src={block.image!} alt="첨부한 이미지" />
+                  <img
+                    src={URL.createObjectURL(data.photoImages[imageIndex - 1])}
+                    alt="첨부한 이미지"
+                  />
                 )}
                 {block.type === "text" && (
                   <div
@@ -113,6 +120,7 @@ const CheckContentWrap = ({ data }: Props) => {
                           : block.styles === "underline"
                           ? "underline"
                           : "none",
+                      whiteSpace: "pre-wrap",
                     }}
                   >
                     {typeof block.content! === "string" ? block.content : ""}
