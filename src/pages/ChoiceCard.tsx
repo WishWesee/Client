@@ -1,10 +1,10 @@
 import ImgIcon from "@/assets/icons/화면GUI_Full/2424_Activate/Img.svg?react";
 import AddIcon from "@/assets/icons/화면GUI_Line/2020/Add.svg?react";
-import Birthday1 from "@/assets/images/ChoiceCard/Birthday1.svg";
-import Birthday2 from "@/assets/images/ChoiceCard/Birthday2.svg";
-import LastOfYear1 from "@/assets/images/ChoiceCard/LastOfYear1.svg";
-import LastOfYear2 from "@/assets/images/ChoiceCard/LastOfYear2.svg";
-import Travel1 from "@/assets/images/ChoiceCard/travel1.svg";
+import Birthday1 from "@/assets/images/ChoiceCard/Birthday1.png";
+import Birthday2 from "@/assets/images/ChoiceCard/Birthday2.png";
+import LastOfYear1 from "@/assets/images/ChoiceCard/LastOfYear1.png";
+import LastOfYear2 from "@/assets/images/ChoiceCard/LastOfYear2.png";
+import Travel1 from "@/assets/images/ChoiceCard/Travel.png";
 import NextButton from "@/components/button/Btn_Bottom_Next";
 import HorizontalSB from "@/components/choiceCard/HorizontalSB";
 import AddImageCautionModal from "@/components/choiceCard/Modal";
@@ -55,7 +55,7 @@ const ChoiceCard: React.FC = () => {
       if (typeof imageUrl === "string") {
         const response = await fetch(imageUrl);
         const blob = await response.blob();
-        const file = new File([blob], "image.svg", { type: "image/svg+xml" });
+        const file = new File([blob], "image.png", { type: "image/png+xml" });
         setSelectedImage(file);
         setCardImage(file);
       } else {
@@ -187,7 +187,7 @@ const ChoiceCard: React.FC = () => {
               const imageSrc =
                 item.content instanceof File
                   ? URL.createObjectURL(item.content)
-                  : (item.content as string);
+                  : (typeof item.content === "string" ? item.content : "");
 
               return (
                 <Rectangle
