@@ -49,6 +49,7 @@ const InvitationWriteComponent = ({
 
   // block 타입에 맞는 컴포넌트를 반환하는 함수
   const renderBlockContent = (block: any, index: number) => {
+    console.log(index, block);
     switch (block.type) {
       case "divider":
         return (
