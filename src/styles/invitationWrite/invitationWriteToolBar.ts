@@ -7,7 +7,7 @@ export const Container = styled.div`
   justify-content: start;
   width: 100%;
   box-sizing: border-box;
-  z-index: 1000;
+  z-index: 80;
   align-items: center;
   flex-direction: column;
 `;
