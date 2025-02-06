@@ -58,7 +58,7 @@ const InvitationWriteVoteItem: React.FC<InvitationWriteVoteItemProps> = ({
               <>
                 <ActiveCalendar />
                 <S.ButtonText style={{ color: "var(--Black)" }}>
-                  {formatDate}
+                  {formatDate.replaceAll("-", ".")}
                 </S.ButtonText>
               </>
             )}

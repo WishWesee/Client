@@ -1,4 +1,6 @@
 import SlideButton from "@/components/button/Btn_Boolean";
+import { VoteToolBarList } from "@/constants/invitationWrite/toolBar";
+import { useToolBarContext } from "@/contexts/toolBarContext";
 import useInvitationStore from "@/store/invitation";
 import Add from "@assets/icons/화면GUI_Line/2020/Add_White.svg?react";
 import Delete from "@assets/icons/화면GUI_Line/2020/Delete.svg?react";
@@ -10,6 +12,8 @@ const InvitationWriteVoteComponent = () => {
   const { invitation, setInvitation } = useInvitationStore();
   const [isMultiple, setIsMultiple] = useState(invitation.scheduleVoteMultiple);
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+
+  const { toolBarContent, setToolBarContent } = useToolBarContext();
 
   const handleNewVote = () => {
     setInvitation((prevInvitation) => {
@@ -37,8 +41,20 @@ const InvitationWriteVoteComponent = () => {
     setIsMultiple(!isMultiple);
   };
 
+  const handleFocus = () => {
+    if (toolBarContent !== VoteToolBarList)
+      setTimeout(() => {
+        setToolBarContent(VoteToolBarList);
+      }, 0);
+  };
+
   return (
-    <S.Container>
+    <S.Container
+      onClick={(e) => {
+        e.stopPropagation();
+        handleFocus();
+      }}
+    >
       <S.TitleContainer>
         <S.Label>투표</S.Label>
         <S.SlideButtonContainer>

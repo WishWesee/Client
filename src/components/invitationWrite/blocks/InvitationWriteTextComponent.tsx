@@ -84,6 +84,8 @@ const InvitationWriteTextComponent: React.FC<
           break;
       }
 
+      console.log(updatedProperties);
+
       // 색 변경
       if (subToolBarContent === SubColorStyleBarList) {
         const newColor = getColor(subSelectedTool.type);

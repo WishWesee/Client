@@ -24,6 +24,7 @@ import ActiveBox4 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveB
 import ActiveBox5 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveBox5.svg?react";
 import ActiveBox6 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveBox6.svg?react";
 
+import ActiveVoteDue from "@assets/icons/화면GUI_Full/2424_Activate/VoteDue.svg?react";
 import ActiveColor2 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveColor2.svg?react";
 import ActiveColor3 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveColor3.svg?react";
 import ActiveColor4 from "@assets/icons/화면GUI_Full/2424_Activate/color/ActiveColor4.svg?react";
@@ -46,6 +47,7 @@ import Text from "@assets/icons/화면GUI_Full/2424_Default/Text.svg?react";
 import TimeTable from "@assets/icons/화면GUI_Full/2424_Default/Timetable.svg?react";
 import U from "@assets/icons/화면GUI_Full/2424_Default/U.svg?react";
 import Vote from "@assets/icons/화면GUI_Full/2424_Default/Vote.svg?react";
+import VoteDue from "@assets/icons/화면GUI_Full/2424_Default/VoteDue.svg?react";
 import Color2 from "@assets/icons/화면GUI_Full/2424_Default/color/Btn_pTB_Item_Color 02.svg?react";
 import Color3 from "@assets/icons/화면GUI_Full/2424_Default/color/Btn_pTB_Item_Color 03.svg?react";
 import Color4 from "@assets/icons/화면GUI_Full/2424_Default/color/Btn_pTB_Item_Color 04.svg?react";
@@ -177,6 +179,15 @@ export const TimeTableToolBarList: toolBarIconListType[] = [
     defaultIcon: TimeTable,
     activeIcon: ActiveTimeTable,
     title: "타임테이블",
+  },
+];
+
+export const VoteToolBarList: toolBarIconListType[] = [
+  {
+    type: "Vote",
+    defaultIcon: VoteDue,
+    activeIcon: ActiveVoteDue,
+    title: "투표마감일",
   },
 ];
 
