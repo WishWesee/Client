@@ -44,6 +44,10 @@ const InvitationWritePage = () => {
   };
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  useEffect(() => {
     setBlocks([...invitation.blocks]);
     console.log(blocks);
   }, [invitation.blocks]);
