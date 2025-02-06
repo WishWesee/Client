@@ -71,10 +71,13 @@ const ChoiceCard: React.FC = () => {
   const renderModal = () => {
     setActiveModal(!activeModal);
   };
-
+  
   useEffect(() => {
-    const savedImages = JSON.parse(localStorage.getItem("myImages") || "[]");
-    setMyImages(savedImages);
+    const authToken = getAuthTokenFromCookie();
+    if (authToken) {
+      const savedImages = JSON.parse(localStorage.getItem("myImages") || "[]");
+      setMyImages(savedImages);
+    }
   }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,6 +95,15 @@ const ChoiceCard: React.FC = () => {
 
       reader.readAsDataURL(file);
     }
+  };
+
+  const getAuthTokenFromCookie = () => {
+    return (
+      document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("Authorization="))
+        ?.split("=")[1] || null
+    );
   };
 
   //모듈화
@@ -148,16 +160,7 @@ const ChoiceCard: React.FC = () => {
             <style.Btn_hSB_New
               as="label"
               onClick={(e) => {
-                const getAuthTokenFromCookie = () => {
-                  return (
-                    document.cookie
-                      .split("; ")
-                      .find((row) => row.startsWith("Authorization="))
-                      ?.split("=")[1] || null
-                  );
-                };
-
-                const authToken = getAuthTokenFromCookie(); //나중에 api부분에서 export해서 불러오자
+                const authToken = getAuthTokenFromCookie(); 
                 if (!authToken) {
                   e.preventDefault(); // input 클릭 막아
                   setIsCautionModalOpen(true);
