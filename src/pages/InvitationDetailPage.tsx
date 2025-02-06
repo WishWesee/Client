@@ -151,15 +151,15 @@ const InvitationDetailPage = () => {
                 refetch={refetch}
                 isDone={isDone}
               />
+              {data.attendanceSurveyEnabled && (
+                <ComingWrap
+                  id={data.invitationId}
+                  isReview={data.canWriteFeedback}
+                  isLogin={data.loggedIn}
+                />
+              )}
               {!isDone && (
                 <>
-                  {data.attendanceSurveyEnabled && (
-                    <ComingWrap
-                      id={data.invitationId}
-                      isReview={data.canWriteFeedback}
-                      isLogin={data.loggedIn}
-                    />
-                  )}
                   {isMobile && invitationState === 0 && (
                     <SaveWrap
                       id={data.invitationId}
