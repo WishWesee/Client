@@ -3,6 +3,7 @@ import InviteBottom from "@/components/invite/InviteBottom";
 import TotheTopBtn from "@/components/invite/TotheTopBtn";
 import useWMediaQuery from "@/hooks/useWMediaQuery";
 import { usePostInvitation } from "@/hooks/write/usePostInvitation";
+import useInvitationStore from "@/store/invitation";
 import { TInvitationReq } from "@/types/invite";
 import * as S from "@styles/invite/InvitationDetailPageStyle";
 import { useCallback, useEffect, useState } from "react";
@@ -25,7 +26,7 @@ const CheckComponent = ({
   const { isMobile } = useWMediaQuery();
   const navigate = useNavigate();
   const { mutate: postInvitation } = usePostInvitation();
-
+  const { resetInvitation } = useInvitationStore();
   //애니메이션 스크롤
   const [scrollY, setScrollY] = useState(0);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -81,6 +82,7 @@ const CheckComponent = ({
     postInvitation(formData, {
       onSuccess: (response) => {
         //저장 후 결과로 받은 id값
+        resetInvitation();
         const id = response.invitationId;
         navigate(`/invites/${id}`, {
           state: { isDone: true },

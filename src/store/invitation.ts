@@ -53,6 +53,7 @@ const initialState: InvitationState = {
   updateBlock: () => {},
   updateTimeTable: () => {},
   updateTimeTableContent: () => {},
+  resetInvitation: () => {},
 };
 
 const useInvitationStore = create<InvitationState>()(
@@ -120,6 +121,10 @@ const useInvitationStore = create<InvitationState>()(
           return block;
         });
       }),
+    resetInvitation: () =>
+      set(() => ({
+        ...initialState,
+      })),
   }))
 );
 

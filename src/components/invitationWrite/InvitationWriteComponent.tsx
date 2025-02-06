@@ -3,7 +3,7 @@ import { useToolBarContext } from "@/contexts/toolBarContext";
 import useInvitationStore from "@/store/invitation";
 import { Block } from "@/types/invitation";
 import * as S from "@styles/invitationWrite/invitationWriteComponent";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import InvitationWriteCalendar from "./InvitationWriteCalendar";
 import InvitationWriteLocation from "./InvitationWriteLocation";
 import InvitationWriteBoxComponent from "./blocks/InvitationWriteBoxComponent";
@@ -28,6 +28,12 @@ const InvitationWriteComponent = ({
   const { invitation, setInvitation } = useInvitationStore();
   const [placeholder, setPlaceholder] = useState("제목을 입력하세요");
   const titleInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (titleInputRef.current) {
+      titleInputRef.current.value = invitation.title;
+    }
+  }, []);
 
   const newImages = [...images];
 

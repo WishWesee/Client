@@ -12,7 +12,8 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const InvitationWritePage = () => {
-  const { invitation, cardImage, photoImages } = useInvitationStore();
+  const { invitation, cardImage, photoImages, setInvitation } =
+    useInvitationStore();
 
   const blocksRef = useRef(invitation.blocks || undefined);
   const [blocks, setBlocks] = useState(invitation.blocks || undefined);
@@ -67,6 +68,10 @@ const InvitationWritePage = () => {
         //저장 후 결과로 받은 id값
         const id = response.invitationId;
         console.log("save", id);
+        setInvitation((prevInvitation) => {
+          prevInvitation.invitationId = id;
+        });
+        console.log("invitation", invitation);
         setIsShowModal(true);
       },
       onError: (error) => {
@@ -74,7 +79,7 @@ const InvitationWritePage = () => {
       },
     });
   };
-
+  console.log(invitation);
   return (
     <ToolBarProvider>
       <S.Container $isCheckComponent={isCheckComponent}>
