@@ -84,10 +84,7 @@ const InvitationWriteToolBar = ({
         block.sequence = index;
       });
 
-      return {
-        ...prevInvitation,
-        blocks: newArr,
-      };
+      prevInvitation.blocks = newArr;
     });
 
     setTimeout(() => {
@@ -176,6 +173,9 @@ const InvitationWriteToolBar = ({
                 });
                 setTimeout(() => {
                   setImages([...useInvitationStore.getState().photoImages]);
+                  setBlocks([
+                    ...useInvitationStore.getState().invitation.blocks,
+                  ]);
                 }, 0);
               }
             };

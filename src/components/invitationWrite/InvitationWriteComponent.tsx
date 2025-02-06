@@ -127,7 +127,7 @@ const InvitationWriteComponent = ({
       <S.BlocksContainer>
         {blocks.map((block, index) => (
           <div key={index}>{renderBlockContent(block, index)}</div>
-        ))}{" "}
+        ))}
       </S.BlocksContainer>
     </S.Container>
   );

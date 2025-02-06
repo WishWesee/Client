@@ -52,6 +52,7 @@ const InvitationWritePage = () => {
   useEffect(() => {
     // blocksRef.current = [...invitation.blocks];
     setBlocks(invitation.blocks);
+    console.log(blocks);
   }, [invitation.blocks]);
 
   useEffect(() => {
