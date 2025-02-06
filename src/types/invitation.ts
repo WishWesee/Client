@@ -62,6 +62,7 @@ export interface InvitationState {
     index: number,
     newContent: string
   ) => void;
+  resetInvitation: () => void;
 }
 
 export interface InvitationResponse {
