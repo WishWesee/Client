@@ -79,20 +79,29 @@ export const Img_Content_Card = styled.div`
   max-width: 390px;
   padding: 0 1.3125rem; /* 좌우 여백 설정 */
 
-  @media (max-width: 389px) and (min-width: 350px) {
+  @media (max-width: 389px) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       padding: 0 16px 16px 16px;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
       max-width: 704px;
       gap: 16px;
   }
 
-  @media (max-width: 349px) {
+  @media (max-width: 343px) {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
       padding: 0 16px 16px 16px;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
       max-width: 704px;
-      gap: 16px
+      gap: 16px;
   }
 
+  @media (max-width: 344px) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0 16px 16px 16px;
+      max-width: 704px;
+      gap: 12px;
+  }
 
   @media (min-width: 768px) {
     padding: 0 16px 16px 16px;
@@ -137,6 +146,11 @@ export const ImgCard = styled.img`
 
   @media (max-width: 389px) {
     width: 39vw;
+    height: 104px;
+  }
+
+  @media (max-width: 343px) {
+    width: 196px;
     height: 104px;
   }
 
