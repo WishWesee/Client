@@ -62,13 +62,11 @@ const InvitationWritePage = () => {
     if (cardImage) {
       formData.append("cardImage", cardImage);
     }
-
     if (photoImages && photoImages.length > 0) {
       Array.from(photoImages).forEach((file) => {
         formData.append("photoImages", file);
       });
     }
-
     handlePostInvitationSave(formData, {
       onSuccess: (response) => {
         //저장 후 결과로 받은 id값
@@ -110,7 +108,7 @@ const InvitationWritePage = () => {
         navigate(`/invites/${id}`, {
           state: { isDone: true },
         });
-        // resetInvitation();
+        resetInvitation();
       },
       onError: (error) => {
         console.error("등록 실패:", error);

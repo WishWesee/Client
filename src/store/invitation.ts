@@ -122,9 +122,9 @@ const useInvitationStore = create<InvitationState>()(
         });
       }),
     resetInvitation: () =>
-      set(() => ({
-        ...initialState,
-      })),
+      set((state) => {
+        state.invitation = { ...initialState.invitation }; // 초기 상태로 설정
+      }),
   }))
 );
 

@@ -18,26 +18,31 @@ const InvitationWriteCalendarModal: React.FC<
 > = ({ handleCloseModal, isTimeShow, handleTimeShow }) => {
   const [date, setDate] = useState<Value>(null);
 
-  const { setInvitation } = useInvitationStore();
+  const { invitation, setInvitation } = useInvitationStore();
 
   const handleSetDate = () => {
+    console.log(date);
+
     if (date) {
       if (Array.isArray(date)) {
         // date가 배열인 경우
         setInvitation((prevInvitation) => {
           prevInvitation.startDate = formatDateToCustomFormat(date[0]!);
           prevInvitation.endDate = formatDateToCustomFormat(date[1]!);
-          return prevInvitation;
         });
       } else {
         // date가 단일 값인 경우
+
         setInvitation((prevInvitation) => {
           prevInvitation.startDate = formatDateToCustomFormat(date);
           prevInvitation.endDate = "";
-          return prevInvitation;
+          // return prevInvitation;
         });
+        console.log(formatDateToCustomFormat(date));
       }
     }
+    console.log(invitation);
+
     handleCloseModal();
   };
 
