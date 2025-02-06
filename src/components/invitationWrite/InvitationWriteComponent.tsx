@@ -3,7 +3,7 @@ import { useToolBarContext } from "@/contexts/toolBarContext";
 import useInvitationStore from "@/store/invitation";
 import { Block } from "@/types/invitation";
 import * as S from "@styles/invitationWrite/invitationWriteComponent";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import InvitationWriteCalendar from "./InvitationWriteCalendar";
 import InvitationWriteLocation from "./InvitationWriteLocation";
 import InvitationWriteBoxComponent from "./blocks/InvitationWriteBoxComponent";
@@ -26,18 +26,17 @@ const InvitationWriteComponent = ({
 }) => {
   const { setToolBarContent } = useToolBarContext();
   const { invitation, setInvitation } = useInvitationStore();
-  const [value, setValue] = useState(invitation.title);
   const [placeholder, setPlaceholder] = useState("제목을 입력하세요");
+  const titleInputRef = useRef<HTMLInputElement>(null);
 
   const newImages = [...images];
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-    setValue(newValue);
-
-    setInvitation((prevInvitation) => {
-      prevInvitation.title = value;
-    });
+  const handleInputChange = () => {
+    if (titleInputRef.current) {
+      setInvitation((prevInvitation) => {
+        prevInvitation.title = titleInputRef.current!.value;
+      });
+    }
   };
 
   // block 타입에 맞는 컴포넌트를 반환하는 함수
@@ -105,8 +104,8 @@ const InvitationWriteComponent = ({
   return (
     <S.Container onClick={() => setToolBarContent(NomalToolBarList)}>
       <S.TitleInput
+        ref={titleInputRef}
         placeholder={placeholder}
-        value={value}
         onFocus={() => setPlaceholder("")} // 클릭하면 사라짐
         onChange={handleInputChange}
       />
