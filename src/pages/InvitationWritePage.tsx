@@ -19,7 +19,6 @@ const InvitationWritePage = () => {
     useInvitationStore();
 
   const blocksRef = useRef(invitation.blocks || undefined);
-  const [blocks, setBlocks] = useState(invitation.blocks || undefined);
   const imagesRef = useRef(photoImages || undefined);
   const [images, setImages] = useState(photoImages || undefined);
 
@@ -47,10 +46,9 @@ const InvitationWritePage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  useEffect(() => {
-    setBlocks([...invitation.blocks]);
-    console.log(blocks);
-  }, [invitation.blocks]);
+  // useEffect(() => {
+  //   blocksRef.current = [...invitation.blocks];
+  // }, [invitation.blocks]);
 
   useEffect(() => {
     setImages([...photoImages]);
@@ -147,8 +145,9 @@ const InvitationWritePage = () => {
             />
             <InvitationWriteComponent
               currentSequence={currentSequence}
+              setBlocks={setBlocksRef}
               setCurrentSequence={setCurrentSequence}
-              blocks={blocks}
+              blocks={blocksRef.current}
               images={images}
             />
           </>

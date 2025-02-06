@@ -18,11 +18,13 @@ const InvitationWriteComponent = ({
   setCurrentSequence,
   blocks,
   images,
+  setBlocks,
 }: {
   currentSequence: number;
   setCurrentSequence: (sequence: number) => void;
   blocks: Block[];
   images: File[];
+  setBlocks: (newBlocks: Block[]) => void;
 }) => {
   const { setToolBarContent } = useToolBarContext();
   const { invitation, setInvitation } = useInvitationStore();
@@ -90,6 +92,7 @@ const InvitationWriteComponent = ({
               setCurrentSequence={setCurrentSequence}
               block={block}
               index={index}
+              setBlocks={setBlocks}
             />
           </div>
         );
@@ -121,7 +124,9 @@ const InvitationWriteComponent = ({
 
       {/* Text */}
       <S.BlocksContainer>
-        {blocks.map((block, index) => renderBlockContent(block, index))}
+        {blocks.map((block, index) => (
+          <div key={index}>{renderBlockContent(block, index)}</div>
+        ))}{" "}
       </S.BlocksContainer>
     </S.Container>
   );
