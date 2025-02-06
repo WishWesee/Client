@@ -15,6 +15,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { deleteSentInvite } from "@/api/invitation/deleteSentInvite";
 import { deleteReceivedInvite } from "@/api/invitation/deleteReceivedInvite";
 import TwoBtnModal from "@/components/modal/TwoBtnModal";
+import { ToolBarProvider } from "@/contexts/toolBarContext";
 
 const InvitationDetailPage = () => {
   const { isMobile } = useWMediaQuery();
@@ -107,108 +108,114 @@ const InvitationDetailPage = () => {
   };
 
   return (
-    <S.Container $isHeader={invitationState !== 0}>
-      {data && (
-        <>
-          {invitationState !== 0 && !isDone && (
-            <InvitationWriteHeader
-              backText="이전"
-              buttonType="삭제"
-              onLeftBtnClick={() =>
-                invitationState === 1
-                  ? navigate("/invites/sent")
-                  : navigate("/invites/received")
-              }
-              onRightBtnClick={() =>
-                invitationState === 1
-                  ? setIsDeleteSentModal(true)
-                  : setIsDeleteReceivedModal(true)
-              }
-            />
-          )}
-          {isMobile && (
-            <S.FadeInImage
-              src={data.cardImage}
-              alt="카드 이미지"
-              $scrollY={scrollY}
-              $screenWidth={screenWidth}
-            />
-          )}
-          <TotheTopBtn />
-          <S.BodyWrap $screenWidth={screenWidth}>
+    <ToolBarProvider>
+      <S.Container $isHeader={invitationState !== 0 && !isDone}>
+        {data && (
+          <>
+            {invitationState !== 0 && !isDone && (
+              <InvitationWriteHeader
+                backText="이전"
+                buttonType="삭제"
+                onLeftBtnClick={() =>
+                  invitationState === 1
+                    ? navigate("/invites/sent")
+                    : navigate("/invites/received")
+                }
+                onRightBtnClick={() =>
+                  invitationState === 1
+                    ? setIsDeleteSentModal(true)
+                    : setIsDeleteReceivedModal(true)
+                }
+              />
+            )}
             {isMobile && (
-              <S.Overlay style={{ opacity: Math.max(1 - scrollY / 300, 0) }} />
+              <S.FadeInImage
+                src={data.cardImage}
+                alt="카드 이미지"
+                $scrollY={scrollY}
+                $screenWidth={screenWidth}
+                $isHeader={invitationState !== 0 && !isDone}
+                $animationStarted={true}
+              />
             )}
-            <ContentWrap
-              invitationState={invitationState}
-              data={data}
-              refetch={refetch}
-              isDone={isDone}
-            />
-            {!isDone && (
-              <>
-                {data.attendanceSurveyEnabled && (
-                  <ComingWrap
-                    id={data.invitationId}
-                    isReview={data.canWriteFeedback}
-                    isLogin={data.loggedIn}
-                  />
-                )}
-                {isMobile && invitationState === 0 && (
-                  <SaveWrap
-                    id={data.invitationId}
-                    refetch={refetch}
-                    isLogin={data.loggedIn}
-                  />
-                )}
-                {isMobile && (
-                  <ShareWrap
-                    id={data.invitationId}
-                    title={data.title}
-                    cardImage={data.cardImage}
-                    isAlreadySave={data.alreadySaved}
-                    isLogin={data.loggedIn}
-                    isShareLink={invitationState === 0}
-                    refetch={refetch}
-                  />
-                )}
-                {invitationState !== 0 && data.canWriteFeedback && (
-                  <ReviewWrap
-                    id={data.invitationId}
-                    title={data.title}
-                    isOwner={data.owner}
-                  />
-                )}
-              </>
+            <TotheTopBtn />
+            <S.BodyWrap $screenWidth={screenWidth}>
+              {isMobile && (
+                <S.Overlay
+                  style={{ opacity: Math.max(1 - scrollY / 300, 0) }}
+                />
+              )}
+              <ContentWrap
+                invitationState={invitationState}
+                data={data}
+                refetch={refetch}
+                isDone={isDone}
+              />
+              {!isDone && (
+                <>
+                  {data.attendanceSurveyEnabled && (
+                    <ComingWrap
+                      id={data.invitationId}
+                      isReview={data.canWriteFeedback}
+                      isLogin={data.loggedIn}
+                    />
+                  )}
+                  {isMobile && invitationState === 0 && (
+                    <SaveWrap
+                      id={data.invitationId}
+                      refetch={refetch}
+                      isLogin={data.loggedIn}
+                    />
+                  )}
+                  {isMobile && (
+                    <ShareWrap
+                      id={data.invitationId}
+                      title={data.title}
+                      cardImage={data.cardImage}
+                      isAlreadySave={data.alreadySaved}
+                      isLogin={data.loggedIn}
+                      isShareLink={invitationState === 0}
+                      refetch={refetch}
+                    />
+                  )}
+                  {invitationState !== 0 && data.canWriteFeedback && (
+                    <ReviewWrap
+                      id={data.invitationId}
+                      title={data.title}
+                      isOwner={data.owner}
+                    />
+                  )}
+                </>
+              )}
+            </S.BodyWrap>
+            {isDeleteSentModal && (
+              <TwoBtnModal
+                text="초대장을 삭제하시겠습니까?"
+                leftBtnText="취소"
+                rightBtnText="삭제"
+                color="red"
+                onLeftClick={() => {
+                  setIsDeleteSentModal(false);
+                }}
+                onRightClick={handleDeleteSentInvite}
+              />
             )}
-          </S.BodyWrap>
-          {isDeleteSentModal && (
-            <TwoBtnModal
-              text="초대장을 삭제하시겠습니까?"
-              leftBtnText="취소"
-              rightBtnText="삭제"
-              color="red"
-              onLeftClick={() => {
-                setIsDeleteSentModal(false);
-              }}
-              onRightClick={handleDeleteSentInvite}
-            />
-          )}
-          {isDeleteReceivedModal && (
-            <TwoBtnModal
-              text="초대장을 삭제하시겠습니까?"
-              leftBtnText="취소"
-              rightBtnText="삭제"
-              color="red"
-              onLeftClick={() => {
-                setIsDeleteReceivedModal(false);
-              }}
-              onRightClick={handleDeleteReceivedInvite}
-            />
-          )}
-        </>
-      )}
-    </S.Container>
+            {isDeleteReceivedModal && (
+              <TwoBtnModal
+                text="초대장을 삭제하시겠습니까?"
+                leftBtnText="취소"
+                rightBtnText="삭제"
+                color="red"
+                onLeftClick={() => {
+                  setIsDeleteReceivedModal(false);
+                }}
+                onRightClick={handleDeleteReceivedInvite}
+              />
+            )}
+          </>
+        )}
+      </S.Container>
+    </ToolBarProvider>
   );
 };
 

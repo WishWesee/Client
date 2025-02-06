@@ -25,5 +25,5 @@ export const HeaderComp = styled.div`
   width: 100%;
   height: 54px;
   border-bottom: 0.125rem solid #f4f4f4;
-  z-index: 10;
+  z-index: 100;
 `;

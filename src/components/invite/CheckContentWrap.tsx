@@ -19,6 +19,7 @@ const CheckContentWrap = ({ data }: Props) => {
   const { isMobile, isTablet, isDesktop } = useWMediaQuery();
 
   const [isFold, setIsFold] = useState(false); //글이 접힌 상태인지 여부
+  let imageIndex = 0;
 
   return (
     <S.CardWrap>
@@ -54,31 +55,39 @@ const CheckContentWrap = ({ data }: Props) => {
               data={data.invitation.scheduleVotes}
             />
           )}
-          <S.SectionHeader style={{ marginTop: 40 }}>
-            <LocationIcon />
-            <h4>{data.invitation.userLocation || data.invitation.location}</h4>
-          </S.SectionHeader>
-          <a
-            onClick={() => window.open(`${data.invitation.mapLink}`)}
-            style={{ marginBottom: "8px" }}
-          >
-            {data.invitation.address}
-          </a>
-          <LocationMapComponent
-            location={{
-              location: data.invitation.location,
-              address: data.invitation.address,
-              mapLink: data.invitation.mapLink,
-              latitude: data.invitation.latitude,
-              longitude: data.invitation.longitude,
-            }}
-            borderColor={"var(--Gray5)"}
-          />
+          {(data.invitation.userLocation || data.invitation.location) && (
+            <S.SectionHeader style={{ marginTop: 40 }}>
+              <LocationIcon />
+              <h4>
+                {data.invitation.userLocation || data.invitation.location}
+              </h4>
+            </S.SectionHeader>
+          )}
+          {data.invitation.location && (
+            <>
+              <a onClick={() => window.open(`${data.invitation.mapLink}`)}>
+                {data.invitation.address}
+              </a>
+              <LocationMapComponent
+                location={{
+                  location: data.invitation.location,
+                  address: data.invitation.address,
+                  mapLink: data.invitation.mapLink,
+                  latitude: data.invitation.latitude,
+                  longitude: data.invitation.longitude,
+                }}
+                borderColor={"var(--Gray5)"}
+              />
+            </>
+          )}
         </div>
       </S.NotFoldWrap>
       {!isFold && (
         <S.FoldWrap>
           {data.invitation.blocks.map((block) => {
+            if (block.type === "photo") {
+              imageIndex++;
+            }
             return (
               <S.FlodItem key={block.sequence}>
                 {block.type === "divider" && <hr />}
@@ -92,7 +101,10 @@ const CheckContentWrap = ({ data }: Props) => {
                   />
                 )}
                 {block.type === "photo" && (
-                  <img src={block.image!} alt="첨부한 이미지" />
+                  <img
+                    src={URL.createObjectURL(data.photoImages[imageIndex - 1])}
+                    alt="첨부한 이미지"
+                  />
                 )}
                 {block.type === "text" && (
                   <div
@@ -108,6 +120,7 @@ const CheckContentWrap = ({ data }: Props) => {
                           : block.styles === "underline"
                           ? "underline"
                           : "none",
+                      whiteSpace: "pre-wrap",
                     }}
                   >
                     {typeof block.content! === "string" ? block.content : ""}

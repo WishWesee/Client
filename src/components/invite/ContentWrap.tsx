@@ -14,6 +14,7 @@ import ShareWrap from "./ShareWrap";
 import ContentTextBox from "./ContentTextBox";
 import ContentTimeTable from "./ContentTimeTable";
 import KakaoWrap from "./KakaoWrap";
+import LocationMapComponent from "../invitationWrite/location/LocationMapComponent";
 
 interface Props {
   invitationState: number;
@@ -72,12 +73,29 @@ const ContentWrap = ({ invitationState, data, refetch, isDone }: Props) => {
           {data.scheduleVotes.length > 0 && (
             <VoteBox data={data} refetch={refetch} isLogin={data.loggedIn} />
           )}
-          <S.SectionHeader style={{ marginTop: 40 }}>
-            <LocationIcon />
-            <h4>{data.userLocation || data.location}</h4>
-          </S.SectionHeader>
-          <a onClick={() => window.open(`${data.mapLink}`)}>{data.address}</a>
-          <div style={{ color: "red" }}>지도링크</div>
+          {(data.userLocation || data.location) && (
+            <S.SectionHeader style={{ marginTop: 40 }}>
+              <LocationIcon />
+              <h4>{data.userLocation || data.location}</h4>
+            </S.SectionHeader>
+          )}
+          {data.location && (
+            <>
+              <a onClick={() => window.open(`${data.mapLink}`)}>
+                {data.address}
+              </a>
+              <LocationMapComponent
+                location={{
+                  location: data.location,
+                  address: data.address,
+                  mapLink: data.mapLink,
+                  latitude: data.latitude,
+                  longitude: data.longitude,
+                }}
+                borderColor={"var(--Gray5)"}
+              />
+            </>
+          )}
         </div>
       </S.NotFoldWrap>
       {!isFold && (

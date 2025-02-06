@@ -6,15 +6,23 @@ import { usePostInvitation } from "@/hooks/write/usePostInvitation";
 import useInvitationStore from "@/store/invitation";
 import { TInvitationReq } from "@/types/invite";
 import * as S from "@styles/invite/InvitationDetailPageStyle";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import InvitationWriteHeader from "./InvitationWriteHeader";
 
 type Props = {
   data: TInvitationReq;
   isCheck: boolean;
+  onLeftBtnClick: () => void;
+  onRightBtnClick: () => void;
 };
 
-const CheckComponent = ({ data, isCheck }: Props) => {
+const CheckComponent = ({
+  data,
+  isCheck,
+  onLeftBtnClick,
+  onRightBtnClick,
+}: Props) => {
   const { isMobile } = useWMediaQuery();
   const navigate = useNavigate();
   const { mutate: postInvitation } = usePostInvitation();
@@ -22,10 +30,15 @@ const CheckComponent = ({ data, isCheck }: Props) => {
   //애니메이션 스크롤
   const [scrollY, setScrollY] = useState(0);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [animationStarted, setAnimationStarted] = useState(false);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     setScrollY(window.scrollY);
-  };
+
+    if (window.scrollY === 0 && !animationStarted) {
+      setAnimationStarted(true);
+    }
+  }, [animationStarted]);
 
   const updateScreenWidth = () => {
     setScreenWidth(window.innerWidth);
@@ -41,7 +54,13 @@ const CheckComponent = ({ data, isCheck }: Props) => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", updateScreenWidth);
     };
-  }, []);
+  }, [handleScroll]);
+
+  useEffect(() => {
+    if (window.scrollY === 0 && !animationStarted) {
+      setAnimationStarted(true);
+    }
+  }, [animationStarted]);
 
   //완성된 초대장 저장
   const handleSaveInvite = () => {
@@ -79,16 +98,24 @@ const CheckComponent = ({ data, isCheck }: Props) => {
     <S.Container $isHeader={true}>
       {data && (
         <>
+          <InvitationWriteHeader
+            backText="이전"
+            buttonType="저장"
+            onLeftBtnClick={onLeftBtnClick}
+            onRightBtnClick={onRightBtnClick}
+          />
           {isMobile && (
             <S.FadeInImage
               src={
                 data.cardImage instanceof File
                   ? URL.createObjectURL(data.cardImage)
-                  : (data.cardImage as unknown as string) // SVG 경로 그대로 사용
+                  : (data.cardImage as unknown as string)
               }
               alt="카드 이미지"
               $scrollY={scrollY}
               $screenWidth={screenWidth}
+              $isHeader={true}
+              $animationStarted={animationStarted}
             />
           )}
           <TotheTopBtn />

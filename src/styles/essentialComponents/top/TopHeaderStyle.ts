@@ -11,12 +11,10 @@ export const TopHeader = styled.div`
   background-color: #fcfcfd;
 `;
 
-export const HeaderButtonWithModal  = styled.div`
-
-display: flex;
-align-items: center;
-justify-content: center;
-flex-align: column;
+export const HeaderButtonWithModal = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const HeaderButtonContainer = styled.div`
