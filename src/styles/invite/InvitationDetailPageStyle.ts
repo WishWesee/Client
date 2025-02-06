@@ -47,7 +47,7 @@ export const FadeInImage = styled.img<{
   $animationStarted: boolean;
 }>`
   position: fixed;
-  top: ${(props) => (props.$isHeader ? 100 : 52)}px;
+  top: ${(props) => (props.$isHeader ? 102 : 54)}px;
   width: 100%;
   height: ${(props) => props.$screenWidth * (3 / 4)};
   object-fit: cover;
