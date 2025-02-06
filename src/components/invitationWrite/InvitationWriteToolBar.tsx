@@ -6,6 +6,7 @@ import {
   SubTextToolBarList,
   TextToolBarList,
   TimeTableToolBarList,
+  VoteToolBarList,
 } from "@/constants/invitationWrite/toolBar";
 import { useToolBarContext } from "@/contexts/toolBarContext";
 import useInvitationStore from "@/store/invitation";
@@ -15,7 +16,8 @@ import ArrowTop from "@assets/icons/화면GUI_Full/3232/Arrow_Top.svg?react";
 import Delete from "@assets/icons/화면GUI_Full/3232/Delete.svg?react";
 import Arrow from "@assets/icons/화면GUI_Line/2020/Arrow_Left.svg?react";
 import * as S from "@styles/invitationWrite/invitationWriteToolBar";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import TwoBtnModal from "../modal/TwoBtnModal";
 
 const InvitationWriteToolBar = ({
   currentSequence,
@@ -39,6 +41,7 @@ const InvitationWriteToolBar = ({
   const { invitation, setInvitation, addBlock, addImage } =
     useInvitationStore();
   const selectedToolRef = useRef(selectedTool || undefined);
+  const [isShowModal, setIsShowModal] = useState(false);
 
   const isSubToolBar =
     selectedTool &&
@@ -50,6 +53,8 @@ const InvitationWriteToolBar = ({
     toolBarContent === PhotoToolBarList ||
     toolBarContent === BoxToolBarList ||
     toolBarContent === TimeTableToolBarList;
+
+  const isVote = toolBarContent === VoteToolBarList;
 
   const handleSubTool = (index: number) => {
     setSubSelectedTool(index);
@@ -114,6 +119,15 @@ const InvitationWriteToolBar = ({
     setTimeout(() => {
       setBlocks([...useInvitationStore.getState().invitation.blocks]);
     }, 0);
+  };
+
+  const handleDeleteVote = () => {
+    setInvitation((prevInvitation) => {
+      prevInvitation.voteDeadline = "";
+      prevInvitation.scheduleVotes = [];
+    });
+    setToolBarContent(NomalToolBarList);
+    setIsShowModal(false);
   };
 
   // 기본 툴바 버튼 클릭시
@@ -231,6 +245,13 @@ const InvitationWriteToolBar = ({
             <Delete onClick={() => handleDeleteBlock()} />
           </S.ArrowContainer>
         )}
+
+        {/* 투표 삭제 구현 */}
+        {isVote && (
+          <S.ArrowContainer>
+            <Delete onClick={() => setIsShowModal(true)} />
+          </S.ArrowContainer>
+        )}
       </S.ToolContainer>
 
       {isSubToolBar && (
@@ -250,6 +271,18 @@ const InvitationWriteToolBar = ({
             </S.ToolButton>
           ))}
         </S.SubToolContainer>
+      )}
+
+      {/* Modal */}
+      {isShowModal && (
+        <TwoBtnModal
+          text={"투표를 삭제하시겠습니까?"}
+          leftBtnText={"취소"}
+          rightBtnText={"삭제"}
+          color={"red"}
+          onLeftClick={() => setIsShowModal(false)}
+          onRightClick={() => handleDeleteVote()}
+        />
       )}
     </S.Container>
   );

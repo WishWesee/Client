@@ -67,6 +67,7 @@ export const SelectDateButton = styled.button`
   border: 2px solid var(--Blue-10, #d7e9ff);
   background: var(--White, #fcfcfd);
   cursor: pointer;
+  box-sizing: border-box;
 `;
 
 export const ButtonText = styled.p`
@@ -85,6 +86,7 @@ export const SelectTimeButton = styled.button`
   border: 2px solid var(--Blue-10, #d7e9ff);
   background: var(--White, #fcfcfd);
   cursor: pointer;
+  box-sizing: border-box;
 `;
 
 export const ItemContainer = styled.div<{ isSelected?: boolean }>`

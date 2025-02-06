@@ -26,9 +26,9 @@ export const TextBoxWrap = styled.div`
   }
 `;
 
-export const TitleInput = styled.textarea`
+export const TitleInput = styled.input`
   display: flex;
-  height: 16px;
+  height: fit-content;
   color: var(--Black, #151516);
   text-align: center;
   width: 100%;
@@ -57,6 +57,16 @@ export const ContentInput = styled.textarea`
   padding: 12px 4px;
   box-sizing: border-box;
   background-color: transparent;
+
+  color: var(--Grey40, #88898a);
+  text-align: center;
+
+  /* Regular/R_16_24 */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
 
   &:focus {
     outline: none;

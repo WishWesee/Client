@@ -65,7 +65,7 @@ const InvitationWriteBoxComponent = ({
   };
 
   const handleTitleInputChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const newValue = event.target.value;
     setTitleValue(newValue);

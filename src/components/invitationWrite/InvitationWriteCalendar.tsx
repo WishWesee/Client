@@ -23,6 +23,7 @@ const InvitationWriteCalendar = () => {
   const { selectedTool, setToolBarContent } = useToolBarContext();
 
   useEffect(() => {
+    console.log(selectedTool);
     if (selectedTool?.type === "Vote") {
       setIsShowModal(true);
     }
@@ -73,7 +74,7 @@ const InvitationWriteCalendar = () => {
                 <>
                   <ActiveCalendar />
                   <S.ButtonText style={{ color: "var(--Black)" }}>
-                    {formatDate}
+                    {formatDate.replaceAll("-", ".")}
                   </S.ButtonText>
                 </>
               )}
