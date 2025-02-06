@@ -55,6 +55,12 @@ const CheckComponent = ({
     };
   }, [handleScroll]);
 
+  useEffect(() => {
+    if (window.scrollY === 0 && !animationStarted) {
+      setAnimationStarted(true);
+    }
+  }, [animationStarted]);
+
   //완성된 초대장 저장
   const handleSaveInvite = () => {
     const formData = new FormData();

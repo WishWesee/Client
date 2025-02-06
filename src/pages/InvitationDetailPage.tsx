@@ -109,7 +109,7 @@ const InvitationDetailPage = () => {
 
   return (
     <ToolBarProvider>
-      <S.Container $isHeader={invitationState !== 0}>
+      <S.Container $isHeader={invitationState !== 0 && !isDone}>
         {data && (
           <>
             {invitationState !== 0 && !isDone && (
@@ -134,7 +134,7 @@ const InvitationDetailPage = () => {
                 alt="카드 이미지"
                 $scrollY={scrollY}
                 $screenWidth={screenWidth}
-                $isHeader={invitationState !== 0}
+                $isHeader={invitationState !== 0 && !isDone}
                 $animationStarted={true}
               />
             )}
