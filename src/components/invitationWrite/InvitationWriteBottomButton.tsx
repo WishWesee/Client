@@ -7,9 +7,11 @@ const InvitationWriteBottomButton = ({
   isSubmit,
   text,
   onClick,
+  isAuth,
 }: {
   isSubmit: boolean;
   text: string;
+  isAuth: string | null;
   onClick: () => void;
 }) => {
   const { invitation, setInvitation } = useInvitationStore();
@@ -27,11 +29,15 @@ const InvitationWriteBottomButton = ({
   return (
     <S.Container>
       <S.LabelContainer>
-        <S.Label>참석 여부 조사</S.Label>
-        <SlideButton
-          currentState={attendanceSurveyEnabled}
-          handleState={handleSurvey}
-        />
+        {isAuth && (
+          <>
+            <S.Label>참석 여부 조사</S.Label>
+            <SlideButton
+              currentState={attendanceSurveyEnabled}
+              handleState={handleSurvey}
+            />
+          </>
+        )}
       </S.LabelContainer>
       <S.OkButton $isEnable={isSubmit} onClick={onClick} disabled={!isSubmit}>
         {text}

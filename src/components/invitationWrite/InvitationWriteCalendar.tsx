@@ -8,6 +8,7 @@ import Calendar from "@assets/icons/화면GUI_Full/2424_Default/Calendar.svg?rea
 import Time from "@assets/icons/화면GUI_Full/2424_Default/Time.svg?react";
 import * as S from "@styles/invitationWrite/invitationWriteCalendar";
 import { useEffect, useState } from "react";
+import AuthModal from "../modal/AuthModal";
 import InvitationWriteCalendarModal from "./calendar/InvitationWriteCalendarModal";
 import VoteModal from "./calendar/VoteModal";
 import InvitationWriteTimeModal from "./InvitationWriteTimeModal";
@@ -18,14 +19,30 @@ const InvitationWriteCalendar = () => {
   const [isTimeShow, setIsTimeShow] = useState<boolean>(false);
   const [activeStateModal, setActiveStateModal] = useState<activeState>(null);
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  const [isShowAuthModal, setIsShowAuthModal] = useState<boolean>(false);
 
   const { invitation, setInvitation } = useInvitationStore();
   const { selectedTool, setToolBarContent } = useToolBarContext();
 
+  const getAuthTokenFromCookie = () => {
+    return (
+      document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("Authorization="))
+        ?.split("=")[1] || null
+    );
+  };
+
+  const isAuth = getAuthTokenFromCookie();
+
   useEffect(() => {
     console.log(selectedTool);
     if (selectedTool?.type === "Vote") {
-      setIsShowModal(true);
+      if (isAuth) {
+        setIsShowModal(true);
+      } else {
+        setIsShowAuthModal(true);
+      }
     }
   }, [selectedTool]);
 
@@ -154,6 +171,12 @@ const InvitationWriteCalendar = () => {
         )}
 
         {isShowModal && <VoteModal onClose={() => setIsShowModal(false)} />}
+        {isShowAuthModal && (
+          <AuthModal
+            exitModal={() => setIsShowAuthModal(false)}
+            text={"로그인 후 투표 기능을 이용할 수 있어요"}
+          />
+        )}
       </S.DateContainer>
     </S.Container>
   );

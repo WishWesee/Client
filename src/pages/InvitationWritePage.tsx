@@ -184,6 +184,7 @@ const InvitationWritePage = () => {
         <InvitationWriteBottomButton
           isSubmit={isSubmit}
           text={isCheckComponent ? "완료" : "다음"}
+          isAuth={isAuth}
           onClick={
             !isCheckComponent
               ? () => {
