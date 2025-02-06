@@ -54,26 +54,31 @@ const CheckContentWrap = ({ data }: Props) => {
               data={data.invitation.scheduleVotes}
             />
           )}
-          <S.SectionHeader style={{ marginTop: 40 }}>
-            <LocationIcon />
-            <h4>{data.invitation.userLocation || data.invitation.location}</h4>
-          </S.SectionHeader>
-          <a
-            onClick={() => window.open(`${data.invitation.mapLink}`)}
-            style={{ marginBottom: "8px" }}
-          >
-            {data.invitation.address}
-          </a>
-          <LocationMapComponent
-            location={{
-              location: data.invitation.location,
-              address: data.invitation.address,
-              mapLink: data.invitation.mapLink,
-              latitude: data.invitation.latitude,
-              longitude: data.invitation.longitude,
-            }}
-            borderColor={"var(--Gray5)"}
-          />
+          {(data.invitation.userLocation || data.invitation.location) && (
+            <S.SectionHeader style={{ marginTop: 40 }}>
+              <LocationIcon />
+              <h4>
+                {data.invitation.userLocation || data.invitation.location}
+              </h4>
+            </S.SectionHeader>
+          )}
+          {data.invitation.location && (
+            <>
+              <a onClick={() => window.open(`${data.invitation.mapLink}`)}>
+                {data.invitation.address}
+              </a>
+              <LocationMapComponent
+                location={{
+                  location: data.invitation.location,
+                  address: data.invitation.address,
+                  mapLink: data.invitation.mapLink,
+                  latitude: data.invitation.latitude,
+                  longitude: data.invitation.longitude,
+                }}
+                borderColor={"var(--Gray5)"}
+              />
+            </>
+          )}
         </div>
       </S.NotFoldWrap>
       {!isFold && (
