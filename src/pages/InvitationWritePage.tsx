@@ -3,6 +3,7 @@ import InvitationWriteBottomButton from "@/components/invitationWrite/Invitation
 import InvitationWriteComponent from "@/components/invitationWrite/InvitationWriteComponent";
 import InvitationWriteHeader from "@/components/invitationWrite/InvitationWriteHeader";
 import InvitationWriteToolBar from "@/components/invitationWrite/InvitationWriteToolBar";
+import AuthModal from "@/components/modal/AuthModal";
 import CheckModal from "@/components/modal/CheckModal";
 import { ToolBarProvider } from "@/contexts/toolBarContext";
 import {
@@ -23,7 +24,7 @@ const InvitationWritePage = () => {
   const imagesRef = useRef(photoImages || undefined);
   const [images, setImages] = useState(photoImages || undefined);
   const [blocks, setBlocks] = useState<Block[]>();
-
+  const [isShowAuthModal, setIsShowAuthModal] = useState<boolean>(false);
   const [currentSequence, setCurrentSequence] = useState(0);
   const [isCheckComponent, setIsCheckComponent] = useState(false);
   const [isShowModal, setIsShowModal] = useState(false);
@@ -31,6 +32,17 @@ const InvitationWritePage = () => {
   const { mutate: handlePostInvitationSave } = usePostInvitationSave();
   const { mutate: postInvitation } = usePostInvitation();
   const { resetInvitation } = useInvitationStore();
+
+  const getAuthTokenFromCookie = () => {
+    return (
+      document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("Authorization="))
+        ?.split("=")[1] || null
+    );
+  };
+
+  const isAuth = getAuthTokenFromCookie();
 
   const isSubmit =
     (invitation.location !== "" || invitation.userLocation !== "") &&
@@ -61,6 +73,10 @@ const InvitationWritePage = () => {
 
   // 임시 저장
   const handleSave = () => {
+    if (!isAuth) {
+      setIsShowAuthModal(true);
+      return;
+    }
     const formData = new FormData();
     formData.append(
       "invitation",
@@ -179,6 +195,12 @@ const InvitationWritePage = () => {
         />
 
         {isShowModal && <CheckModal exitModal={() => setIsShowModal(false)} />}
+        {isShowAuthModal && (
+          <AuthModal
+            exitModal={() => setIsShowAuthModal(false)}
+            text={"로그인 후 저장할 수 있어요"}
+          />
+        )}
       </S.Container>
     </ToolBarProvider>
   );

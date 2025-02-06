@@ -28,6 +28,9 @@ const InvitationWriteHeader: React.FC<InvitationWriteHeaderProps> = ({
           isEnable={buttonType === "삭제" || isEnable}
           buttonType={buttonType}
           onClick={onRightBtnClick}
+          style={{
+            pointerEvents: buttonType !== "삭제" && !isEnable ? "none" : "auto",
+          }}
         >
           {buttonType}
         </S.SaveButton>

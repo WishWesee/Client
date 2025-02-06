@@ -41,3 +41,16 @@ export const BtnWrap = styled.div`
   display: flex;
   gap: 12px;
 `;
+
+export const Button = styled.button`
+  display: flex;
+  width: 148px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: var(--Primary, #358ffe);
+  border: none;
+  color: white;
+  font: var(--Selected-BtnName-FileName);
+`;
