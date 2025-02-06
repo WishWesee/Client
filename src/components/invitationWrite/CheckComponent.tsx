@@ -51,12 +51,6 @@ const CheckComponent = ({ data }: Props) => {
     <S.Container $isHeader={true}>
       {data && (
         <>
-          {/* <InvitationWriteHeader
-            backText="이전"
-            buttonType="저장"
-            onLeftBtnClick={onLeftBtnClick}
-            onRightBtnClick={onRightBtnClick}
-          /> */}
           {isMobile && (
             <S.FadeInImage
               src={
