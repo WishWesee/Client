@@ -90,6 +90,7 @@ export const NotFoldWrap = styled.div<{ $isFold: boolean }>`
   > img {
     transition: all 0.3s ease-in-out;
     width: 100%;
+    object-fit: cover;
 
     ${isTablet} {
       border-radius: 8px;

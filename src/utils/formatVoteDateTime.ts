@@ -20,11 +20,11 @@ export const formatVoteDateTime = (
   const startTime = formatTime(voteStartTime);
   const endTime = formatTime(voteEndTime);
 
-  if (!startTime && !endTime && startDate === endDate) {
-    return startDate;
+  if (endDate) {
+    return `${startDate} ${startTime} ~ ${endDate} ${endTime}`;
   }
 
-  return `${startDate} ${startTime} ~ ${endDate} ${endTime}`;
+  return `${startDate} ${startTime}`;
 };
 
 //시간 포맷팅 함수 (hh:mm AM/PM)

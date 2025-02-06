@@ -77,7 +77,7 @@ const InvitationWritePage = () => {
 
   return (
     <ToolBarProvider>
-      <S.Container>
+      <S.Container $isCheckComponent={isCheckComponent}>
         {!isCheckComponent ? (
           <>
             <InvitationWriteHeader
@@ -101,7 +101,10 @@ const InvitationWritePage = () => {
             <InvitationWriteBottomButton
               isSubmit={isSubmit}
               text={"다음"}
-              onClick={() => setIsCheckComponent(true)}
+              onClick={() => {
+                setIsCheckComponent(true);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
             />
           </>
         ) : (
@@ -112,6 +115,11 @@ const InvitationWritePage = () => {
               photoImages: photoImages,
             }}
             isCheck={false}
+            onLeftBtnClick={() => {
+              setIsCheckComponent(false);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            onRightBtnClick={handleSave}
           />
         )}
         {isShowModal && <CheckModal exitModal={() => setIsShowModal(false)} />}

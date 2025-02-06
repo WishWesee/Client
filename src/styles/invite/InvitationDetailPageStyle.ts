@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { isDesktop, isTablet } from "@/hooks/Media";
 
 export const Container = styled.div<{ $isHeader: boolean }>`
@@ -43,16 +43,23 @@ const fadeIn = keyframes`
 export const FadeInImage = styled.img<{
   $scrollY: number;
   $screenWidth: number;
+  $isHeader: boolean;
+  $animationStarted: boolean;
 }>`
   position: fixed;
-  top: 0;
+  top: ${(props) => (props.$isHeader ? 100 : 52)}px;
   width: 100%;
   height: ${(props) => props.$screenWidth * (3 / 4)};
-  aspect-ratio: 1;
   object-fit: cover;
-  animation: ${fadeIn} 3s ease-out forwards;
   visibility: ${(props) =>
     props.$scrollY > props.$screenWidth * (3 / 4) ? "hidden" : "visible"};
+  opacity: 0;
+
+  ${(props) =>
+    props.$animationStarted &&
+    css`
+      animation: ${fadeIn} 3s ease-out forwards;
+    `}
 `;
 
 export const Overlay = styled.div`

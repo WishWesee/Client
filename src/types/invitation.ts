@@ -11,7 +11,7 @@ export interface Block {
   font?: string;
   styles?: string;
   content?: string | TimeTable[];
-  image?: string;
+  image?: string | File;
   time?: string;
   colorCode?: number;
 }
