@@ -29,7 +29,7 @@ const VotePersonModal = ({
         return <h4 key={name + index}>{name}</h4>;
       })}
       <hr />
-      <ButtonBottomNext text="완료" color="blue" onClick={onClick} />
+      <ButtonBottomNext text="확인" color="blue" onClick={onClick} />
     </S.ModalWrap>
   );
 };
