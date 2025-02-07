@@ -28,8 +28,9 @@ const InvitationWriteTimeModal: React.FC<InvitationWriteTimeModalProps> = ({
 
   const handleDateChange = () => {
     const newHour = isAM ? hour : hour + 12;
+    const newSetHour = newHour < 10 ? "0" + newHour : newHour;
     const newMinute = minute < 10 ? "0" + minute : minute;
-    const newStartTime = newHour + ":" + newMinute;
+    const newStartTime = newSetHour + ":" + newMinute;
     setInvitation((prevInvitation) => {
       isStartTime
         ? (prevInvitation.startTime = newStartTime)
