@@ -11,6 +11,8 @@ import {
 import { useToolBarContext } from "@/contexts/toolBarContext";
 import useInvitationStore from "@/store/invitation";
 import { Block } from "@/types/invitation";
+import ArrowBottom from "@assets/icons/화면GUI_Full/2424_Default/Arrow_Down.svg?react";
+import ArrowTop from "@assets/icons/화면GUI_Full/2424_Default/Arrow_Top.svg?react";
 import Delete from "@assets/icons/화면GUI_Full/3232/Delete.svg?react";
 import Arrow from "@assets/icons/화면GUI_Line/2020/Arrow_Left.svg?react";
 import * as S from "@styles/invitationWrite/invitationWriteToolBar";
@@ -62,33 +64,33 @@ const InvitationWriteToolBar = ({
   };
 
   // 블럭 이동
-  // const moveBlock = (direction: "forward" | "backward") => {
-  //   setInvitation((prevInvitation) => {
-  //     const newArr = [...prevInvitation.blocks]; // 배열 복사
+  const moveBlock = (direction: "forward" | "backward") => {
+    setInvitation((prevInvitation) => {
+      const newArr = [...prevInvitation.blocks]; // 배열 복사
 
-  //     if (direction === "forward" && currentSequence > 0) {
-  //       const [movedBlock] = newArr.splice(currentSequence, 1);
-  //       newArr.splice(currentSequence - 1, 0, movedBlock);
-  //     } else if (
-  //       direction === "backward" &&
-  //       currentSequence < newArr.length - 1
-  //     ) {
-  //       const [movedBlock] = newArr.splice(currentSequence, 1);
-  //       newArr.splice(currentSequence + 1, 0, movedBlock);
-  //     }
+      if (direction === "forward" && currentSequence > 0) {
+        const [movedBlock] = newArr.splice(currentSequence, 1);
+        newArr.splice(currentSequence - 1, 0, movedBlock);
+      } else if (
+        direction === "backward" &&
+        currentSequence < newArr.length - 1
+      ) {
+        const [movedBlock] = newArr.splice(currentSequence, 1);
+        newArr.splice(currentSequence + 1, 0, movedBlock);
+      }
 
-  //     // sequence 값 재설정
-  //     newArr.forEach((block, index) => {
-  //       block.sequence = index;
-  //     });
+      // sequence 값 재설정
+      newArr.forEach((block, index) => {
+        block.sequence = index;
+      });
 
-  //     prevInvitation.blocks = newArr;
-  //   });
+      prevInvitation.blocks = newArr;
+    });
 
-  //   setTimeout(() => {
-  //     setBlocks([...useInvitationStore.getState().invitation.blocks]);
-  //   }, 0);
-  // };
+    setTimeout(() => {
+      setBlocks([...useInvitationStore.getState().invitation.blocks]);
+    }, 0);
+  };
 
   // 블럭 삭제
   const handleDeleteBlock = () => {
@@ -238,8 +240,8 @@ const InvitationWriteToolBar = ({
         {/* 블럭 이동 구현 */}
         {isArrowBar && (
           <S.ArrowContainer>
-            {/* <ArrowBottom onClick={() => moveBlock("backward")} />
-            <ArrowTop onClick={() => moveBlock("forward")} /> */}
+            <ArrowBottom onClick={() => moveBlock("backward")} />
+            <ArrowTop onClick={() => moveBlock("forward")} />
             <Delete onClick={() => handleDeleteBlock()} />
           </S.ArrowContainer>
         )}
