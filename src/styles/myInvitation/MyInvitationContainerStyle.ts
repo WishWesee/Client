@@ -2,9 +2,21 @@ import styled from 'styled-components';
 
 export const LetterContainer = styled.div`
     display: flex;
+    box-sizing: border-box;
+    min-width: 160px;
+    height: 170px;
     flex-direction: column;
-    align-items: center;
     background-color: var(--White);
+
+    @media (min-width: 768px)  {
+        min-width: 204px;
+        min-height: 210px;
+    }
+
+    @media (min-width: 1200px) {
+        min-width: 328px;
+        min-height: 255px;
+    }
 `;
 
 export const LetterImgBox = styled.div`
@@ -47,7 +59,6 @@ export const LetterTitleBox = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 104px;
     font: var(--Selected-BtnName-FileName);
     color: var(--Black);
 
