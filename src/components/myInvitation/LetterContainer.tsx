@@ -12,6 +12,18 @@ type NBProps = {
 const LetterContainer: React.FC<NBProps> = ({ Title, Date, Image, Id }) => {
   const navigate = useNavigate();
 
+  let titleContent;
+  
+  if (Title) {
+    if (Title.length >= 9) {
+    titleContent = Title.slice(0, 8) + "...";
+    } else {
+      titleContent = Title;
+    }
+  } else {
+    titleContent = <div></div>;
+  }
+
   return (
     <style.LetterContainer>
       <style.LetterImgBox>
@@ -29,7 +41,7 @@ const LetterContainer: React.FC<NBProps> = ({ Title, Date, Image, Id }) => {
 
       <style.LetterTextBox>
         <style.LetterTitleBox>
-          Title ? {Title} : <div></div>
+          {titleContent}
           <ArrowRight
             style={{ cursor: "pointer" }}
             onClick={() => navigate(`/invites/${Id}`)}
