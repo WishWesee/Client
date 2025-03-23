@@ -18,12 +18,19 @@ import LocationMapComponent from "../invitationWrite/location/LocationMapCompone
 
 interface Props {
   invitationState: number;
+  token: string;
   data: TInvitationRes;
   refetch: () => void;
   isDone: boolean;
 }
 
-const ContentWrap = ({ invitationState, data, refetch, isDone }: Props) => {
+const ContentWrap = ({
+  invitationState,
+  token,
+  data,
+  refetch,
+  isDone,
+}: Props) => {
   const { isMobile, isTablet, isDesktop } = useWMediaQuery();
   const navigate = useNavigate();
 
@@ -144,11 +151,12 @@ const ContentWrap = ({ invitationState, data, refetch, isDone }: Props) => {
       )}
       <PageFoldBtn isFold={isFold} setIsFold={setIsFold} />
       {isDone ? (
-        <KakaoWrap data={data} />
+        <KakaoWrap data={data} token={token} />
       ) : (
         !isMobile && (
           <ShareWrap
             id={data.invitationId}
+            token={token}
             title={data.title}
             cardImage={data.cardImage}
             isAlreadySave={data.alreadySaved}

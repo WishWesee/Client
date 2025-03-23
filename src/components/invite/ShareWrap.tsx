@@ -11,6 +11,7 @@ import useNavigateStore from "@/store/useNavigateStore";
 
 type Props = {
   id: number;
+  token: string | null;
   title: string;
   cardImage: string;
   isAlreadySave: boolean;
@@ -21,6 +22,7 @@ type Props = {
 
 const ShareWrap = ({
   id,
+  token,
   title,
   cardImage,
   isLogin,
@@ -34,7 +36,7 @@ const ShareWrap = ({
 
   //초대 링크 복사 함수
   const ClipBoard = () => {
-    const url = `https://chochocho.wishwesee.n-e.kr/invites/${id}`;
+    const url = `https://chochocho.wishwesee.n-e.kr/invites/${token}`;
 
     navigator.clipboard.writeText(url).then(() => {
       alert("초대 링크가 복사되었습니다");
@@ -70,7 +72,7 @@ const ShareWrap = ({
     if (isLogin) {
       handleSaveReceived();
     } else {
-      setNavigatePage(`/invites/${id}`);
+      setNavigatePage(`/invites/${token}`);
       navigate("/login");
     }
   };
@@ -106,7 +108,7 @@ const ShareWrap = ({
           title={title}
           text="초대장이 도착했어요!"
           imageUrl={cardImage}
-          link={`https://chochocho.wishwesee.n-e.kr/invites/${id}`}
+          link={`https://chochocho.wishwesee.n-e.kr/invites/${token}`}
           buttonComponent={<ShareBtn text="카카오톡" icon={KakaoTalkIcon} />}
         />
         <ShareBtn text="링크 복사" icon={LinkIcon} onClick={ClipBoard} />

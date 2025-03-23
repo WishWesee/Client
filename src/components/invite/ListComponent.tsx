@@ -49,7 +49,7 @@ const ListComponent = ({ data, year, setYear, title }: Props) => {
           return (
             <S.ListItem
               key={data.invitationId}
-              onClick={() => navigate(`/invites/${data.invitationId}`)}
+              onClick={() => navigate(`/invites/${data.invitationToken}`)}
             >
               <img src={data.cardImage} alt={data.title} />
               <S.TitleWrap>

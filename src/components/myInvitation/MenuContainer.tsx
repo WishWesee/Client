@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import LetterContainer from '@/components/myInvitation/LetterContainer';
-import ArrowRight from '@/assets/icons/화면GUI_Line/2828/Arrow_Right.tsx';
-import * as style from '@/styles/myInvitation/MenuContainerStyle';
-import { MenuSubText } from '@constants/myInvitation/MyInvitation';
+import LetterContainer from "@/components/myInvitation/LetterContainer";
+import ArrowRight from "@/assets/icons/화면GUI_Line/2828/Arrow_Right.tsx";
+import * as style from "@/styles/myInvitation/MenuContainerStyle";
+import { MenuSubText } from "@constants/myInvitation/MyInvitation";
 
 type Invitation = {
   invitationId: number;
+  invitationToken: string;
   cardImage: string;
   title: string;
-  date: string; 
+  date: string;
 };
 
 type NBProps = {
@@ -20,18 +21,24 @@ type NBProps = {
 };
 
 //API 연동할때는 초대장 받은게 없으면 ~하는 로직으로 바꿀것.
-const SlideBar: React.FC<NBProps> = ({ MenuTitle, MenuSub, ShowDetailBool, Data }) => {
+const SlideBar: React.FC<NBProps> = ({
+  MenuTitle,
+  MenuSub,
+  ShowDetailBool,
+  Data,
+}) => {
   const navigate = useNavigate();
-  const [NoInvitationText, setNoInvitationText] = useState("저장된 초대장이 없어요");
+  const [NoInvitationText, setNoInvitationText] =
+    useState("저장된 초대장이 없어요");
 
   useEffect(() => {
     if (Data.length === 0) {
       if (MenuTitle === "작성 중인 초대장") {
-        setNoInvitationText("저장된 초대장이 없어요"); 
+        setNoInvitationText("저장된 초대장이 없어요");
       } else if (MenuTitle === "내가 보낸 초대장") {
-        setNoInvitationText("아직 보낸 초대장이 없어요"); 
+        setNoInvitationText("아직 보낸 초대장이 없어요");
       } else {
-        setNoInvitationText("아직 받은 초대장이 없어요"); 
+        setNoInvitationText("아직 받은 초대장이 없어요");
       }
     }
   }, [Data, MenuTitle]);
@@ -46,44 +53,44 @@ const SlideBar: React.FC<NBProps> = ({ MenuTitle, MenuSub, ShowDetailBool, Data 
 
   return (
     <>
-        {ShowDetailBool ?
-         <style.MenuContainerWithArrow>
-            <style.MenuTitleBox>{MenuTitle}</style.MenuTitleBox>
-            {Data.length == 0 ? <ArrowRight stroke='#88898A'/> : <ArrowRight onClick={handleNavigate}/>}
+      {ShowDetailBool ? (
+        <style.MenuContainerWithArrow>
+          <style.MenuTitleBox>{MenuTitle}</style.MenuTitleBox>
+          {Data.length == 0 ? (
+            <ArrowRight stroke="#88898A" />
+          ) : (
+            <ArrowRight onClick={handleNavigate} />
+          )}
         </style.MenuContainerWithArrow>
-        
-        : 
-
+      ) : (
         <style.MenuContainer>
-            <style.MenuTitleBox>{MenuTitle}</style.MenuTitleBox>
-            {MenuSub ? <style.MenuSubBox>{MenuSub}{MenuSubText.number}</style.MenuSubBox> : null}
+          <style.MenuTitleBox>{MenuTitle}</style.MenuTitleBox>
+          {MenuSub ? (
+            <style.MenuSubBox>
+              {MenuSub}
+              {MenuSubText.number}
+            </style.MenuSubBox>
+          ) : null}
         </style.MenuContainer>
+      )}
 
-        }
-
-        <style.SlideBar>
-        
-          {Data.length == 0 ?
-            <style.NoInvitationText>
-              {NoInvitationText}
-            </style.NoInvitationText>
-
-          :
-
+      <style.SlideBar>
+        {Data.length == 0 ? (
+          <style.NoInvitationText>{NoInvitationText}</style.NoInvitationText>
+        ) : (
           <>
             {Data.map((invitation) => (
               <LetterContainer
                 key={invitation.invitationId}
                 Title={invitation.title}
-                Date={invitation.date.split('T')[0]}
+                Date={invitation.date.split("T")[0]}
                 Image={invitation.cardImage}
-                Id={invitation.invitationId}
+                token={invitation.invitationToken}
               />
             ))}
           </>
-          }
-
-        </style.SlideBar>
+        )}
+      </style.SlideBar>
     </>
   );
 };

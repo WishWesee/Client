@@ -6,10 +6,10 @@ type NBProps = {
   Title: string;
   Date: string;
   Image: string;
-  Id: number;
+  token: string;
 };
 
-const LetterContainer: React.FC<NBProps> = ({ Title, Date, Image, Id }) => {
+const LetterContainer: React.FC<NBProps> = ({ Title, Date, Image, token }) => {
   const navigate = useNavigate();
 
   return (
@@ -32,7 +32,7 @@ const LetterContainer: React.FC<NBProps> = ({ Title, Date, Image, Id }) => {
           {Title}
           <ArrowRight
             style={{ cursor: "pointer" }}
-            onClick={() => navigate(`/invites/${Id}`)}
+            onClick={() => navigate(`/invites/${token}`)}
           />
         </style.LetterTitleBox>
         <style.LetterDateBox>{Date}</style.LetterDateBox>

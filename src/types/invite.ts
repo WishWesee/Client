@@ -2,6 +2,7 @@ import { Block } from "./invitation";
 
 export type TInvitationRes = {
   invitationId: number;
+  invitationToken: string | null;
   alreadySaved: boolean;
   canWriteFeedback: boolean;
   cardImage: string;
@@ -150,6 +151,7 @@ export type TInviteListRes = {
   totalInvitations: number;
   invitations: {
     invitationId: number;
+    invitationToken: string | null;
     cardImage: string;
     title: string;
     date: string;

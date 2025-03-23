@@ -24,7 +24,7 @@ const Router = () => {
           <Route path="/contentcut" element={<ImgContentCut />} />
           <Route path="/choicecard" element={<ChoiceCard />} />
           <Route path="/invites" element={<MyInviation />} />
-          <Route path="/invites/:id" element={<InvitationDetailPage />} />
+          <Route path="/invites/:token" element={<InvitationDetailPage />} />
           <Route path="/invites/sent" element={<SentInvitationListPage />} />
           <Route
             path="/invites/received"
