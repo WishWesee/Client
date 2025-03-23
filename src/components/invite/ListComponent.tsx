@@ -49,11 +49,15 @@ const ListComponent = ({ data, year, setYear, title }: Props) => {
           return (
             <S.ListItem
               key={data.invitationId}
-              onClick={() => navigate(`/invites/${data.invitationId}`)}
+              onClick={() => navigate(`/invites/${data.invitationToken}`)}
             >
               <img src={data.cardImage} alt={data.title} />
               <S.TitleWrap>
-                <h4>{data.title}</h4>
+                <h4>
+                  {data.title.length > 9
+                    ? data.title.slice(0, 8) + "..."
+                    : data.title}
+                </h4>
                 <ArrowRight20Icon color="var(--Black)" />
               </S.TitleWrap>
               <p>{data.date.replaceAll("-", ".")}</p>

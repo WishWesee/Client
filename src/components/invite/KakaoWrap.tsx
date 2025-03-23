@@ -8,9 +8,10 @@ import ShareKakaoBtn from "../shareSNS/ShareKakaoBtn";
 
 interface Props {
   data: TInvitationRes;
+  token: string;
 }
 
-const KakaoWrap = ({ data }: Props) => {
+const KakaoWrap = ({ data, token }: Props) => {
   const { isDesktop } = useWMediaQuery();
   const [content, setContent] = useState("");
 
@@ -45,7 +46,7 @@ const KakaoWrap = ({ data }: Props) => {
                 title={data.title}
                 text={content ? content : "초대장이 도착했어요!"}
                 imageUrl={data.cardImage}
-                link={`https://chochocho.wishwesee.n-e.kr/invites/${data.invitationId}`}
+                link={`https://chochocho.wishwesee.n-e.kr/invites/${token}`}
                 buttonComponent={
                   <ButtonBottomNext text="보내기" color="blue" />
                 }
@@ -74,7 +75,7 @@ const KakaoWrap = ({ data }: Props) => {
             title={data.title}
             text={content ? content : "초대장이 도착했어요!"}
             imageUrl={data.cardImage}
-            link={`https://chochocho.wishwesee.n-e.kr/invites/${data.invitationId}`}
+            link={`https://chochocho.wishwesee.n-e.kr/invites/${token}`}
             buttonComponent={<ButtonBottomNext text="보내기" color="blue" />}
           />
         )}

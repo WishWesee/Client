@@ -25,6 +25,7 @@ interface ScheduleVote {
 
 interface Invitation {
   invitationId: number | null;
+  invitationToken: string | null;
   title: string;
   tempSaved: boolean;
   startDate: string;
@@ -68,4 +69,5 @@ export interface InvitationState {
 export interface InvitationResponse {
   invitationId: number;
   message: string;
+  invitationToken: string;
 }
