@@ -13,10 +13,10 @@ const LetterContainer: React.FC<NBProps> = ({ Title, Date, Image, token }) => {
   const navigate = useNavigate();
 
   let titleContent;
-  
+
   if (Title) {
     if (Title.length >= 9) {
-    titleContent = Title.slice(0, 8) + "...";
+      titleContent = Title.slice(0, 8) + "...";
     } else {
       titleContent = Title;
     }

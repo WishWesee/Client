@@ -1,27 +1,29 @@
-import React from 'react';
-import MenuContainer from '@/components/myInvitation/MenuContainer';
-import * as style from '@/styles/myInvitation/SlideBarStyle';
-
-type Invitation = {
-  invitationId: number;
-  cardImage: string;
-  title: string;
-  date: string; 
-};
+import React from "react";
+import MenuContainer from "@/components/myInvitation/MenuContainer";
+import * as style from "@/styles/myInvitation/SlideBarStyle";
+import { TInviteListResItem } from "@/types/invite";
 
 type NBProps = {
   MenuTitle: string;
-  Data: Invitation[];
+  Data: TInviteListResItem[];
   MenuSub?: string;
   ShowDetailBool?: boolean;
 };
 
-const SlideBar: React.FC<NBProps> = ({ MenuTitle, MenuSub, ShowDetailBool, Data }) => {
+const SlideBar: React.FC<NBProps> = ({
+  MenuTitle,
+  MenuSub,
+  ShowDetailBool,
+  Data,
+}) => {
   return (
     <style.CardContainer>
-
-       <MenuContainer MenuTitle={MenuTitle} MenuSub={MenuSub} ShowDetailBool={ShowDetailBool} Data={Data} />
-
+      <MenuContainer
+        MenuTitle={MenuTitle}
+        MenuSub={MenuSub}
+        ShowDetailBool={ShowDetailBool}
+        Data={Data}
+      />
     </style.CardContainer>
   );
 };

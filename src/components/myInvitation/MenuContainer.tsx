@@ -4,18 +4,11 @@ import LetterContainer from "@/components/myInvitation/LetterContainer";
 import ArrowRight from "@/assets/icons/화면GUI_Line/2828/Arrow_Right.tsx";
 import * as style from "@/styles/myInvitation/MenuContainerStyle";
 import { MenuSubText } from "@constants/myInvitation/MyInvitation";
-
-type Invitation = {
-  invitationId: number;
-  invitationToken: string;
-  cardImage: string;
-  title: string;
-  date: string;
-};
+import { TInviteListResItem } from "@/types/invite";
 
 type NBProps = {
   MenuTitle: string;
-  Data: Invitation[];
+  Data: TInviteListResItem[];
   MenuSub?: string;
   ShowDetailBool?: boolean;
 };
@@ -74,23 +67,21 @@ const SlideBar: React.FC<NBProps> = ({
         </style.MenuContainer>
       )}
 
-      <style.SlideBar>
-        {Data.length == 0 ? (
-          <style.NoInvitationText>{NoInvitationText}</style.NoInvitationText>
-        ) : (
-          <>
-            {Data.map((invitation) => (
-              <LetterContainer
-                key={invitation.invitationId}
-                Title={invitation.title}
-                Date={invitation.date.split("T")[0]}
-                Image={invitation.cardImage}
-                token={invitation.invitationToken}
-              />
-            ))}
-          </>
-        )}
-      </style.SlideBar>
+      {Data.length == 0 ? (
+        <style.NoInvitationText>{NoInvitationText}</style.NoInvitationText>
+      ) : (
+        <style.SlideBar>
+          {Data.map((invitation) => (
+            <LetterContainer
+              key={invitation.invitationId}
+              Title={invitation.title}
+              Date={invitation.date.split("T")[0]}
+              Image={invitation.cardImage}
+              token={invitation.invitationToken || ""}
+            />
+          ))}
+        </style.SlideBar>
+      )}
     </>
   );
 };

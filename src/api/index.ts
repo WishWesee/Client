@@ -5,9 +5,7 @@ const TOKEN_REFRESH_INTERVAL = 300000; //5분
 //Authorization 토큰 가져오기
 const getAuthTokenFromCookie = () => {
   const cookies = document.cookie.split("; ");
-  const authCookie = cookies.find((cookie) =>
-    cookie.startsWith("Authorization=")
-  );
+  const authCookie = cookies.find((cookie) => cookie.startsWith("Authorization="));
 
   if (authCookie) {
     const tokenValue = authCookie.split("=")[1];
@@ -19,9 +17,7 @@ const getAuthTokenFromCookie = () => {
 //Refresh 토큰 가져오기
 const getRefreshTokenFromCookie = () => {
   const cookies = document.cookie.split("; ");
-  const refreshCookie = cookies.find((cookie) =>
-    cookie.startsWith("Refresh_Token=")
-  );
+  const refreshCookie = cookies.find((cookie) => cookie.startsWith("Refresh_Token="));
 
   if (refreshCookie) {
     const tokenValue = refreshCookie.split("=")[1];
@@ -39,8 +35,8 @@ const refreshAuthToken = async () => {
       return null;
     }
 
-    const response = await axios.post("/auth/refresh", {
-      refreshToken: refreshToken,
+    const response = await axios.post("/auth/refresh", { 
+      refreshToken: refreshToken
     });
 
     if (response.data?.accessToken) {
@@ -63,31 +59,24 @@ const refreshAuthToken = async () => {
 export const api = axios.create({
   baseURL: "https://wishwesee.n-e.kr",
   timeout: 3000,
-  headers: {
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzE0a2VsZWVAZ21haWwuY29tIiwiaWF0IjoxNzQyNzYzNTY4LCJleHAiOjE3NDI3NjUzNjh9.C6tXjYYSbwjXk9aJHOSqsTFaLta2Qh7uK7x8yU2WzIQ",
-  },
 });
 //////////////////////////////////////////
 
 //요청 인터셉트해서 Authorization 헤더 추가, 요청할때마다 리프레시
-api.interceptors.request.use(
-  async (config) => {
-    let token = getAuthTokenFromCookie();
-    if (!token) {
-      token = await refreshAuthToken();
-    }
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
+api.interceptors.request.use(async (config) => {
+  let token = getAuthTokenFromCookie();
+  if (!token) {
+    token = await refreshAuthToken();
   }
-);
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
 
-//5분마다 자동으로 토큰 리프레시함
+//5분마다 자동으로 토큰 리프레시함 
 let tokenRefreshInterval: NodeJS.Timeout | null = null;
 
 const startTokenRefresh = () => {

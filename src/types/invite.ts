@@ -149,11 +149,13 @@ export type TInvitationReq = {
 
 export type TInviteListRes = {
   totalInvitations: number;
-  invitations: {
-    invitationId: number;
-    invitationToken: string | null;
-    cardImage: string;
-    title: string;
-    date: string;
-  }[];
+  invitations: TInviteListResItem[];
+};
+
+export type TInviteListResItem = {
+  invitationId: number;
+  invitationToken: string | null;
+  cardImage: string;
+  title: string;
+  date: string;
 };
