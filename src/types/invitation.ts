@@ -25,7 +25,6 @@ interface ScheduleVote {
 
 interface Invitation {
   invitationId: number | null;
-  invitationToken: string | null;
   title: string;
   tempSaved: boolean;
   startDate: string;
