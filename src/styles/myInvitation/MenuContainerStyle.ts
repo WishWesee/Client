@@ -45,7 +45,7 @@ export const MenuSubBox = styled.div`
 `;
 
 export const SlideBar = styled.div`
-    display: flex;
+    grid-template-columns: repeat(3, 1fr);
     box-sizing: border-box;
     gap: 12px;
     overflow-x: auto;
