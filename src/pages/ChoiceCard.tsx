@@ -2,9 +2,13 @@ import ImgIcon from "@/assets/icons/화면GUI_Full/2424_Activate/Img.svg?react";
 import AddIcon from "@/assets/icons/화면GUI_Line/2020/Add.svg?react";
 import Birthday1 from "@/assets/images/ChoiceCard/Birthday1.png";
 import Birthday2 from "@/assets/images/ChoiceCard/Birthday2.png";
+import Birthday3 from "@/assets/images/ChoiceCard/Birthday3.png";
+import Birthday4 from "@/assets/images/ChoiceCard/Birthday4.png";
 import LastOfYear1 from "@/assets/images/ChoiceCard/LastOfYear1.png";
 import LastOfYear2 from "@/assets/images/ChoiceCard/LastOfYear2.png";
 import Travel1 from "@/assets/images/ChoiceCard/Travel.png";
+import Travel2 from "@/assets/images/ChoiceCard/Travel2.png";
+import Travel3 from "@/assets/images/ChoiceCard/Travel3.png";
 import NextButton from "@/components/button/Btn_Bottom_Next";
 import HorizontalSB from "@/components/choiceCard/HorizontalSB";
 import AddImageCautionModal from "@/components/choiceCard/Modal";
@@ -134,9 +138,13 @@ const ChoiceCard: React.FC = () => {
     ...myImages.map((image) => ({ content: image, category: SB.MY })),
     { content: Birthday1, category: SB.Birth },
     { content: Birthday2, category: SB.Birth },
+    { content: Birthday3, category: SB.Birth },
+    { content: Birthday4, category: SB.Birth },
     { content: LastOfYear1, category: SB.Year },
     { content: LastOfYear2, category: SB.Year },
     { content: Travel1, category: SB.Trav },
+    { content: Travel2, category: SB.Trav },
+    { content: Travel3, category: SB.Trav },
   ];
 
   const filteredCards =
