@@ -25,7 +25,7 @@ const LetterContainer: React.FC<NBProps> = ({ Title, Date, Image, token }) => {
   }
 
   return (
-    <style.LetterContainer>
+    <style.LetterContainer onClick={() => navigate(`/invites/${token}`)}>
       <style.LetterImgBox>
         <img
           src={Image}
@@ -42,10 +42,7 @@ const LetterContainer: React.FC<NBProps> = ({ Title, Date, Image, token }) => {
       <style.LetterTextBox>
         <style.LetterTitleBox>
           {titleContent}
-          <ArrowRight
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate(`/invites/${token}`)}
-          />
+          <ArrowRight />
         </style.LetterTitleBox>
         <style.LetterDateBox>{Date}</style.LetterDateBox>
       </style.LetterTextBox>

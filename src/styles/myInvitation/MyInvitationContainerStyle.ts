@@ -6,6 +6,7 @@ export const LetterContainer = styled.div`
   flex-direction: column;
   background-color: var(--White);
   border-radius: 0px 0px 4px 4px;
+  cursor: pointer;
 
   @media (min-width: 768px) {
     min-width: 204px;
