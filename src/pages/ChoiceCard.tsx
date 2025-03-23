@@ -32,19 +32,35 @@ const ChoiceCard: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [activeRectangle, setActiveRectangle] = useState<number>(0);
   const [activeModal, setActiveModal] = useState(false);
-  const [myImages, setMyImages] = useState<File[]>([]); // File 배열로 변경
+  const [myImages, setMyImages] = useState<File[]>([]);
   const [isCautionModalOpen, setIsCautionModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const { setSelectedImage } = useChoiceStore(); // 전역 상태 업데이트
+  const { setSelectedImage } = useChoiceStore();
   const { setCardImage } = useInvitationStore();
 
   const { isDesktop, isTablet } = useWMediaQuery();
 
   const frontProp = isDesktop || isTablet ? "다음" : Top.NullFront;
 
+  // 컴포넌트 마운트 시 Birthday1을 기본값으로 설정
+  useEffect(() => {
+    const setDefaultImage = async () => {
+      try {
+        const response = await fetch(Birthday1);
+        const blob = await response.blob();
+        const file = new File([blob], "Birthday1.png", { type: "image/png" });
+        setSelectedImage(file);
+        setCardImage(file);
+      } catch (error) {
+        console.error("기본 이미지 설정 오류:", error);
+      }
+    };
+    setDefaultImage();
+  }, [setSelectedImage, setCardImage]);
+
   const handleSBToggle = (index: number) => {
-    setActiveIndex(index); //선택 HorizontalSB index
+    setActiveIndex(index);
   };
 
   const handleRectangleToggle = async (
@@ -71,7 +87,7 @@ const ChoiceCard: React.FC = () => {
   const renderModal = () => {
     setActiveModal(!activeModal);
   };
-  
+
   useEffect(() => {
     const authToken = getAuthTokenFromCookie();
     if (authToken) {
@@ -87,8 +103,8 @@ const ChoiceCard: React.FC = () => {
 
       reader.onload = () => {
         if (reader.result) {
-          setSelectedImage(file); // File 객체를 전역 상태에 저장
-          setCardImage(file); // Base64 URL로 이미지 저장
+          setSelectedImage(file);
+          setCardImage(file);
           navigate("/contentcut", { state: { image: reader.result } });
         }
       };
@@ -106,7 +122,6 @@ const ChoiceCard: React.FC = () => {
     );
   };
 
-  //모듈화
   const sbItems = [
     { title: SB.All },
     { title: SB.MY },
@@ -114,7 +129,7 @@ const ChoiceCard: React.FC = () => {
     { title: SB.Trav },
     { title: SB.Year },
   ];
-  //모듈화
+
   const cards = [
     ...myImages.map((image) => ({ content: image, category: SB.MY })),
     { content: Birthday1, category: SB.Birth },
@@ -126,7 +141,7 @@ const ChoiceCard: React.FC = () => {
 
   const filteredCards =
     activeIndex === 0
-      ? cards //All이면 전체를 보여줌
+      ? cards
       : cards.filter((card) => card.category === sbItems[activeIndex].title);
 
   return (
@@ -160,9 +175,9 @@ const ChoiceCard: React.FC = () => {
             <style.Btn_hSB_New
               as="label"
               onClick={(e) => {
-                const authToken = getAuthTokenFromCookie(); 
+                const authToken = getAuthTokenFromCookie();
                 if (!authToken) {
-                  e.preventDefault(); // input 클릭 막아
+                  e.preventDefault();
                   setIsCautionModalOpen(true);
                 }
               }}
