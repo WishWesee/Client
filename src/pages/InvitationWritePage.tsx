@@ -11,7 +11,6 @@ import {
   usePostInvitationSave,
 } from "@/hooks/write/usePostInvitation";
 import useInvitationStore from "@/store/invitation";
-import { Block } from "@/types/invitation";
 import * as S from "@styles/invitationWrite/invitationWritePage";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +22,6 @@ const InvitationWritePage = () => {
   const blocksRef = useRef(invitation.blocks || undefined);
   const imagesRef = useRef(photoImages || undefined);
   const [images, setImages] = useState(photoImages || undefined);
-  const [blocks, setBlocks] = useState<Block[]>();
   const [isShowAuthModal, setIsShowAuthModal] = useState<boolean>(false);
   const [currentSequence, setCurrentSequence] = useState(0);
   const [isCheckComponent, setIsCheckComponent] = useState(false);
@@ -50,7 +48,6 @@ const InvitationWritePage = () => {
 
   const setBlocksRef = (newBlocks: typeof invitation.blocks) => {
     blocksRef.current = newBlocks;
-    setBlocks(newBlocks);
   };
 
   const setImagesRef = (newImages: typeof photoImages) => {
@@ -63,7 +60,6 @@ const InvitationWritePage = () => {
 
   useEffect(() => {
     // blocksRef.current = [...invitation.blocks];
-    setBlocks(invitation.blocks);
   }, [invitation.blocks]);
 
   useEffect(() => {
