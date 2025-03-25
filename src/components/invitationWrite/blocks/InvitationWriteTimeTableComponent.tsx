@@ -10,28 +10,20 @@ interface InvitationWriteTextComponentProps {
   currentSequence: number;
   block: Block;
   setCurrentSequence: (sequence: number) => void;
+  setBlocks: (blocks: Block[]) => void;
 }
 
 const InvitationWriteTimeTableComponent: React.FC<
   InvitationWriteTextComponentProps
-> = ({ currentSequence, block, setCurrentSequence }) => {
+> = ({ currentSequence, block, setCurrentSequence, setBlocks }) => {
   const { toolBarContent, setToolBarContent } = useToolBarContext();
-
-  const { updateBlock } = useInvitationStore();
+  const { addTimeTableItem } = useInvitationStore();
 
   const handleFocus = () => {
     if (toolBarContent !== TimeTableToolBarList)
       setTimeout(() => {
         setToolBarContent(TimeTableToolBarList);
       }, 0);
-  };
-
-  const handleNewTime = () => {
-    updateBlock(block.sequence, {
-      content: Array.isArray(block.content)
-        ? [...block.content, { time: "", content: "" }]
-        : [{ time: "", content: "" }],
-    });
   };
 
   const isFocus =
@@ -52,12 +44,29 @@ const InvitationWriteTimeTableComponent: React.FC<
           block.content &&
           block.content.map((item, index) => (
             <InvitationWriteTimeItem
+              key={index}
               index={index}
               item={item}
-              currentSequence={currentSequence}
+              currentSequence={block.sequence}
+              setBlocks={setBlocks}
             />
           ))}
-        <S.AddButton onClick={handleNewTime}>
+        <S.AddButton
+          onClick={(e) => {
+            e.stopPropagation();
+            const blockSequence = block.sequence;
+
+            // 컴포넌트 활성화 및 현재 sequence 설정
+            handleFocus();
+            setCurrentSequence(blockSequence);
+            addTimeTableItem(blockSequence);
+
+            // 상태 업데이트
+            setTimeout(() => {
+              setBlocks([...useInvitationStore.getState().invitation.blocks]);
+            }, 0);
+          }}
+        >
           <Add />
           추가
         </S.AddButton>

@@ -91,12 +91,12 @@ export const NomalToolBarList: toolBarIconListType[] = [
     activeIcon: ActiveBox,
     title: "박스",
   },
-  // {
-  //   type: "TimeTable",
-  //   defaultIcon: TimeTable,
-  //   activeIcon: ActiveTimeTable,
-  //   title: "타임테이블",
-  // },
+  {
+    type: "TimeTable",
+    defaultIcon: TimeTable,
+    activeIcon: ActiveTimeTable,
+    title: "타임테이블",
+  },
 ];
 
 export const LocationToolBarList: toolBarIconListType[] = [

@@ -54,6 +54,7 @@ const initialState: InvitationState = {
   updateTimeTable: () => {},
   updateTimeTableContent: () => {},
   resetInvitation: () => {},
+  addTimeTableItem: () => {},
 };
 
 const useInvitationStore = create<InvitationState>()(
@@ -65,9 +66,9 @@ const useInvitationStore = create<InvitationState>()(
       }),
     setCardImage: (image: File | null) =>
       set((state) => {
-        state.cardImage = image; // image를 File 객체로 처리
-        const { setSelectedImage } = useChoiceStore.getState(); // useChoiceStore의 상태 업데이트
-        setSelectedImage(image); // 전역 상태에서 선택된 이미지를 설정
+        state.cardImage = image;
+        const { setSelectedImage } = useChoiceStore.getState();
+        setSelectedImage(image);
       }),
     addImage: (image: File) =>
       set((state) => {
@@ -123,7 +124,20 @@ const useInvitationStore = create<InvitationState>()(
       }),
     resetInvitation: () =>
       set((state) => {
-        state.invitation = { ...initialState.invitation }; // 초기 상태로 설정
+        state.invitation = { ...initialState.invitation };
+      }),
+    addTimeTableItem: (sequence: number) =>
+      set((state) => {
+        state.invitation.blocks.forEach((block) => {
+          if (block.sequence === sequence && block.type === "timeTable") {
+            if (Array.isArray(block.content)) {
+              block.content.push({ time: "", content: "" });
+            } else {
+              block.content = [{ time: "", content: "" }];
+            }
+            console.log("block.content", block.content);
+          }
+        });
       }),
   }))
 );
