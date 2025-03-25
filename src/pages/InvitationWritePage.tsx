@@ -11,6 +11,7 @@ import {
   usePostInvitationSave,
 } from "@/hooks/write/usePostInvitation";
 import useInvitationStore from "@/store/invitation";
+import { Block } from "@/types/invitation";
 import * as S from "@styles/invitationWrite/invitationWritePage";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +23,7 @@ const InvitationWritePage = () => {
   const blocksRef = useRef(invitation.blocks || undefined);
   const imagesRef = useRef(photoImages || undefined);
   const [images, setImages] = useState(photoImages || undefined);
+  const [blocks, setBlocks] = useState<Block[]>();
   const [isShowAuthModal, setIsShowAuthModal] = useState<boolean>(false);
   const [currentSequence, setCurrentSequence] = useState(0);
   const [isCheckComponent, setIsCheckComponent] = useState(false);
@@ -48,6 +50,7 @@ const InvitationWritePage = () => {
 
   const setBlocksRef = (newBlocks: typeof invitation.blocks) => {
     blocksRef.current = newBlocks;
+    setBlocks(newBlocks);
   };
 
   const setImagesRef = (newImages: typeof photoImages) => {
@@ -60,6 +63,8 @@ const InvitationWritePage = () => {
 
   useEffect(() => {
     // blocksRef.current = [...invitation.blocks];
+    setBlocks(invitation.blocks);
+    console.log(blocks);
   }, [invitation.blocks]);
 
   useEffect(() => {
@@ -121,9 +126,9 @@ const InvitationWritePage = () => {
 
     postInvitation(formData, {
       onSuccess: (response) => {
-        //저장 후 결과로 받은 token값
-        const token = response.invitationToken;
-        navigate(`/invites/${token}`, {
+        //저장 후 결과로 받은 id값
+        const id = response.invitationId;
+        navigate(`/invites/${id}`, {
           state: { isDone: true },
         });
         resetInvitation();
@@ -134,6 +139,7 @@ const InvitationWritePage = () => {
     });
   };
 
+  console.log(invitation);
   return (
     <ToolBarProvider>
       <S.Container $isCheckComponent={isCheckComponent}>
