@@ -202,7 +202,7 @@ const InvitationWriteToolBar = ({
           addBlock({
             sequence: invitation.blocks.length,
             type: "timeTable",
-            content: [],
+            content: [{ time: "", content: "" }],
           });
           setTimeout(() => {
             setBlocks([...useInvitationStore.getState().invitation.blocks]);

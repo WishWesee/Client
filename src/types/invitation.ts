@@ -52,7 +52,7 @@ export interface InvitationState {
   cardImage: File | null;
   photoImages: File[];
   setInvitation: (update: (draft: Invitation) => void) => void;
-  setCardImage: (image: File) => void;
+  setCardImage: (image: File | null) => void;
   addImage: (images: File) => void;
   addBlock: (newBlock: Block) => void;
   updateBlock: (sequence: number, updatedProperties: Partial<Block>) => void;
@@ -63,6 +63,7 @@ export interface InvitationState {
     newContent: string
   ) => void;
   resetInvitation: () => void;
+  addTimeTableItem: (sequence: number) => void;
 }
 
 export interface InvitationResponse {

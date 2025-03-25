@@ -1,5 +1,5 @@
 import useInvitationStore from "@/store/invitation";
-import { TimeTable } from "@/types/invitation";
+import { Block, TimeTable } from "@/types/invitation";
 import { formatTimeToAM } from "@/utils/calendar/formatCustomDateFromDate";
 import ArrowDown from "@assets/icons/화면GUI_Line/2020/Arrow_Down.svg?react";
 import ArrowTop from "@assets/icons/화면GUI_Line/2020/Arrow_Top.svg?react";
@@ -11,11 +11,12 @@ interface InvitationWriteTimeTableModalProps {
   index: number;
   item: TimeTable;
   currentSequence: number;
+  setBlocks: (newBlocks: Block[]) => void;
 }
 
 const InvitationWriteTimeTableModal: React.FC<
   InvitationWriteTimeTableModalProps
-> = ({ handleCloseModal, index, item, currentSequence }) => {
+> = ({ handleCloseModal, index, item, currentSequence, setBlocks }) => {
   const { updateTimeTable } = useInvitationStore();
 
   const [hour, setHour] = useState<number>(
@@ -34,6 +35,10 @@ const InvitationWriteTimeTableModal: React.FC<
     const newStartTime = newHour + ":" + newMinute;
 
     updateTimeTable(currentSequence, index, newStartTime);
+
+    setTimeout(() => {
+      setBlocks([...useInvitationStore.getState().invitation.blocks]);
+    }, 0);
 
     handleCloseModal();
   };
