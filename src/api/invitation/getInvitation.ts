@@ -3,16 +3,16 @@ import { api } from "..";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
 //완성된 초대장 조회
-export const getInvitation = async (invitationId: number) => {
-  const response = await api.get(`/api/v1/invitation/${invitationId}`);
+export const getInvitation = async (invitationToken: string) => {
+  const response = await api.get(`/api/v1/invitation/${invitationToken}`);
   return response.data;
 };
 
 export const useInvitationQuery = (
-  invitationId: number
+  invitationToken: string
 ): UseQueryResult<TInvitationRes, Error> => {
   return useQuery({
-    queryKey: ["invitation", invitationId],
-    queryFn: () => getInvitation(invitationId),
+    queryKey: ["invitation", invitationToken],
+    queryFn: () => getInvitation(invitationToken),
   });
 };

@@ -125,9 +125,9 @@ const InvitationWritePage = () => {
 
     postInvitation(formData, {
       onSuccess: (response) => {
-        //저장 후 결과로 받은 id값
-        const id = response.invitationId;
-        navigate(`/invites/${id}`, {
+        //저장 후 결과로 받은 token값
+        const token = response.invitationToken;
+        navigate(`/invites/${token}`, {
           state: { isDone: true },
         });
         resetInvitation();

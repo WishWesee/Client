@@ -69,4 +69,5 @@ export interface InvitationState {
 export interface InvitationResponse {
   invitationId: number;
   message: string;
+  invitationToken: string;
 }

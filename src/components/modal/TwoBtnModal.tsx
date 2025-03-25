@@ -19,7 +19,7 @@ const TwoBtnModal = ({
   onRightClick,
 }: Props) => {
   return (
-    <S.Overlay>
+    <S.Overlay onClick={onLeftClick}>
       <S.Modal>
         <h4>
           {text.split("\n").map((line, index) => (

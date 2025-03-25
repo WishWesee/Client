@@ -23,8 +23,8 @@ const InvitationDetailPage = () => {
   const location = useLocation();
   const isDone = location.state?.isDone ?? false; //완성페이지
 
-  const { id } = useParams();
-  const invitationId = id ? parseInt(id) : 0;
+  const { token } = useParams();
+  const invitationToken = token || "";
 
   const [isDeleteSentModal, setIsDeleteSentModal] = useState(false); //보낸 메시지 삭제 모달
   const [isDeleteReceivedModal, setIsDeleteReceivedModal] = useState(false); //받은 메시지 삭제 모달
@@ -71,7 +71,7 @@ const InvitationDetailPage = () => {
   }, []);
 
   const { data, refetch, isLoading, isError } =
-    useInvitationQuery(invitationId);
+    useInvitationQuery(invitationToken);
   const invitationState = data?.loggedIn
     ? Number(data?.owner) || Number(data?.alreadySaved) * 2
     : 0;
@@ -147,6 +147,7 @@ const InvitationDetailPage = () => {
               )}
               <ContentWrap
                 invitationState={invitationState}
+                token={invitationToken}
                 data={data}
                 refetch={refetch}
                 isDone={isDone}
@@ -163,6 +164,7 @@ const InvitationDetailPage = () => {
                   {isMobile && invitationState === 0 && (
                     <SaveWrap
                       id={data.invitationId}
+                      token={invitationToken}
                       refetch={refetch}
                       isLogin={data.loggedIn}
                     />
@@ -170,6 +172,7 @@ const InvitationDetailPage = () => {
                   {isMobile && (
                     <ShareWrap
                       id={data.invitationId}
+                      token={invitationToken}
                       title={data.title}
                       cardImage={data.cardImage}
                       isAlreadySave={data.alreadySaved}

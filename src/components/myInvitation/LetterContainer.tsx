@@ -6,21 +6,33 @@ type NBProps = {
   Title: string;
   Date: string;
   Image: string;
-  Id: number;
+  token: string;
 };
 
-const LetterContainer: React.FC<NBProps> = ({ Title, Date, Image, Id }) => {
+const LetterContainer: React.FC<NBProps> = ({ Title, Date, Image, token }) => {
   const navigate = useNavigate();
 
+  let titleContent;
+
+  if (Title) {
+    if (Title.length >= 9) {
+      titleContent = Title.slice(0, 8) + "...";
+    } else {
+      titleContent = Title;
+    }
+  } else {
+    titleContent = <div></div>;
+  }
+
   return (
-    <style.LetterContainer>
+    <style.LetterContainer onClick={() => navigate(`/invites/${token}`)}>
       <style.LetterImgBox>
         <img
           src={Image}
           alt={Title}
           style={{
             width: "100%",
-            height: "100%",
+            aspectRatio: "4 / 3",
             borderRadius: "4px 4px 0px 0px",
             objectFit: "cover",
           }}
@@ -29,11 +41,8 @@ const LetterContainer: React.FC<NBProps> = ({ Title, Date, Image, Id }) => {
 
       <style.LetterTextBox>
         <style.LetterTitleBox>
-          {Title}
-          <ArrowRight
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate(`/invites/${Id}`)}
-          />
+          {titleContent}
+          <ArrowRight />
         </style.LetterTitleBox>
         <style.LetterDateBox>{Date}</style.LetterDateBox>
       </style.LetterTextBox>

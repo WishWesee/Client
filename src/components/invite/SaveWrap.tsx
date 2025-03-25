@@ -6,11 +6,12 @@ import useNavigateStore from "@/store/useNavigateStore";
 
 type Props = {
   id: number;
+  token: string;
   isLogin: boolean;
   refetch: () => void;
 };
 
-const SaveWrap = ({ id, isLogin, refetch }: Props) => {
+const SaveWrap = ({ id, token, isLogin, refetch }: Props) => {
   const navigate = useNavigate();
   const { setNavigatePage } = useNavigateStore();
 
@@ -27,7 +28,7 @@ const SaveWrap = ({ id, isLogin, refetch }: Props) => {
     if (isLogin) {
       handleSaveReceived();
     } else {
-      setNavigatePage(`/invites/${id}`);
+      setNavigatePage(`/invites/${token}`);
       navigate("/login");
     }
   };
