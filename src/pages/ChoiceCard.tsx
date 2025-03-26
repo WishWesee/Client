@@ -47,21 +47,34 @@ const ChoiceCard: React.FC = () => {
 
   const frontProp = isDesktop || isTablet ? "다음" : Top.NullFront;
 
-  // 컴포넌트 마운트 시 Birthday1을 기본값으로 설정
   useEffect(() => {
     const setDefaultImage = async () => {
       try {
-        const response = await fetch(Birthday1);
-        const blob = await response.blob();
-        const file = new File([blob], "Birthday1.png", { type: "image/png" });
-        setSelectedImage(file);
-        setCardImage(file);
+        const savedImages = JSON.parse(localStorage.getItem("myImages") || "[]");
+  
+        if (savedImages.length > 0) {
+          const res = await fetch(savedImages[0]);
+          const blob = await res.blob();
+          const file = new File([blob], "MyImage.png", { type: blob.type });
+  
+          setSelectedImage(file);
+          setCardImage(file);
+        } else {
+          const response = await fetch(Birthday1);
+          const blob = await response.blob();
+          const file = new File([blob], "Birthday1.png", { type: "image/png" });
+  
+          setSelectedImage(file);
+          setCardImage(file);
+        }
       } catch (error) {
         console.error("기본 이미지 설정 오류:", error);
       }
     };
+
     setDefaultImage();
-  }, [setSelectedImage, setCardImage]);
+  }, [setSelectedImage, setCardImage]); //경고회피용
+  
 
   const handleSBToggle = (index: number) => {
     setActiveIndex(index);
